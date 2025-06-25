@@ -1,19 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<%--    <link rel="stylesheet" href="styles.css">--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        h1 {
+        h1{
             text-align: center;
             padding-bottom: 20px;
 
         }
-
         body {
             font-family: "Noto Sans KR", sans-serif;
             background: #fff;
@@ -34,7 +34,7 @@
             font-size: 14px;
             margin-bottom: 18px;
             font-weight: bold;
-            color: #333;
+            color:#333;
         }
 
         .icon {
@@ -83,7 +83,6 @@
             padding: 0 10px;
             font-size: 14px;
         }
-
         input::placeholder {
             color: #bbb;
         }
@@ -146,11 +145,11 @@
         }
     </style>
 </head>
+
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-
 <div class="container">
-    <h1>회원가입</h1>
+       <h1>회원가입</h1>
     <h2>회원정보를 입력해주세요</h2>
     <form>
         <div class="input-group">
@@ -192,16 +191,15 @@
         </div>
     </form>
 </div>
-
-<%@ include file="/jsp/include/footer.jsp" %>
 </body>
 </html>
 <script>
-    document.getElementById("all-agree").addEventListener("change", function () {
+    document.getElementById("all-agree").addEventListener("change", function() {
         const isChecked = this.checked;
         const checkboxes = document.querySelectorAll(".agreement-box .agree");
-        checkboxes.forEach(function (checkbox) {
+        checkboxes.forEach(function(checkbox) {
             checkbox.checked = isChecked;
         });
     });
 </script>
+<%@ include file="/jsp/include/footer.jsp" %>
