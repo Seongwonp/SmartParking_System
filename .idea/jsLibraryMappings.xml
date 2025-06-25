@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{@popperjs/core}" />
-    <file url="file://$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main" libraries="{aos}" />
-    <file url="file://$PROJECT_DIR$/src/main" libraries="{aos}" />
-  </component>
-</project>
