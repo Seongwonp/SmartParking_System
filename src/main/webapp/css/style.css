@@ -1,4 +1,3 @@
-
 /*-------------------- header ---------------------- */
 
 /* 드롭다운 메뉴 스크롤 처리 */
@@ -6,6 +5,7 @@
     max-height: 300px;
     overflow-y: auto;
 }
+
 .nav-item.dropdown:hover > .dropdown-menu {
     display: block;
     margin-top: 0;
