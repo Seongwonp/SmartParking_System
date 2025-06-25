@@ -2,18 +2,9 @@
 <%
     String user = (String) session.getAttribute("userName");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>스마트파킹 시스템</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
-</head>
-<body style="padding-top: 70px;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/jsp/user/index_public.jsp">스마트파킹</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/index_public.jsp">스마트파킹</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -68,22 +59,12 @@
             </div>
             <ul class="navbar-nav">
                 <% if (user == null) { %>
-                <li class="nav-item"><a class="nav-link" href="/login.jsp">Sign in</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register.jsp">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="/jsp/user/login.jsp">Log In</a></li>
+                <li class="nav-item"><a class="nav-link" href="/jsp/user/signup.jsp">Sign Up</a></li>
                 <% } else { %>
-                <li class="nav-item"><a class="nav-link" href="/user/main.jsp">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user/myPage.jsp">마이페이지</a></li>
                 <% } %>
             </ul>
         </div>
     </div>
 </nav>
-</body>
-<!-- Bootstrap JS + Popper.js (Bootstrap 5용) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-<!-- AOS 를 사용해서 애니메이션 효과 지정 -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>AOS.init();</script>
-
-</html>
