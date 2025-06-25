@@ -8,14 +8,14 @@
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<div class="video-container position-relative">
-    <div class="container-fluid p-0">
-        <video autoplay muted loop playsinline style="width: 100%; height: 900px; object-fit: cover;">
-            <source src="${pageContext.request.contextPath}/resources/videos/main_intro.mp4" type="video/mp4">
-            브라우저가 video 태그를 지원하지 않습니다.
-        </video>
-    </div>
+
+<div class="video-container">
+    <video autoplay muted loop playsinline>
+        <source src="${pageContext.request.contextPath}/resources/videos/main_intro.mp4" type="video/mp4">
+        브라우저가 video 태그를 지원하지 않습니다.
+    </video>
 </div>
+
 <div class="container mt-5 mb-5 pt-5 text-center"
      data-aos="fade-up"
      data-aos-duration="1000"
@@ -26,5 +26,6 @@
     <a href="/jsp/user/login.jsp" class="btn btn-primary mt-4">로그인</a>
     <a href="/jsp/user/signup.jsp" class="btn btn-outline-secondary mt-4 ms-3">회원가입</a>
 </div>
+
 <%@ include file="/jsp/include/footer.jsp" %>
 </body>
