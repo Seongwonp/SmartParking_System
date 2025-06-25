@@ -27,3 +27,24 @@
     font-size: 1rem;
     padding: 0.6rem 1.2rem;
 }
+
+
+/*---------------- index ------------------- */
+.video-container {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    max-height: 1500px;
+    aspect-ratio: 16 / 9; /* 반응형 비율 유지 */
+    overflow: hidden;
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
