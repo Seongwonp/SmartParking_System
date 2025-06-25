@@ -8,34 +8,7 @@
     <title>스마트파킹 시스템</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    /* 드롭다운 메뉴 스크롤 처리 */
-    .dropdown-menu {
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    .nav-item.dropdown:hover > .dropdown-menu {
-        display: block;
-        margin-top: 0;
-    }
-
-    /* 네비게이션 메뉴 항목 간격 및 폰트 크기 조정 */
-    .navbar-nav > li {
-      margin-left: 1.2rem;
-      margin-right: 1.2rem;
-    }
-
-    .navbar-nav > li > a.nav-link {
-      font-size: 1.1rem;
-      padding-top: 0.8rem;
-      padding-bottom: 0.8rem;
-    }
-
-    .dropdown-menu .dropdown-item {
-      font-size: 1rem;
-      padding: 0.6rem 1.2rem;
-    }
-    </style>
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 </head>
 <body style="padding-top: 70px;">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
