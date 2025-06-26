@@ -19,7 +19,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="parkingDropdown">
                             <li><a class="dropdown-item" href="/parking.do">입출차 관리</a></li>
-                            <li><a class="dropdown-item" href="/status.jsp">주차현황</a></li>
+                            <li><a class="dropdown-item" href="/status">주차현황</a></li>
                         </ul>
                     </li>
 
@@ -30,7 +30,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="searchDropdown">
                             <li><a class="dropdown-item" href="/search.do">검색하기</a></li>
-                            <li><a class="dropdown-item" href="/search/history.jsp">검색 기록</a></li>
+                            <li><a class="dropdown-item" href="/search/history">검색 기록</a></li>
                         </ul>
                     </li>
 
@@ -41,7 +41,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="feeDropdown">
                             <li><a class="dropdown-item" href="/fee.do">요금 안내</a></li>
-                            <li><a class="dropdown-item" href="/discount.jsp">할인 정보</a></li>
+                            <li><a class="dropdown-item" href="/discount">할인 정보</a></li>
                         </ul>
                     </li>
 
