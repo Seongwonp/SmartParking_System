@@ -23,7 +23,7 @@
 
         .container {
             width: 420px;
-            margin: 40px auto;
+            margin: 150px auto 100px;
             padding: 30px;
             border: 1px solid #ddd;
             border-radius: 8px;

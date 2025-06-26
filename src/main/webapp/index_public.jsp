@@ -10,7 +10,7 @@
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<div class="position-relative" style="height: 500px; overflow: hidden;">
+<div class="position-relative" style="height: 600px; min-height: 600px; overflow: hidden;">
     <video autoplay muted loop class="w-100 h-100" style="object-fit: cover;">
         <source src="${pageContext.request.contextPath}/resources/videos/intro.mp4" type="video/mp4">
         브라우저가 video 태그를 지원하지 않습니다.
