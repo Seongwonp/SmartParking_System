@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <style>
         h1 {
             text-align: center;
@@ -152,7 +153,7 @@
 <div class="container">
     <h1>회원가입</h1>
     <h2>회원정보를 입력해주세요</h2>
-    <form>
+    <form action="/signup" method="post">
         <div class="input-group">
             <i class="fa-solid fa-envelope icon"></i>  <!-- 이메일 아이콘 -->
             <input type="email" placeholder="아이디(이메일)">
