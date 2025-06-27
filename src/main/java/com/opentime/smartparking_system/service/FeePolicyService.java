@@ -19,6 +19,10 @@ public enum FeePolicyService {
 
     public List<FeePolicyDTO> getAllFeePolicies() {
         List<FeePolicyVO> feePolicyVOList = feePolicyDAO.selectAllFee();
+        if (feePolicyVOList.isEmpty()) {
+            return null;
+        }
+        List<FeePolicyDTO> feePolicyDTOList;
         for (FeePolicyVO feePolicyVO : feePolicyVOList) {
             modelMapper.map(feePolicyVO, FeePolicyDTO.class);
         }

@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand mx-auto" href="${pageContext.request.contextPath}/index_public.jsp">
-            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="80">
+            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" id="title_img" height="80">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
