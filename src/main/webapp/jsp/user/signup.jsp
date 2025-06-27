@@ -11,8 +11,8 @@
     <style>
         h1 {
             text-align: center;
-            padding-bottom: 20px;
-
+            margin-bottom: 20px;
+            padding: 20px;
         }
 
         body {
