@@ -13,7 +13,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
             <ul class="navbar-nav mx-auto">
-                <!-- 이용안내 -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/intro.jsp" id="parkingInfoDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,7 +26,7 @@
                     </ul>
                 </li>
 
-                <!-- 이용요금 -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/fee/list" id="priceDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +38,7 @@
                     </ul>
                 </li>
 
-                <!-- 고객지원 -->
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/contact.jsp" id="supportDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -49,7 +49,7 @@
                         <li><a class="dropdown-item" href="/faq.jsp">자주 묻는 질문</a></li>
                     </ul>
                 </li>
-                <!-- 공지사항 -->
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">공지사항</a>
                 </li>

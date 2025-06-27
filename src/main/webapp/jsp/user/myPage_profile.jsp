@@ -101,7 +101,8 @@
 <body>
 
 <div class="my-page">
-    <!-- 프로필 카드 -->
+
+
     <div class="profile-card" data-aos="fade-down" >
         <div class="profile-header">
             <img src="${pageContext.request.contextPath}/jsp/user/img/icon01.png" alt="profile">
