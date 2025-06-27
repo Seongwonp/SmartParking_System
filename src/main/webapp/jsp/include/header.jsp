@@ -15,7 +15,7 @@
             <ul class="navbar-nav mx-auto">
                 <!-- 이용안내 -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="parkingInfoDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/intro.jsp" id="parkingInfoDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         이용안내
                     </a>
@@ -28,19 +28,19 @@
 
                 <!-- 이용요금 -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="priceDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/feeInfo.jsp" id="priceDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         이용요금
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="priceDropdown">
-                        <li><a class="dropdown-item" href="/jsp/user/info/feeInfo.jsp">요금제 안내</a></li>
-                        <li><a class="dropdown-item" href="/jsp/user/info/discountInfo.jsp">할인 정보</a></li>
+                        <li><a class="dropdown-item" href="/feeInfo.jsp">요금제 안내</a></li>
+                        <li><a class="dropdown-item" href="/feeInfo.jsp">할인 정보</a></li>
                     </ul>
                 </li>
 
                 <!-- 고객지원 -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="supportDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/contact.jsp" id="supportDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         고객지원
                     </a>
@@ -59,9 +59,27 @@
                 <li class="nav-item"><a class="nav-link" href="/jsp/user/login.jsp">Log In</a></li>
                 <li class="nav-item"><a class="nav-link" href="/jsp/user/signup.jsp">Sign Up</a></li>
                 <% } else { %>
-                <li class="nav-item"><a class="nav-link" href="/user/myPage.jsp">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/jsp/user/myPage.jsp">마이페이지</a></li>
                 <% } %>
             </ul>
         </div>
     </div>
 </nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropdownIds = [
+            "parkingInfoDropdown",
+            "priceDropdown",
+            "supportDropdown"
+        ];
+
+        dropdownIds.forEach(function(id) {
+            const link = document.getElementById(id);
+            if (link) {
+                link.addEventListener("click", function(e) {
+                    window.location.href = link.href;
+                });
+            }
+        });
+    });
+</script>
