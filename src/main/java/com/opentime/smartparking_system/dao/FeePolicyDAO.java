@@ -33,7 +33,7 @@ public class FeePolicyDAO {
 
 
     public List<FeePolicyVO> selectAllFee() {
-        String SQL = "SELECT * FROM feePolicy WHERE policyId = ?";
+        String SQL = "SELECT * FROM feePolicy";
         List<FeePolicyVO> feeList = new ArrayList<>();
         try {
             @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
@@ -82,7 +82,7 @@ public class FeePolicyDAO {
         }
         return fee;
     }
-    public boolean UpdateFee(FeePolicyVO feePolicyVO) {
+    public boolean updateFee(FeePolicyVO feePolicyVO) {
         String SQL = "UPDATE feePolicy SET baseTime = ? , baseFee = ?, additionalTime = ?, " +
                 "additionalFee = ?, dailyMaxFee = ? WHERE policyId = ?";
         try{

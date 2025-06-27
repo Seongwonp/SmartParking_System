@@ -10,6 +10,6 @@ CREATE TABLE fee
 );
 
 
-INSERT INTO fee (policyName, baseTime, baseFee, additionalTime, additionalFee, dailyMaxFee)
+INSERT INTO feePolicy (policyName, baseTime, baseFee, additionalTime, additionalFee, dailyMaxFee)
 VALUES ('기본 요금제', 60, 2000,
         30, 1000, 15000);
