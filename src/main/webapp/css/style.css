@@ -6,6 +6,11 @@
     overflow-y: auto;
 }
 
+#title_img{
+    width: 80px;
+    height: 80px;
+}
+
 .nav-item.dropdown:hover > .dropdown-menu {
     display: block;
     margin-top: 0;
