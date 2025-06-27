@@ -12,7 +12,7 @@
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
 
-<div class="container" style="margin-top: 150px;">
+<div class="container" style="margin: 150px auto 80px;">
     <h2 class="text-center mb-4" data-aos="fade-up">자주 묻는 질문</h2>
   <div class="input-group input-group-lg mb-4" data-aos="fade-up" data-aos-delay="100">
     <input type="text" id="faqSearch" class="form-control" placeholder="궁금한 질문을 검색해 보세요">

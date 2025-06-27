@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<div class="container" style="margin-top: 150px; max-width: 650px;">
+<div class="container" style="margin: 150px auto 100px; max-width: 650px;">
   <img src="/resources/img/contact.gif" class="img-fluid" style="max-width: 300px; height: auto; display: block; margin: 0 auto;" />
   <h2 class="mb-4 text-center" data-aos="fade-up">무엇을 도와드릴까요?</h2>
 
@@ -35,7 +35,6 @@
     </a>
   </div>
 </div>
-
 <%@ include file="/jsp/include/footer.jsp" %>
 </body>
 </html>

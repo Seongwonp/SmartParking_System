@@ -7,12 +7,13 @@ import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 
 public enum FeePolicyService {
     INSTANCE;
-    private FeePolicyDAO feePolicyDAO;
-    private ModelMapper modelMapper;
+    private final FeePolicyDAO feePolicyDAO;
+    private final ModelMapper modelMapper;
     FeePolicyService() {
         feePolicyDAO = new FeePolicyDAO();
         modelMapper = new ModelMapper();
@@ -21,7 +22,7 @@ public enum FeePolicyService {
     public List<FeePolicyDTO> getAllFeePolicies() {
         List<FeePolicyVO> feePolicyVOList = feePolicyDAO.selectAllFee();
         if (feePolicyVOList == null || feePolicyVOList.isEmpty()) {
-            return null;
+            return Collections.emptyList(); // 빈배열 반환
         }
         List<FeePolicyDTO> feePolicyDTOList = new ArrayList<>();
         for (FeePolicyVO feePolicyVO : feePolicyVOList) {
@@ -49,6 +50,9 @@ public enum FeePolicyService {
 
     public boolean updateFeePolicy(FeePolicyDTO feePolicyDTO) {
         if (feePolicyDTO == null) {
+            return false;
+        }
+        if (feePolicyDAO.selectFeeById(feePolicyDTO.getPolicyId()) == null) {
             return false;
         }
         FeePolicyVO feePolicyVO = modelMapper.map(feePolicyDTO, FeePolicyVO.class);
