@@ -29,7 +29,6 @@
             justify-content: center;
             gap :50px;
             box-sizing : border-box;
-            padding-right: 340px;
         }
         .profile-card {
             /*position: absolute;*/
