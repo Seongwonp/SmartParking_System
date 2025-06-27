@@ -28,13 +28,13 @@
 
                 <!-- 이용요금 -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/feeInfo.jsp" id="priceDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/fee/list" id="priceDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         이용요금
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="priceDropdown">
-                        <li><a class="dropdown-item" href="/feeInfo.jsp">요금제 안내</a></li>
-                        <li><a class="dropdown-item" href="/feeInfo.jsp">할인 정보</a></li>
+                        <li><a class="dropdown-item" href="/fee/list">요금제 안내</a></li>
+                        <li><a class="dropdown-item" href="/fee/list#discount-info">할인 정보</a></li>
                     </ul>
                 </li>
 
@@ -51,7 +51,7 @@
                 </li>
                 <!-- 공지사항 -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/notice.jsp">공지사항</a>
+                    <a class="nav-link" href="#">공지사항</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
