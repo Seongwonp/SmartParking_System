@@ -41,7 +41,7 @@
 
 <section class="py-5" style="text-align: center;">
   <div class="container" data-aos="fade-up" data-aos-delay="200" style="max-width: 700px; margin: 0 auto; font-size: 1.15rem; line-height: 1.8;">
-    <h1>인삿말</h1>
+    <h1>환영합니다!</h1>
     <p>
       스마트파킹 반월당점은 최신 기술을 바탕으로 고객님의 주차 경험을 한층 더 편리하고 안전하게 만듭니다.<br>
       실시간으로 주차 공간을 확인하고 예약할 수 있어 번거로운 주차 걱정을 덜어드립니다.<br>
