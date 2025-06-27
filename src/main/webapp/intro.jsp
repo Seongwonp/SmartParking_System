@@ -40,7 +40,7 @@
 </div>
 
 <section class="py-5" style="text-align: center;">
-  <div class="container" data-aos="fade-up" data-aos-delay="250" style="max-width: 700px; margin: 0 auto; font-size: 1.15rem; line-height: 1.8;">
+  <div class="container" data-aos="fade-up" data-aos-delay="200" style="max-width: 700px; margin: 0 auto; font-size: 1.15rem; line-height: 1.8;">
     <h1>인삿말</h1>
     <p>
       스마트파킹 반월당점은 최신 기술을 바탕으로 고객님의 주차 경험을 한층 더 편리하고 안전하게 만듭니다.<br>
@@ -55,7 +55,7 @@
 </section>
 
 <section class="py-5" style="text-align: center;">
-  <div class="container" data-aos="fade-up" data-aos-delay="300">
+  <div class="container" data-aos="fade-up" data-aos-delay="200">
     <h1>주요 서비스</h1>
     <ul class="list-unstyled fs-5 mt-4" style="max-width: 700px; margin: 0 auto; line-height: 1.8;">
       <li class="mb-3">✔️ 실시간 주차 공간 확인 및 예약 서비스로 편리함을 제공합니다.</li>
@@ -68,7 +68,7 @@
 </section>
 
 <section class="py-5" style="text-align: center;">
-  <div class="container" data-aos="fade-up" data-aos-delay="400">
+  <div class="container" data-aos="fade-up" data-aos-delay="200">
     <h1>이용 방법</h1>
     <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
       입차 시 차량 번호를 등록하고, 출차 시 자동으로 요금이 계산됩니다.<br>
@@ -80,7 +80,7 @@
 </section>
 
 <section class="py-5" style="text-align: center;">
-  <div class="container" data-aos="fade-up" data-aos-delay="500">
+  <div class="container" data-aos="fade-up" data-aos-delay="200">
     <h1>고객 후기</h1>
     <blockquote class="blockquote" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
       “스마트파킹 덕분에 주차 걱정이 사라졌어요! 빠르고 편리합니다.” — 홍길동 고객<br><br>
@@ -91,7 +91,7 @@
 </section>
 
 <section class="py-5" style="text-align: center;">
-  <div class="container" data-aos="fade-up" data-aos-delay="600">
+  <div class="container" data-aos="fade-up" data-aos-delay="200">
     <h1>주요 기능</h1>
     <ul class="list-unstyled fs-5 mt-4" style="max-width: 700px; margin: 0 auto; line-height: 1.8;">
       <li class="mb-3"><i class="fa-solid fa-car me-2"></i>실시간 차량 검색 및 주차 공간 예약</li>
