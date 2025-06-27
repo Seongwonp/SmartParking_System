@@ -16,22 +16,23 @@
             flex-direction: column;
         }
 
-        body > .my-mage {
+        body > .my-page {
             flex: 1;  /* 나머지 공간을 채움 */
         }
         body {
             background: #f9f9f9;
             font-family: sans-serif;
         }
-        .my-mage {
+        .my-page {
             display: flex;
             align-items: center;
             justify-content: center;
             gap :50px;
             box-sizing : border-box;
+
         }
         .profile-card {
-            /*position: absolute;*/
+            position: absolute;
             right: 40px;
             top: 30%;
             transform: translateY(-50%);
@@ -98,8 +99,8 @@
     </style>
 </head>
 <body>
-<%--<%@include file="/jsp/include/header.jsp"%>--%>
-<div class="my-mage">
+
+<div class="my-page">
     <!-- 프로필 카드 -->
     <div class="profile-card" data-aos="fade-down" >
         <div class="profile-header">
@@ -117,6 +118,6 @@
         </div>
     </div>
 </div>
-<%--<%@include file="/jsp/include/footer.jsp"%>--%>
+
 </body>
 </html>

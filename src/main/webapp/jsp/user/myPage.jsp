@@ -15,13 +15,12 @@
             /*flex-direction: column;*/
         }
 
-        body > .my-mage {
+        body > .my-page {
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: #f9f9f9;
             margin-top: 140px;
-            width: 100%;
         }
 
         body {
@@ -29,31 +28,22 @@
             font-family: sans-serif;
         }
 
-        .my-mage .main-content {
+        .my-page .main-content {
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 100%;
-            /*max-width: 1200px;*/
-            /*gap: 40px;*/
         }
-    
+
         .parking-status {
-            /*width: 100%;*/
-            display: flex;
             max-width: 1200px;
             background-color: #ffffff;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             border-radius: 0.375rem;
-            align-items: center;
-            justify-content: center;
         }
     </style>
 </head>
 <body>
 <%@include file="/jsp/include/header.jsp" %>
-<div class="my-mage">
+<div class="my-page">
     <div class="main-content">
         <!-- 중앙 주차현황 카드 -->
         <div class="parking-status">
@@ -79,7 +69,7 @@
                 </tbody>
             </table>
         </div>
-        <!-- 우측 사용자 프로필 카드 -->
+        <!-- 우측 프로필 카드 -->
         <div>
             <%@include file="/jsp/user/myPage_profile.jsp" %>
         </div>
