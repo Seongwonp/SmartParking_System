@@ -31,13 +31,13 @@
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
 
-<!-- 배너 -->
+
 <div class="banner" data-aos="fade-down" style="margin-top: 100px;">
     <h1 class="display-4 fw-bold">주차 이용 안내</h1>
     <p class="lead">SmartParking 반월당점을 찾아주셔서 감사합니다.</p>
 </div>
 
-<!-- 본문 영역 -->
+
 <div class="container my-5" data-aos="fade-up">
     <div class="row gy-4">
         <div class="col-md-6">
@@ -68,7 +68,7 @@
                 <div class="p-4 border rounded shadow-sm h-100 card-hover">
                     <h4 class="section-title"><i class="fas fa-ticket-alt me-2"></i>정기권</h4>
                     <p>월 120,000원에 정기권 이용이 가능합니다.</p>
-                    <p class="text-muted small mt-2">자세한 정보 확인을 원하시면 클릭해주세요!</p>
+                    <p class="text-muted small mt-2">정기권 등록 페이지로 이동하실려면 클릭해주세요!</p>
                 </div>
             </a>
         </div>
