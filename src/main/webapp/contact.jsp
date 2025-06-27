@@ -11,7 +11,8 @@
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<div class="container" style="margin-top: 250px;">
+<div class="container" style="margin-top: 150px; max-width: 650px;">
+  <img src="/resources/img/contact.gif" class="img-fluid" style="max-width: 300px; height: auto; display: block; margin: 0 auto;" />
   <h2 class="mb-4 text-center" data-aos="fade-up">무엇을 도와드릴까요?</h2>
 
   <div class="input-group input-group-lg mb-4" data-aos="fade-up" data-aos-delay="100">
