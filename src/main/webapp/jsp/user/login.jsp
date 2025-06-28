@@ -101,7 +101,7 @@
         <button type="submit" class="login-btn">로그인</button>
     </form>
     <div class="helper-text">
-        계정이 없으신가요? <a href="join.jsp">회원가입</a>
+        계정이 없으신가요? <a href="/jsp/user/signup.jsp">회원가입</a>
     </div>
 </div>
 <%@include file="/jsp/include/footer.jsp"%>

@@ -22,6 +22,7 @@ public class FeeInfoServlet extends HttpServlet {
         List<FeePolicyDTO> feePolicies = FeePolicyService.INSTANCE.getAllFeePolicies();
         req.setAttribute("feeList", feePolicies);
 
+        // 할인 정책 서비스 호출
         List<DiscountPolicyDTO> discountPolicies = DiscountPolicyService.INSTANCE.getAllDiscountPolicies();
         req.setAttribute("discountList", discountPolicies);
 
