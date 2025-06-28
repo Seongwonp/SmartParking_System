@@ -3,6 +3,7 @@ package com.opentime.smartparking_system.service;
 import com.opentime.smartparking_system.dao.FeePolicyDAO;
 import com.opentime.smartparking_system.model.dto.FeePolicyDTO;
 import com.opentime.smartparking_system.model.vo.FeePolicyVO;
+import com.opentime.smartparking_system.util.MapperUtil;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public enum FeePolicyService {
     private final ModelMapper modelMapper;
     FeePolicyService() {
         feePolicyDAO = new FeePolicyDAO();
-        modelMapper = new ModelMapper();
+        modelMapper = MapperUtil.INSTANCE.getModelMapper();
     }
 
     public List<FeePolicyDTO> getAllFeePolicies() {
