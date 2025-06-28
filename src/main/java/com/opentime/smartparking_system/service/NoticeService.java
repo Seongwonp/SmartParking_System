@@ -1,6 +1,64 @@
 package com.opentime.smartparking_system.service;
 
+import com.opentime.smartparking_system.dao.NoticeDAO;
+import com.opentime.smartparking_system.model.dto.NoticeDTO;
+import com.opentime.smartparking_system.model.vo.NoticeVO;
+import com.opentime.smartparking_system.util.MapperUtil;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Log4j2
 public enum NoticeService {
     INSTANCE;
+    private final NoticeDAO noticeDAO;
+    private final ModelMapper modelMapper;
+
+    NoticeService(){
+        noticeDAO = new NoticeDAO();
+        modelMapper = MapperUtil.INSTANCE.getModelMapper();
+    }
+
+    public boolean addNotice(NoticeDTO noticeDTO){
+        log.info("addNotice called with NoticeDTO: {}", noticeDTO);
+        if(noticeDTO == null) return false;
+        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
+        return noticeDAO.insertNotice(noticeVO);
+    }
+
+    public List<NoticeDTO> getAllNotice(int limit, int offset){
+        log.info("getAllNotice called with limit: {}, offset: {}", limit, offset);
+        List<NoticeVO> noticeVOList = noticeDAO.getListNotice(limit, offset);
+        List<NoticeDTO> noticeDTOList = new ArrayList<>();
+        for(NoticeVO noticeVO : noticeVOList){
+            NoticeDTO noticeDTO = modelMapper.map(noticeVO, NoticeDTO.class);
+            noticeDTOList.add(noticeDTO);
+        }
+        return noticeDTOList;
+    }
+
+    public NoticeDTO getNotice(int id){
+        log.info("getNotice called with id: {}", id);
+        NoticeVO noticeVO = noticeDAO.getNoticeById(id);
+        if(noticeVO == null) return null;
+        return modelMapper.map(noticeVO, NoticeDTO.class);
+    }
+
+    public boolean updateNotice(NoticeDTO noticeDTO){
+        log.info("updateNotice called with NoticeDTO: {}", noticeDTO);
+        if(noticeDTO == null) return false;
+        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
+        return noticeDAO.updateNotice(noticeVO);
+    }
+
+    public boolean deleteNotice(int id){
+        log.info("deleteNotice called with id: {}", id);
+        if(noticeDAO.getNoticeById(id) == null) return false;
+        return noticeDAO.deleteNotice(id);
+    }
+
+
 
 }

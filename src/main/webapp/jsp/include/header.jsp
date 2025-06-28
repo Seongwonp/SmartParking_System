@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">공지사항</a>
+                    <a class="nav-link" href="/notice/list">공지사항</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
