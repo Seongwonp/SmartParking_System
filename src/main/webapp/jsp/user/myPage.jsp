@@ -34,8 +34,9 @@
 
         .parking-status {
             max-width: 1200px;
+            margin:20px auto;
             background-color: #ffffff;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             border-radius: 0.375rem;
         }
@@ -45,6 +46,10 @@
 <%@include file="/jsp/include/header.jsp" %>
 <div class="my-page">
     <div class="main-content">
+        <!-- 우측 프로필 카드 -->
+        <div>
+            <%@include file="/jsp/user/myPage_profile.jsp" %>
+        </div>
         <!-- 중앙 주차현황 카드 -->
         <div class="parking-status">
             <h4 class="mb-3">주차현황(예시)</h4>
@@ -68,10 +73,6 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <!-- 우측 프로필 카드 -->
-        <div>
-            <%@include file="/jsp/user/myPage_profile.jsp" %>
         </div>
     </div>
 </div>
