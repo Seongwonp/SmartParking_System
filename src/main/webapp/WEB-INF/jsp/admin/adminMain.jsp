@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<%@ include file="/WEB-INF/views/updateAdmin/adminSidebar.jsp" %>
+<%@ include file="/WEB-INF/jsp/admin/adminSidebar.jsp" %>
 
 <main class="content" style="margin-left: 250px; padding:106px 20px;">
     <div class="container-fluid">

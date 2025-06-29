@@ -68,14 +68,17 @@
                 </li>
                 <% } else { %>
                 <li class="nav-item">
-                <li class="nav-item">
                 <a class="nav-link text-primary fw-normal fs-7" href="#" tabindex="-1" aria-disabled="true" style="cursor: default;">
                     <%= user.getName() %>님 환영합니다.
                 </a>
                 </li>
-                </li>
+                <% if ("ADMIN".equals(user.getRole())) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/jsp/user/myPage.jsp">마이페이지</a>
+                    <a class="nav-link" href="/admin/main">관리자 페이지</a>
+                </li>
+                <% } %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/jsp/user/myPage_parkingStatus.jsp">마이페이지</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>

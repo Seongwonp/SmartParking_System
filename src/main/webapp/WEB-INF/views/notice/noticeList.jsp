@@ -66,7 +66,15 @@
                     this.form.submit();
                 });
             }
+            document.querySelectorAll('tbody tr[data-notice-id]').forEach(function(row) {
+                row.addEventListener('click', function() {
+                    const noticeId = this.getAttribute('data-notice-id');
+                    location.href = `/notice/Info?noticeId=${noticeId}`;
+                });
+            });
         });
+
+
     </script>
 </head>
 <body>
@@ -117,17 +125,14 @@
                         </thead>
                         <tbody>
                         <c:forEach var="notice" items="${noticeList}">
-                            <tr
-                                class="${notice.pinned ? 'table-danger' : ''}"
-                                onclick="location.href='/notice/detail?noticeId=${notice.noticeId}';"
-                                style="cursor:pointer;">
+                            <tr class="${notice.pinned ? 'table-danger' : ''}" data-notice-id="${notice.noticeId}" style="cursor:pointer;">
                                 <td style="text-align:center;">
                                   <c:if test="${notice.pinned}">
                                     <span class="badge bg-danger me-2">
                                       <i class="fa-solid fa-bullhorn"></i> 공지
                                     </span>
                                   </c:if>
-                                  <a href="/notice/detail?noticeId=${notice.noticeId}" class="notice-title">
+                                  <a href="/notice/Info?noticeId=${notice.noticeId}" class="notice-title">
                                     <i class="fa-regular fa-file-lines me-2"></i>${notice.title}
                                   </a>
                                 </td>
