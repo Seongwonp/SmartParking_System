@@ -17,4 +17,5 @@ public class NoticeDTO {
     private int view;
     private String createdAt;
     private String updatedAt;
+    private boolean pinned;
 }

@@ -27,7 +27,7 @@ public class NoticeDAO {
     }
 
     public List<NoticeVO> getListNotice(int offset, int limit) {
-        String SQL = "SELECT * FROM notice ORDER BY noticeId DESC LIMIT ?,?";
+        String SQL = "SELECT * FROM notice ORDER BY isPinned DESC, createdAt DESC LIMIT ?,?";
         List<NoticeVO> noticeVOList = new ArrayList<>();
         try {
             @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
@@ -44,6 +44,7 @@ public class NoticeDAO {
                         .view(resultSet.getInt("view"))
                         .createdAt(resultSet.getString("createdAt"))
                         .updatedAt(resultSet.getString("updatedAt"))
+                        .pinned(resultSet.getBoolean("isPinned"))
                         .build();
                 noticeVOList.add(noticeVO);
             }

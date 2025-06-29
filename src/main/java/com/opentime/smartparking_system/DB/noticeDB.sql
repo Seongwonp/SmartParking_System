@@ -1,11 +1,14 @@
-CREATE TABLE notice (
-                        noticeId INT AUTO_INCREMENT PRIMARY KEY,
-                        title VARCHAR(255) NOT NULL,
-                        content TEXT NOT NULL,
-                        writer VARCHAR(50) NOT NULL,
-                        view INT DEFAULT 0,
-                        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-                        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+create table notice
+(
+    noticeId  int auto_increment
+        primary key,
+    title     varchar(255)                           not null,
+    content   text                                   not null,
+    writer    varchar(50)                            not null,
+    view      int        default 0                   null,
+    createdAt datetime   default current_timestamp() null,
+    updatedAt datetime   default current_timestamp() null on update current_timestamp(),
+    isPinned  tinyint(1) default 0                   null
 );
 
 INSERT INTO notice (title, content, writer, view, createdAt, updatedAt)

@@ -19,7 +19,6 @@
             background: #fff;
             padding: 30px;
         }
-
         .container {
             width: 420px;
             padding: 30px;
@@ -27,7 +26,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             background-color: #fafafa;
-            margin: 150px auto 80px;
+            margin: 150px auto
         }
 
         .input-group {
@@ -87,9 +86,9 @@
 </head>
 <body>
 <%@include file="/jsp/include/header.jsp"%>
-<div class="container">
+<main class="container">
     <h1>로그인</h1>
-    <form action="login_process.jsp" method="post">
+    <form action="/login" method="post">
         <div class="input-group">
             <i class="fa-solid fa-envelope icon"></i>
             <input type="email" name="id" placeholder="아이디(이메일)" required>
@@ -103,7 +102,7 @@
     <div class="helper-text">
         계정이 없으신가요? <a href="/jsp/user/signup.jsp">회원가입</a>
     </div>
-</div>
+</main>
 <%@include file="/jsp/include/footer.jsp"%>
 </body>
 </html>
