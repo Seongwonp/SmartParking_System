@@ -26,7 +26,7 @@
         }
 
         .container {
-            margin-top: 240px;
+            margin-top: 250px;
             margin-bottom: 30px;
             background-color: white;
             padding: 20px;
@@ -36,7 +36,6 @@
         }
 
         h2 {
-
             text-align: center;
             /*color: #4a97d8;*/
             margin-bottom: 40px;
