@@ -28,9 +28,9 @@ public enum NoticeService {
         return noticeDAO.insertNotice(noticeVO);
     }
 
-    public List<NoticeDTO> getAllNotice(int limit, int offset){
+    public List<NoticeDTO> getAllNotice(int offset, int limit){
         log.info("getAllNotice called with limit: {}, offset: {}", limit, offset);
-        List<NoticeVO> noticeVOList = noticeDAO.getListNotice(limit, offset);
+        List<NoticeVO> noticeVOList = noticeDAO.getListNotice(offset, limit);
         List<NoticeDTO> noticeDTOList = new ArrayList<>();
         for(NoticeVO noticeVO : noticeVOList){
             NoticeDTO noticeDTO = modelMapper.map(noticeVO, NoticeDTO.class);
@@ -59,6 +59,9 @@ public enum NoticeService {
         return noticeDAO.deleteNotice(id);
     }
 
+    public int getTotalNoticeCount() {
+        return noticeDAO.getNoticeCount();
+    }
 
 
 }

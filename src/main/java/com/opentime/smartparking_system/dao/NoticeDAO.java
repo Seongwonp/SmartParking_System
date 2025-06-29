@@ -32,8 +32,8 @@ public class NoticeDAO {
         try {
             @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setInt(1, limit);
-            preparedStatement.setInt(2, offset);
+            preparedStatement.setInt(1, offset);
+            preparedStatement.setInt(2, limit);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 NoticeVO noticeVO = NoticeVO.builder()
@@ -104,6 +104,21 @@ public class NoticeDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getNoticeCount() {
+        String SQL = "SELECT COUNT(*) FROM notice";
+        try{
+            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 
 }
