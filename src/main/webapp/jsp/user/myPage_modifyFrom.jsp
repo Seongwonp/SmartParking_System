@@ -42,6 +42,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             background-color: #fafafa;
+            margin-bottom: 20px;
         }
         .icon {
             font-size: 12px;
@@ -142,7 +143,7 @@
             <form action="/signup" method="post">
                 <div class="input-group">
                     <i class="fa-solid fa-envelope icon"></i>  <!-- 이메일 아이콘 -->
-                    <input type="email" placeholder="sjyun0507)">
+                    <input type="email" placeholder="sjyun0507">
                 </div>
                 <div class="input-group">
                     <i class="fa-solid fa-lock icon"></i>      <!-- 자물쇠 아이콘 -->

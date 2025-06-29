@@ -35,7 +35,7 @@
         .profile-card {
             position: absolute;
             right: 30px;
-            top: 30%;
+            top: 25%;
             transform: translateY(-50%);
             width: 250px;
             background: #fff;
@@ -113,12 +113,12 @@
             </div>
         </div>
         <div class="menu-list">
-            <div><a href="/jsp/user/myPage.jsp">주차현황</a></div>
-            <div><a href="/jsp/user/myPage_1.jsp">차량등록</a></div>
-            <div><a href="/jsp/user/myPage_2.jsp">등록차량목록</a></div>
-            <div><a href="/jsp/user/myPage_3.jsp">최근입출차내역</a></div>
-            <div><a href="/jsp/user/myPage_4.jsp">회원정보수정</a></div>
-            <div><a href="/jsp/user/myPage_5.jsp">멤버쉽관리</a></div>
+            <div><a href="/jsp/user/myPage_parkingStatus.jsp">주차현황</a></div>
+            <div><a href="/jsp/user/myPage_carForm.jsp">차량등록</a></div>
+            <div><a href="/jsp/user/myPage_carList.jsp">등록차량목록</a></div>
+            <div><a href="/jsp/user/myPage_carInOut.jsp">최근입출차내역</a></div>
+            <div><a href="/jsp/user/myPage_modifyFrom.jsp">회원정보수정</a></div>
+            <div><a href="/jsp/user/myPage_membershipJoin.jsp">멤버쉽관리</a></div>
         </div>
     </div>
 </div>

@@ -32,24 +32,25 @@
             display: flex;
         }
 
-        /*주차현황카드 */
-        .parking-status {
+        /*최근입출차내역카드 */
+        .inOut-status {
             width: 800px;
             max-width: 1200px;
             margin:20px auto;
             background-color: #ffffff;
             padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border-radius: 0.375rem;
         }
-        .parking-status>h2 {
+        .inOut-status>h2 {
             text-align: center;
             color: #333;
         }
-        .parking-status thead th{
+        .inOut-status thead th{
             background-color: #4a97d8;
             color: white;
         }
+
     </style>
 </head>
 <body>
@@ -60,26 +61,33 @@
         <div>
             <%@include file="/jsp/user/myPage_profile.jsp" %>
         </div>
-        <!-- 중앙 주차현황 카드 -->
-        <div class="parking-status">
-            <h2 class="mb-3">주차현황</h2>
+        <!-- 중앙 최근입출차내역 카드 -->
+        <div class="inOut-status">
+            <h2 class="mb-3">최근입출차내역</h2>
             <table class="table table-bordered text-center">
                 <thead class="table-light">
                 <tr>
-                    <th>차량번호</th>
+                    <th>NO</th>
+                    <th>날짜</th>
                     <th>입차시간</th>
                     <th>출차시간</th>
-                    <th>주차위치</th>
-                    <th>상태</th>
+                    <th>요금</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>12가 3456</td>
-                    <td>2025-06-27 08:30</td>
-                    <td>-</td>
-                    <td>B2 101</td>
-                    <td class="text-success">주차중</td>
+                    <td>1</td>
+                    <td>2025-06-27</td>
+                    <td>08:30</td>
+                    <td>14:30</td>
+                    <td class="text-success">8000원</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2025-06-25</td>
+                    <td>09:30</td>
+                    <td>13:30</td>
+                    <td class="text-success">4000원</td>
                 </tr>
                 </tbody>
             </table>
