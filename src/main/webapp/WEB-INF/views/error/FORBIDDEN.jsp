@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

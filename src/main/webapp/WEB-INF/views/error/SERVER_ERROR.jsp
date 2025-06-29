@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,5 +18,13 @@
         <i class="fas fa-home me-2"></i>홈으로 돌아가기
     </a>
 </div>
+
+<c:if test="${not empty exception}">
+    <div class="alert alert-danger mt-4 w-75 text-start mx-auto">
+        <h5>오류 상세 정보</h5>
+        <pre><%= exception %></pre>
+    </div>
+</c:if>
+
 </body>
 </html>

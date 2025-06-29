@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,6 +17,5 @@
         <i class="fas fa-home me-2"></i>홈으로 돌아가기
     </a>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
