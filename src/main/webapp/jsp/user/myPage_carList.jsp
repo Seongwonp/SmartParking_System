@@ -36,7 +36,6 @@
         .car-table {
             width: 100%;
             border-collapse: collapse;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin: 20px auto;
             max-width: 900px;
             border-radius: 12px;
@@ -69,8 +68,8 @@
 
         .container {
             padding: 20px;
-            margin-top: 140px;
             background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>

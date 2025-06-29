@@ -38,7 +38,7 @@
         /*멤버쉽혜택 */
         .membership-status {
             width: 800px;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 20px auto;
             background-color: #ffffff;
             padding: 20px;
@@ -51,25 +51,39 @@
 
         .membership-status > h2 {
             text-align: center;
-            color: #333;
-            margin-bottom: 16px;
+            color: #2c3e50;
+            font-size: 30px;
+            margin-bottom: 32px;
+            padding-bottom: 10px;
+        }
+
+        .membership-status h4 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-left: 6px solid #4a97d8;
+            padding-left: 14px;
         }
 
         .membership-benefit {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-bottom: 32px;
-            gap: 24px;
+            gap: 20px;
+
         }
 
         .box {
             background: linear-gradient(145deg, #ffffff, #f2f2f2);
             border-radius: 16px;
             padding: 30px;
-            width: 280px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border: 1px solid #e0e0e0;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex: 1 1 45%;
+            margin: 10px;
         }
 
         .box:hover {
@@ -102,71 +116,92 @@
             color: #222;
         }
 
-        /*멤버쉽가입*/
-        .agreement-container {
-            width: 650px;
+        /*멤버쉽해지*/
+
+        .membership-cancel-page,
+        .btn-group{
+            width: 100%;
+        }
+        .membership-cancel-page {
             margin: 0 auto;
         }
-        .agreement-box {
-            border: 1px solid #ccc;
-            border-radius: 5px;
+
+        .membership-period {
+            background: white;
             padding: 20px;
-            background-color: #fff;
+            border-radius: 8px;
             margin-bottom: 20px;
-            font-size: 13px;
-        }
-
-        .agreement-box label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 8px;
-        }
-
-        .submit-btn {
-            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
             align-items: center;
-            padding: 12px;
-            background-color: #878787;
-            color: white;
-            font-size: 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border: 1px solid #cde9df;
         }
 
-        .submit-btn:hover {
-            background-color: #218838;
+        .cancel-box h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
         }
 
-        .membership-select {
-            width: 100%;
-            margin-bottom: 20px;
+        .membership-card {
+            background: white;
+            border: 1px solid #dfe5ef;
+            padding: 20px;
+            border-radius: 10px;
         }
 
-        .agreement-container,
-        .agreement-box,
-        .submit-btn,
-        .membership-select {
-            width: 100%;
+        .plan-type {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
-        .form-select {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        .membership-benefit {
+        .info div {
+            display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
-        .box {
-            flex: 1 1 45%;
-            margin: 10px;
+        .warning-box {
+            background-color: #fff7f5;
+            border: 1px solid #f2c7c2;
+            color: #c0392b;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .cancel-btn,
+        .back-btn {
+            background: #878787;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            min-width: 180px;
+            width: 48%;
+        }
+
+        .cancel-btn:hover,
+        .back-btn:hover {
+            background: linear-gradient(45deg, #ff3b3b, #c0392b);
+        }
+        .membership-cancel {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
@@ -199,23 +234,37 @@
                         <div class="item"><span>장애인 50%할인</span></div>
                     </div>
                 </div>
-                <div class="agreement-container">
-                    <h4>멤버십 가입하기</h4>
-                    <div class="membership-select mb-4">
-                        <label for="membershipType" class="form-label">멤버십 종류 선택</label>
-                        <select id="membershipType" name="membershipType" class="form-select">
-                            <option value="annual">연정액</option>
-                            <option value="monthly">월정액</option>
-                        </select>
-                    </div>
+                <div class="membership-cancel">
+                    <h4 class="mb-3">멤버십 가입정보</h4>
+                    <div class="membership-cancel-page">
+                        <div class="membership-period">
+                            <strong>멤버십 이용기간</strong>
+                            <span>25.06.24 ~ 25.07.23</span>
+                        </div>
 
-                    <div class="agreement-box">
-                        <label><input type="checkbox" class="agree"> [필수] 만 14세 이상입니다</label>
-                        <label><input type="checkbox" class="agree"> [필수] 이용약관 동의</label>
-                        <label><input type="checkbox" class="agree"> [선택] 마케팅 정보 수신 동의</label>
+                        <div class="cancel-box">
+                            <h3>사용 중인 멤버십</h3>
+                            <div class="membership-card">
+                                <div class="plan-type">월간 이용권</div>
+                                <div class="info">
+                                    <div><span>이용 기간</span><span>25.06.24 ~ 25.07.23</span></div>
+                                    <div><span>결제 금액</span><span>₩120,000</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="warning-box">
+                            <p>멤버십 해지 시, 다음 결제일부터 멤버십 혜택이 중단됩니다.<br>
+                                이미 결제된 금액은 환불되지 않습니다.</p>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="cancel-btn">멤버십 해지하기</button>
+                            <button type="button" class="back-btn">멤버십 유지하기</button>
+                        </div>
                     </div>
-                    <button type="submit" class="submit-btn">멤버쉽 혜택 시작하기</button>
                 </div>
+
             </form>
         </div>
     </div>
