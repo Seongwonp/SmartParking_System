@@ -17,8 +17,7 @@ public class AdminAuthFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession(false);
-
-        UserDTO user = (session != null) ? (UserDTO) session.getAttribute("loginUser") : null;
+        UserDTO user = (session != null) ? (UserDTO) session.getAttribute("user") : null;
 
         if (user == null || !"ADMIN".equals(user.getRole())) {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN);

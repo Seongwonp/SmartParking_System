@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-@WebServlet(value="/updateAdmin/main")
+@WebServlet(value="/admin/main")
 public class AdminMainPageServlet extends HttpServlet {
     private final UserService userService = UserService.INSTANCE;
 
@@ -28,7 +28,7 @@ public class AdminMainPageServlet extends HttpServlet {
         req.setAttribute("subscriptionMembers", subscriptionMembers);
         req.setAttribute("recentMembers", recentMembers);
 
-        req.getRequestDispatcher("/WEB-INF/views/updateAdmin/adminMain.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/admin/adminMain.jsp").forward(req, resp);
     }
 
 }

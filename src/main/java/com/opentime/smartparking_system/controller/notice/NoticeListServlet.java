@@ -1,4 +1,4 @@
-package com.opentime.smartparking_system.controller;
+package com.opentime.smartparking_system.controller.notice;
 
 import com.opentime.smartparking_system.service.NoticeService;
 import com.opentime.smartparking_system.model.dto.NoticeDTO;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Log4j2
 @WebServlet("/notice/list")
-public class NoticeInfoServlet extends HttpServlet {
+public class NoticeListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
