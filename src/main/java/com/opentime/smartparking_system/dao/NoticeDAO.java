@@ -80,6 +80,35 @@ public class NoticeDAO {
     }
 
 
+    public List<NoticeVO> searchNotice(int offset, int limit, String text) {
+        String SQL = "SELECT * FROM notice WHERE title LIKE ? ORDER BY isPinned DESC, createdAt DESC LIMIT ?, ?";
+        List<NoticeVO> noticeVOList = new ArrayList<>();
+        try {
+            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, "%" + text + "%");
+            preparedStatement.setInt(2, offset);
+            preparedStatement.setInt(3, limit);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                NoticeVO noticeVO = NoticeVO.builder()
+                        .noticeId(resultSet.getInt("noticeId"))
+                        .title(resultSet.getString("title"))
+                        .writer(resultSet.getString("writer"))
+                        .content(resultSet.getString("content"))
+                        .view(resultSet.getInt("view"))
+                        .createdAt(resultSet.getString("createdAt"))
+                        .updatedAt(resultSet.getString("updatedAt"))
+                        .pinned(resultSet.getBoolean("isPinned"))
+                        .build();
+                noticeVOList.add(noticeVO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return noticeVOList;
+    }
+
     public boolean updateNotice(NoticeVO noticeVO) {
         String SQL = "UPDATE notice SET  title = ?, content = ? WHERE noticeId=?";
         try {
@@ -113,6 +142,22 @@ public class NoticeDAO {
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    public int getSearchNoticeCount(String text) {
+        String SQL = "SELECT COUNT(*) FROM notice WHERE title LIKE ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, "%" + text + "%");
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
                 return resultSet.getInt(1);
             }
         } catch (SQLException e) {

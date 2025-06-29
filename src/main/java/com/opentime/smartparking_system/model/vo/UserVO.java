@@ -3,6 +3,7 @@ package com.opentime.smartparking_system.model.vo;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Getter
 @ToString
@@ -19,4 +20,5 @@ public class UserVO {
     private boolean isSubscription;
     private Date subscriptionStart;
     private Date subscriptionEnd;
+    private Timestamp joinDate;
 }

@@ -46,6 +46,17 @@ public enum NoticeService {
         return modelMapper.map(noticeVO, NoticeDTO.class);
     }
 
+    public List<NoticeDTO> searchNotice(int offset, int limit, String text){
+        if(text == null || text.trim().isEmpty()) return getAllNotice(offset, limit);
+        List<NoticeVO> noticeVOList = noticeDAO.searchNotice(offset, limit, text);
+        List<NoticeDTO> noticeDTOList = new ArrayList<>();
+        for(NoticeVO noticeVO : noticeVOList){
+            NoticeDTO noticeDTO = modelMapper.map(noticeVO, NoticeDTO.class);
+            noticeDTOList.add(noticeDTO);
+        }
+        return noticeDTOList;
+    }
+
     public boolean updateNotice(NoticeDTO noticeDTO){
         log.info("updateNotice called with NoticeDTO: {}", noticeDTO);
         if(noticeDTO == null) return false;
@@ -62,6 +73,13 @@ public enum NoticeService {
     public int getTotalNoticeCount() {
         return noticeDAO.getNoticeCount();
     }
+
+
+    public int getSearchNoticeCount(String text) {
+        if(text == null || text.trim().isEmpty()) return getTotalNoticeCount();
+        return noticeDAO.getSearchNoticeCount(text);
+    }
+
 
 
 }

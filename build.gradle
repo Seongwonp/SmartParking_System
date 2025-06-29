@@ -53,6 +53,11 @@ dependencies {
 // https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.0")
 
+
+// jBCrypt (BCrypt 비밀번호 해싱 라이브러리)
+// https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation 'org.mindrot:jbcrypt:0.4'
+
 }
 
 test {

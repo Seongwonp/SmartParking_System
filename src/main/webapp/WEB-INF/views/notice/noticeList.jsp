@@ -81,13 +81,13 @@
 <div class="container my-5" data-aos="fade-up">
     <div class="d-flex justify-content-between mb-3">
         <form method="get" action="/notice/list" class="d-flex align-items-center">
+
             <label for="size" class="me-2 fw-bold">페이지당 표시:</label>
             <select id="size" name="size" class="form-select w-auto me-3">
                 <option value="5" ${param.size == '5' ? 'selected' : ''}>5개씩 보기</option>
                 <option value="10" ${param.size == '10' ? 'selected' : ''}>10개씩 보기</option>
                 <option value="20" ${param.size == '20' ? 'selected' : ''}>20개씩 보기</option>
             </select>
-
 
             <input type="text" name="keyword" class="form-control w-auto me-2"
                    placeholder="제목 검색"
@@ -146,19 +146,26 @@
         <ul class="pagination justify-content-center">
             <c:if test="${currentPage > 1}">
                 <li class="page-item">
-                    <a class="page-link" href="?page=${currentPage - 1}&size=${size}" aria-label="Previous">
+                    <a class="page-link"
+                       href="?page=${currentPage - 1}&size=${size}&keyword=${param.keyword}"
+                       aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
             </c:if>
+
             <c:forEach var="i" begin="1" end="${totalPages}">
                 <li class="page-item ${i == currentPage ? 'active' : ''}">
-                    <a class="page-link" href="?page=${i}&size=${size}">${i}</a>
+                    <a class="page-link"
+                       href="?page=${i}&size=${size}&keyword=${param.keyword}">${i}</a>
                 </li>
             </c:forEach>
+
             <c:if test="${currentPage < totalPages}">
                 <li class="page-item">
-                    <a class="page-link" href="?page=${currentPage + 1}&size=${size}" aria-label="Next">
+                    <a class="page-link"
+                       href="?page=${currentPage + 1}&size=${size}&keyword=${param.keyword}"
+                       aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

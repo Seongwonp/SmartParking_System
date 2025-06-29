@@ -22,14 +22,26 @@ public class NoticeInfoServlet extends HttpServlet {
         int size = req.getParameter("size") != null ? Integer.parseInt(req.getParameter("size")) : 10;
         int offset = (page - 1) * size;
 
-        List<NoticeDTO> noticeList = NoticeService.INSTANCE.getAllNotice(offset, size);
-        int totalCount = NoticeService.INSTANCE.getTotalNoticeCount();
+        String keyword = req.getParameter("keyword");
+
+        List<NoticeDTO> noticeList;
+        int totalCount;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            noticeList = NoticeService.INSTANCE.searchNotice(offset, size, keyword);
+            totalCount = NoticeService.INSTANCE.getSearchNoticeCount(keyword);
+        } else {
+            noticeList = NoticeService.INSTANCE.getAllNotice(offset, size);
+            totalCount = NoticeService.INSTANCE.getTotalNoticeCount();
+        }
+
         int totalPages = (totalCount + size - 1) / size;
 
         req.setAttribute("noticeList", noticeList);
         req.setAttribute("currentPage", page);
         req.setAttribute("size", size);
         req.setAttribute("totalPages", totalPages);
+        req.setAttribute("keyword", keyword);
 
         req.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp").forward(req, resp);
     }

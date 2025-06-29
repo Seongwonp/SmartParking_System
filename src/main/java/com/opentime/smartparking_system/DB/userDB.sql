@@ -7,5 +7,6 @@ CREATE TABLE user (
                       role ENUM('USER','ADMIN') DEFAULT 'USER',
                       isSubscription BOOLEAN DEFAULT FALSE,
                       subscriptionStart DATE NULL,
-                      subscriptionEnd DATE NULL
+                      subscriptionEnd DATE NULL,
+                      joinDate DATETIME DEFAULT CURRENT_TIMESTAMP
 );
