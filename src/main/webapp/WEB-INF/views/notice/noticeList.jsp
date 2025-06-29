@@ -58,6 +58,16 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sizeSelect = document.getElementById('size');
+            if (sizeSelect) {
+                sizeSelect.addEventListener('change', function () {
+                    this.form.submit();
+                });
+            }
+        });
+    </script>
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
@@ -69,14 +79,22 @@
 </div>
 
 <div class="container my-5" data-aos="fade-up">
-    <div class="d-flex justify-content-start mb-3">
+    <div class="d-flex justify-content-between mb-3">
         <form method="get" action="/notice/list" class="d-flex align-items-center">
             <label for="size" class="me-2 fw-bold">페이지당 표시:</label>
-            <select id="size" name="size" class="form-select w-auto" onchange="this.form.submit()">
+            <select id="size" name="size" class="form-select w-auto me-3">
                 <option value="5" ${param.size == '5' ? 'selected' : ''}>5개씩 보기</option>
                 <option value="10" ${param.size == '10' ? 'selected' : ''}>10개씩 보기</option>
                 <option value="20" ${param.size == '20' ? 'selected' : ''}>20개씩 보기</option>
             </select>
+
+
+            <input type="text" name="keyword" class="form-control w-auto me-2"
+                   placeholder="제목 검색"
+                   value="${param.keyword != null ? param.keyword : ''}">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> 검색
+            </button>
         </form>
     </div>
     <c:choose>

@@ -97,7 +97,7 @@
       <li class="mb-3"><i class="fa-solid fa-car me-2"></i>실시간 차량 검색 및 주차 공간 예약</li>
       <li class="mb-3"><i class="fa-solid fa-money-bill-wave me-2"></i>정확한 요금 조회 및 간편 결제 시스템</li>
       <li class="mb-3"><i class="fa-solid fa-location-dot me-2"></i>쉽고 빠른 오시는 길 안내 및 교통 정보 제공</li>
-      <li class="mb-3"><i class="fa-solid fa-mobile-screen-button me-2"></i>모바일 앱 연동으로 언제 어디서나 편리한 관리</li>
+      <li class="mb-3"><i class="fa-solid fa-mobile-screen-button me-2"></i>모바일 웹 연동으로 언제 어디서나 편리한 관리</li>
     </ul>
   </div>
 </section>

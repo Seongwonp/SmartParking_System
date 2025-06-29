@@ -48,7 +48,7 @@
         </div>
 
         <div class="col-md-6">
-            <a href="/jsp/user/parking_fee.jsp" class="text-decoration-none text-dark">
+            <a href="/fee/list" class="text-decoration-none text-dark">
                 <div class="p-4 border rounded shadow-sm h-100 position-relative card-hover">
                     <h4 class="section-title">
                         <i class="fas fa-coins me-2"></i>주차 요금
