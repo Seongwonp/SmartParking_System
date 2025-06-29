@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,8 @@
     <title>로그인</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
 
     <style>
@@ -82,25 +85,43 @@
             text-align: center;
             margin-top: 15px;
         }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <%@include file="/jsp/include/header.jsp"%>
 <main class="container">
     <h1>로그인</h1>
-    <form action="/login" method="post">
+
+    <%-- 에러 메시지 출력 --%>
+    <c:if test="${not empty errorMessage}">
+        <div class="error-message">${errorMessage}</div>
+    </c:if>
+    <c:if test="${param.success == 'true'}">
+        <script>
+            alert('회원가입이 성공적으로 완료되었습니다! 로그인 해주세요.');
+        </script>
+    </c:if>
+
+    <form action="${pageContext.request.contextPath}/login" method="post">
         <div class="input-group">
-            <i class="fa-solid fa-envelope icon"></i>
-            <input type="email" name="id" placeholder="아이디(이메일)" required>
+            <i class="fa-solid fa-user icon"></i>
+            <input type="email" name="userName" placeholder="아이디(이메일)" required autofocus>
         </div>
         <div class="input-group">
             <i class="fa-solid fa-lock icon"></i>
-            <input type="password" name="pw" placeholder="비밀번호" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
         </div>
         <button type="submit" class="login-btn">로그인</button>
     </form>
     <div class="helper-text">
-        계정이 없으신가요? <a href="/jsp/user/signup.jsp">회원가입</a>
+        계정이 없으신가요? <a href="/user/signup">회원가입</a>
     </div>
 </main>
 <%@include file="/jsp/include/footer.jsp"%>

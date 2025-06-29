@@ -1,11 +1,11 @@
+<%@ page import="com.opentime.smartparking_system.model.dto.UserDTO" %>
+<%@ page import="com.sun.jna.platform.win32.Netapi32Util" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    String user = (String) session.getAttribute("userName");
-%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand mx-auto" href="${pageContext.request.contextPath}/index_public.jsp">
-            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" id="title_img" height="80">
+            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" id="title_img"
+                 height="80">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,29 +54,49 @@
                     <a class="nav-link" href="/notice/list">공지사항</a>
                 </li>
             </ul>
+            <%
+                UserDTO user = (UserDTO) session.getAttribute("user");
+            %>
+
             <ul class="navbar-nav">
                 <% if (user == null) { %>
-                <li class="nav-item"><a class="nav-link" href="/jsp/user/login.jsp">Log In</a></li>
-                <li class="nav-item"><a class="nav-link" href="/jsp/user/signup.jsp">Sign Up</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/signup">Sign Up</a>
+                </li>
                 <% } else { %>
-                <li class="nav-item"><a class="nav-link" href="/jsp/user/myPage.jsp">마이페이지</a></li>
+                <li class="nav-item">
+                <li class="nav-item">
+                <a class="nav-link text-primary fw-normal fs-7" href="#" tabindex="-1" aria-disabled="true" style="cursor: default;">
+                    <%= user.getName() %>님 환영합니다.
+                </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/jsp/user/myPage.jsp">마이페이지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
                 <% } %>
             </ul>
         </div>
     </div>
 </nav>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const dropdownIds = [
             "parkingInfoDropdown",
             "priceDropdown",
             "supportDropdown"
         ];
 
-        dropdownIds.forEach(function(id) {
+        dropdownIds.forEach(function (id) {
             const link = document.getElementById(id);
             if (link) {
-                link.addEventListener("click", function(e) {
+                link.addEventListener("click", function (e) {
                     window.location.href = link.href;
                 });
             }

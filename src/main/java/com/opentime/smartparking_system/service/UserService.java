@@ -39,10 +39,10 @@ public enum UserService {
 
     //로그인
     public UserDTO loginUser(String userName, String inputPassword) {
-        UserVO vo = userDAO.findByUserName(userName);
+        UserVO userVO = userDAO.findByUserName(userName);
 
-        if (vo != null && PasswordUtil.INSTANCE.verifyPassword(inputPassword, vo.getPassword())) {
-            return modelMapper.map(vo, UserDTO.class);
+        if (userVO != null && PasswordUtil.INSTANCE.verifyPassword(inputPassword, userVO.getPassword())) {
+            return modelMapper.map(userVO, UserDTO.class);
         }
         return null;
     }

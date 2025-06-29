@@ -1,12 +1,11 @@
 /*-------------------- header ---------------------- */
 
-/* 드롭다운 메뉴 스크롤 처리 */
 .dropdown-menu {
     max-height: 300px;
     overflow-y: auto;
 }
 
-#title_img{
+#title_img {
     width: 80px;
     height: 80px;
 }
@@ -16,23 +15,21 @@
     margin-top: 0;
 }
 
-/* 네비게이션 메뉴 항목 간격 및 폰트 크기 조정 */
 .navbar-nav > li {
-    margin-left: 1.2rem;
-    margin-right: 1.2rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .navbar-nav > li > a.nav-link {
-    font-size: 1.1rem;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
+    font-size: 1rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
 }
 
 .dropdown-menu .dropdown-item {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
 }
-
 
 /*---------------- index ------------------- */
 .video-container {
