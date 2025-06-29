@@ -29,6 +29,7 @@
             justify-content: center;
             gap :50px;
             box-sizing : border-box;
+            font-size :18px;
 
         }
         .profile-card {
@@ -42,6 +43,8 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            height: 400px;
+
         }
 
         .profile-header {
@@ -49,7 +52,7 @@
             align-items: center;
             margin-bottom: 15px;
         }
-        img{
+        .profileImg{
             width: 50px;
             height: 50px;
             object-fit: cover;
@@ -82,7 +85,7 @@
         }
         .menu-list >div>a{
             text-decoration: none;
-            color: #7c7c7c;
+            color: #373737;
         }
 
         .menu-list >div {
@@ -101,11 +104,9 @@
 <body>
 
 <div class="my-page">
-
-
     <div class="profile-card" data-aos="fade-down" >
         <div class="profile-header">
-            <img src="${pageContext.request.contextPath}/jsp/user/img/icon01.png" alt="profile">
+            <img src="${pageContext.request.contextPath}/jsp/user/img/icon01.png" alt="profile" class="profileImg">
             <div class="profile-info">
                 <div class="profile-name">윤서정</div>
                 <div class="logout-btn">로그아웃 </div>
@@ -113,9 +114,11 @@
         </div>
         <div class="menu-list">
             <div><a href="/jsp/user/myPage.jsp">주차현황</a></div>
-            <div><a href="/jsp/user/myPage_2.jsp">최근입출차내역</a></div>
-            <div><a href="/jsp/user/myPage_3.jsp">회원정보수정</a></div>
-            <div><a href="/jsp/user/myPage_4.jsp">멤버쉽관리</a></div>
+            <div><a href="/jsp/user/myPage_1.jsp">차량등록관리</a></div>
+            <div><a href="/jsp/user/myPage_2.jsp">등록차량목록</a></div>
+            <div><a href="/jsp/user/myPage_3.jsp">최근입출차내역</a></div>
+            <div><a href="/jsp/user/myPage_4.jsp">회원정보수정</a></div>
+            <div><a href="/jsp/user/myPage_5.jsp">멤버쉽관리</a></div>
         </div>
     </div>
 </div>
