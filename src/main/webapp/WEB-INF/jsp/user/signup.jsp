@@ -153,26 +153,26 @@
 <div class="container">
     <h1>회원가입</h1>
     <h2>회원정보를 입력해주세요</h2>
-    <form action="/signup" method="post">
+    <form action="/user/signup" method="post">
         <div class="input-group">
-            <i class="fa-solid fa-envelope icon"></i>  <!-- 이메일 아이콘 -->
-            <input type="email" placeholder="아이디(이메일)">
+            <i class="fa-solid fa-envelope icon"></i>
+            <input type="email" name="userName" placeholder="아이디(이메일)">
         </div>
         <div class="input-group">
-            <i class="fa-solid fa-lock icon"></i>      <!-- 자물쇠 아이콘 -->
-            <input type="password" placeholder="비밀번호">
+            <i class="fa-solid fa-lock icon"></i>
+            <input type="password" name="password" placeholder="비밀번호">
         </div>
         <div class="input-group">
-            <i class="fa-solid fa-lock icon"></i>      <!-- 자물쇠 아이콘 -->
-            <input type="password" placeholder="비밀번호 확인">
+            <i class="fa-solid fa-lock icon"></i>
+            <input type="password" name="passwordConfirm" placeholder="비밀번호 확인">
         </div>
         <div class="input-group">
-            <i class="fa-solid fa-user icon"></i>      <!-- 사용자 아이콘 -->
-            <input type="text" placeholder="이름">
+            <i class="fa-solid fa-user icon"></i>
+            <input type="text" name="name" placeholder="이름">
         </div>
         <div class="input-group">
-            <i class="fa-solid fa-mobile-screen icon"></i>  <!-- 휴대폰 아이콘 -->
-            <input type="tel" placeholder="휴대폰번호">
+            <i class="fa-solid fa-mobile-screen icon"></i>
+            <input type="tel" name="phone" placeholder="휴대폰번호">
         </div>
         <hr>
         <div class="agreement-container">
