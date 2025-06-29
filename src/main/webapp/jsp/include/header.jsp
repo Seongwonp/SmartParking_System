@@ -4,67 +4,82 @@
 %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/index_public.jsp">스마트파킹</a>
+        <a class="navbar-brand mx-auto" href="${pageContext.request.contextPath}/index_public.jsp">
+            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" id="title_img" height="80">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
-            <div class="mx-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="parkingDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            주차관리
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="parkingDropdown">
-                            <li><a class="dropdown-item" href="/parking.do">입출차 관리</a></li>
-                            <li><a class="dropdown-item" href="/status">주차현황</a></li>
-                        </ul>
-                    </li>
+            <ul class="navbar-nav mx-auto">
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            차량검색
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="searchDropdown">
-                            <li><a class="dropdown-item" href="/search.do">검색하기</a></li>
-                            <li><a class="dropdown-item" href="/search/history">검색 기록</a></li>
-                        </ul>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/intro.jsp" id="parkingInfoDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        이용안내
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="parkingInfoDropdown">
+                        <li><a class="dropdown-item" href="/intro.jsp">주차장 소개</a></li>
+                        <li><a class="dropdown-item" href="/guide.jsp">주차 안내</a></li>
+                        <li><a class="dropdown-item" href="/location.jsp">오시는 길</a></li>
+                    </ul>
+                </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="feeDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            요금제
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="feeDropdown">
-                            <li><a class="dropdown-item" href="/fee.do">요금 안내</a></li>
-                            <li><a class="dropdown-item" href="/discount">할인 정보</a></li>
-                        </ul>
-                    </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="contactDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Contact
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="contactDropdown">
-                            <li><a class="dropdown-item" href="/contact.jsp">문의하기</a></li>
-                            <li><a class="dropdown-item" href="/faq.jsp">자주 묻는 질문</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/fee/list" id="priceDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        이용요금
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="priceDropdown">
+                        <li><a class="dropdown-item" href="/fee/list">요금제 안내</a></li>
+                        <li><a class="dropdown-item" href="/fee/list#discount-info">할인 정보</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/contact.jsp" id="supportDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        고객지원
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="supportDropdown">
+                        <li><a class="dropdown-item" href="/contact.jsp">문의하기</a></li>
+                        <li><a class="dropdown-item" href="/faq.jsp">자주 묻는 질문</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/notice/list">공지사항</a>
+                </li>
+            </ul>
             <ul class="navbar-nav">
                 <% if (user == null) { %>
                 <li class="nav-item"><a class="nav-link" href="/jsp/user/login.jsp">Log In</a></li>
                 <li class="nav-item"><a class="nav-link" href="/jsp/user/signup.jsp">Sign Up</a></li>
                 <% } else { %>
-                <li class="nav-item"><a class="nav-link" href="/user/myPage.jsp">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/jsp/user/myPage.jsp">마이페이지</a></li>
                 <% } %>
             </ul>
         </div>
     </div>
 </nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dropdownIds = [
+            "parkingInfoDropdown",
+            "priceDropdown",
+            "supportDropdown"
+        ];
+
+        dropdownIds.forEach(function(id) {
+            const link = document.getElementById(id);
+            if (link) {
+                link.addEventListener("click", function(e) {
+                    window.location.href = link.href;
+                });
+            }
+        });
+    });
+</script>

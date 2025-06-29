@@ -1,9 +1,35 @@
+
+/* ---------------- local ---------------- */
+
+html, body {
+    font-family: "Noto Sans KR", sans-serif;
+    background: #fff;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+
 /*-------------------- header ---------------------- */
 
 /* 드롭다운 메뉴 스크롤 처리 */
 .dropdown-menu {
     max-height: 300px;
     overflow-y: auto;
+}
+
+#title_img{
+    width: 80px;
+    height: 80px;
 }
 
 .nav-item.dropdown:hover > .dropdown-menu {
