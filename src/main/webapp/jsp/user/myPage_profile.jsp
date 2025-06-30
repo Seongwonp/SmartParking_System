@@ -1,4 +1,4 @@
-
+<%@ page import="com.opentime.smartparking_system.service.UserService" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,21 +17,24 @@
         }
 
         body > .my-page {
-            flex: 1;  /* 나머지 공간을 채움 */
+            flex: 1; /* 나머지 공간을 채움 */
         }
+
         body {
             background: #f9f9f9;
             font-family: sans-serif;
         }
+
         .my-page {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap :50px;
-            box-sizing : border-box;
-            font-size :18px;
+            gap: 50px;
+            box-sizing: border-box;
+            font-size: 18px;
 
         }
+
         .profile-card {
             position: absolute;
             right: 30px;
@@ -42,7 +45,7 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             height: 400px;
 
         }
@@ -52,7 +55,8 @@
             align-items: center;
             margin-bottom: 15px;
         }
-        .profileImg{
+
+        .profileImg {
             width: 50px;
             height: 50px;
             object-fit: cover;
@@ -83,12 +87,13 @@
         .menu-list {
             border-top: 1px solid #eee;
         }
-        .menu-list >div>a{
+
+        .menu-list > div > a {
             text-decoration: none;
             color: #373737;
         }
 
-        .menu-list >div {
+        .menu-list > div {
             padding: 10px 0;
             border-bottom: 1px solid #eee;
             font-size: 0.9em;
@@ -104,12 +109,17 @@
 <body>
 
 <div class="my-page">
-    <div class="profile-card" data-aos="fade-down" >
+    <div class="profile-card" data-aos="fade-down">
         <div class="profile-header">
             <img src="${pageContext.request.contextPath}/jsp/user/img/icon01.png" alt="profile" class="profileImg">
             <div class="profile-info">
-                <div class="profile-name">윤서정</div>
-                <div class="logout-btn">로그아웃 </div>
+                <%
+                    UserDTO userDTO = (UserDTO) session.getAttribute("user");
+                    String name = (userDTO != null && userDTO.getName() != null) ? userDTO.getName() : "회원";
+                %>
+                <div class="profile-name"><%= name %>
+                </div>
+                <div class="logout-btn">로그아웃</div>
             </div>
         </div>
         <div class="menu-list">

@@ -5,12 +5,13 @@ import com.opentime.smartparking_system.model.dto.UserDTO;
 import com.opentime.smartparking_system.model.vo.UserVO;
 import com.opentime.smartparking_system.util.MapperUtil;
 import com.opentime.smartparking_system.util.PasswordUtil;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Log4j2
 public enum UserService {
     INSTANCE;
 
@@ -52,7 +53,9 @@ public enum UserService {
 
     // 회원 정보 수정
     public boolean updateUser(UserDTO userDTO) {
-        if (userDTO == null || userDAO.isUserIdDuplicate(userDTO.getUserName())) return false;
+        log.info("Updating user info for: {}", userDTO.getUserName());
+        // 실제 업데이트 실행되는지 확인
+        if (userDTO == null) return false;
 
         // 비밀번호 암호화
         String hashedPassword = PasswordUtil.INSTANCE.hashPassword(userDTO.getPassword());

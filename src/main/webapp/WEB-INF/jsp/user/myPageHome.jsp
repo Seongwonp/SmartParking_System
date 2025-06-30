@@ -55,6 +55,12 @@
 </head>
 <body>
 <%@include file="/jsp/include/header.jsp" %>
+<% String msg = (String) request.getAttribute("successMsg"); %>
+<% if (msg != null) { %>
+<div class="alert alert-success text-center" role="alert" style="margin-top: 100px;">
+    <%= msg %>
+</div>
+<% } %>
 
 <div class="my-page">
     <div class="main-content">
@@ -88,7 +94,14 @@
         </div>
     </div>
 </div>
-
 <%@include file="/jsp/include/footer.jsp" %>
+<script>
+    const alertBox = document.querySelector('.alert-success');
+    if (alertBox) {
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000);
+    }
+</script>
 </body>
 </html>

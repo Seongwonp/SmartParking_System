@@ -32,8 +32,9 @@ public class ModifyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //폼으로부터 전달받은 사용자 정보를 바탕으로 updateUser() 실행 후 다른 페이지로 리디렉션
         log.info("/WEB-INF/jsp/user/myPageModify doPost");
-
+        System.out.println("userName: " + req.getParameter("userName"));
         UserDTO userDTO = UserDTO.builder()
+                .userId(Integer.parseInt(req.getParameter("userId")))
                 .userName(req.getParameter("userName"))
                 .password(req.getParameter("password"))
                 .name(req.getParameter("name"))
@@ -42,8 +43,13 @@ public class ModifyServlet extends HttpServlet {
 
         log.info("userDTO: {}", userDTO);
         userService.updateUser(userDTO);
-        resp.sendRedirect(req.getContextPath() + "/jsp/user/myPageHome");
 
+        // 최신 사용자 정보로 세션 갱신
+        UserDTO updatedUser = userService.getUserInfo(userDTO.getName());
+        req.getSession().setAttribute("user", updatedUser);
+
+        req.setAttribute("successMsg", "회원 정보가 성공적으로 수정되었습니다.");
+        req.getRequestDispatcher("/WEB-INF/jsp/user/myPageHome.jsp").forward(req, resp);
 
     }
 
