@@ -131,7 +131,7 @@ public class NoticeDAO {
     public void addView(int noticeId) {
         String SQL = "UPDATE notice SET view = view + 1 WHERE noticeId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, noticeId);
             preparedStatement.executeUpdate();
