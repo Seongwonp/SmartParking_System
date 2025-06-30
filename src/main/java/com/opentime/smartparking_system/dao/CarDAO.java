@@ -1,5 +1,6 @@
 package com.opentime.smartparking_system.dao;
 
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import com.opentime.smartparking_system.model.dto.CarDTO;
 import lombok.Cleanup;
 
@@ -15,7 +16,7 @@ public class CarDAO {
     public static void insertCar(CarDTO car) throws SQLException {
         String sql = "insert into car (userId, carNumber, carModel, carType)  values(?,?,?,?)";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, String.valueOf(car.getUserId()));
             preparedStatement.setString(2, car.getCarNumber());
@@ -32,7 +33,7 @@ public class CarDAO {
         List<CarDTO> carDTOList = new ArrayList<>();
         String sql = "select * from car where userId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, userId);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
