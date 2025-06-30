@@ -2,6 +2,7 @@ package com.opentime.smartparking_system.dao;
 
 
 import com.opentime.smartparking_system.model.vo.FeePolicyVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ public class FeePolicyDAO {
         String SQL = "INSERT INTO feePolicy(policyName, baseTime, baseFee, additionalTime, additionalFee, dailyMaxFee)" +
                 " VALUES (?,?,?,?,?,?)";
         try{
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, feePolicyVO.getPolicyName());
             preparedStatement.setLong(2, feePolicyVO.getBaseTime());
@@ -36,7 +37,7 @@ public class FeePolicyDAO {
         String SQL = "SELECT * FROM feePolicy";
         List<FeePolicyVO> feeList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -62,7 +63,7 @@ public class FeePolicyDAO {
         String SQL = "SELECT * FROM feePolicy WHERE policyId = ?";
         FeePolicyVO fee = null;
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, id);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -86,7 +87,7 @@ public class FeePolicyDAO {
         String SQL = "UPDATE feePolicy SET baseTime = ? , baseFee = ?, additionalTime = ?, " +
                 "additionalFee = ?, dailyMaxFee = ? WHERE policyId = ?";
         try{
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, feePolicyVO.getBaseTime());
             preparedStatement.setInt(2, feePolicyVO.getBaseFee());
@@ -103,7 +104,7 @@ public class FeePolicyDAO {
     public boolean deleteFeeById(int id) {
         String SQL = "DELETE FROM feePolicy WHERE policyId = ?";
         try{
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;
