@@ -3,7 +3,6 @@ package com.opentime.smartparking_system.dao;
 import com.opentime.smartparking_system.model.vo.NoticeVO;
 import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -131,7 +130,7 @@ public class NoticeDAO {
     public void addView(int noticeId) {
         String SQL = "UPDATE notice SET view = view + 1 WHERE noticeId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, noticeId);
             preparedStatement.executeUpdate();
