@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="8d8e25cd-30ee-4561-8419-e73f11e87259">
+    <data-source source="LOCAL" name="smart_parking@localhost" uuid="d361fe9e-d9a2-465f-84c5-4680b069126e">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
