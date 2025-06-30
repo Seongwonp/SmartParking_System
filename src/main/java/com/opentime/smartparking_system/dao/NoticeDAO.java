@@ -3,7 +3,6 @@ package com.opentime.smartparking_system.dao;
 import com.opentime.smartparking_system.model.vo.NoticeVO;
 import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
-import com.opentime.smartparking_system.util.ConnectionUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
