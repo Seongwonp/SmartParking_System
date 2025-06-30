@@ -1,6 +1,7 @@
 package com.opentime.smartparking_system.dao;
 
 import com.opentime.smartparking_system.model.vo.NoticeVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 import com.opentime.smartparking_system.util.ConnectionUtil;
 import java.sql.Connection;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeDAO {
-
 
     public List<NoticeVO> getListNotice(int offset, int limit) {
         String SQL = "SELECT * FROM notice ORDER BY isPinned DESC, createdAt DESC LIMIT ?,?";
@@ -95,7 +95,6 @@ public class NoticeDAO {
         }
         return noticeVOList;
     }
-
 
     public int getNoticeCount() {
         String SQL = "SELECT COUNT(*) FROM notice";

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public enum ConnectionUtil {
+
    INSTANCE;
    private final HikariDataSource dataSource;
 
@@ -15,7 +16,7 @@ public enum ConnectionUtil {
        config.setDriverClassName("org.mariadb.jdbc.Driver");
        config.setJdbcUrl("jdbc:mariadb://localhost:3306/smartParking");
        config.setUsername("root");
-       config.setPassword("0327");
+       config.setPassword("4464");
        config.addDataSourceProperty("cachePrepStmts", "true");
        config.addDataSourceProperty("prepStmtCacheSize", "250");
        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
