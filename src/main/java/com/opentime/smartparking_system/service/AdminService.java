@@ -191,21 +191,43 @@ public enum AdminService {
 
 
 
-
-
     /* *********************** 공지사항 관리 ******************************* */
-    public boolean updateNotice(NoticeDTO noticeDTO){
-        log.info("updateNotice called with NoticeDTO: {}", noticeDTO);
+    // 전체 혹은 검색된 공지 리스트
+    public List<NoticeDTO> getNoticeList(String keyword) {
+        List<NoticeVO> voList = adminDAONotice.getListNotice(keyword);
+        if (voList == null) {
+            return new ArrayList<>();
+        }
+        List<NoticeDTO> dtoList = new ArrayList<>();
+        for (NoticeVO vo : voList) {
+            NoticeDTO dto = modelMapper.map(vo, NoticeDTO.class);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    // 공지 단건 조회
+    public NoticeVO getNoticeById(int noticeId) {
+        return adminDAONotice.getNoticeById(noticeId);
+    }
+
+    // 공지 등록
+    public boolean insertNotice(NoticeDTO noticeDTO) {
+        if(noticeDTO == null) return false;
+        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
+        return adminDAONotice.insertNotice(noticeVO);
+    }
+
+    // 공지 수정
+    public boolean updateNotice(NoticeDTO noticeDTO) {
         if(noticeDTO == null) return false;
         NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
         return adminDAONotice.updateNotice(noticeVO);
     }
 
-    public boolean deleteNotice(int id){
-        log.info("deleteNotice called with id: {}", id);
-        if(adminDAONotice.getNoticeById(id) == null) return false;
-        return adminDAONotice.deleteNotice(id);
+    // 공지 삭제
+    public boolean deleteNotice(int noticeId) {
+        return adminDAONotice.deleteNotice(noticeId);
     }
-
 
 }

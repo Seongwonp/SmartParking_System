@@ -57,7 +57,7 @@
                 <a class="nav-link
        ${currentPage eq 'noticeManage' ? 'active text-white fw-bold' : 'text-secondary'}
        d-flex align-items-center"
-                   href="${pageContext.request.contextPath}/admin/noticeManage">
+                   href="${pageContext.request.contextPath}/admin/notice/list">
                     <i class="fas fa-bullhorn me-2"></i>
                     공지사항 등록/수정
                 </a>

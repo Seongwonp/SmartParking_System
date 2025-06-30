@@ -32,7 +32,7 @@ public class NoticeInfoServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/views/error/NOT_FOUND.jsp").forward(req, resp);
                 return;
             }
-
+            noticeService.addView(noticeId);
             req.setAttribute("notice", notice);
             req.getRequestDispatcher("/WEB-INF/views/notice/noticeInfo.jsp").forward(req, resp);
         } catch (NumberFormatException e) {
