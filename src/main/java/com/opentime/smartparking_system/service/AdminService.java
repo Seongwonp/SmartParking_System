@@ -5,11 +5,12 @@ import com.opentime.smartparking_system.model.dto.*;
 import com.opentime.smartparking_system.model.vo.*;
 import com.opentime.smartparking_system.util.MapperUtil;
 import com.opentime.smartparking_system.util.PasswordUtil;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Log4j2
 public enum AdminService {
     INSTANCE;
 
@@ -17,11 +18,13 @@ public enum AdminService {
     private final AdminDAO_user adminDAOUser;
     private final AdminDAO_fee adminDAOFee;
     private final AdminDAO_discount adminDAODiscount;
+    private final AdminDAO_notice adminDAONotice;
 
     AdminService() {
         adminDAOUser = new AdminDAO_user();
         adminDAOFee = new AdminDAO_fee();
         adminDAODiscount = new AdminDAO_discount();
+        adminDAONotice = new AdminDAO_notice();
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
     }
 
@@ -184,6 +187,24 @@ public enum AdminService {
             return false;
         }
         return adminDAODiscount.deleteDiscount(discountId);
+    }
+
+
+
+
+
+    /* *********************** 공지사항 관리 ******************************* */
+    public boolean updateNotice(NoticeDTO noticeDTO){
+        log.info("updateNotice called with NoticeDTO: {}", noticeDTO);
+        if(noticeDTO == null) return false;
+        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
+        return adminDAONotice.updateNotice(noticeVO);
+    }
+
+    public boolean deleteNotice(int id){
+        log.info("deleteNotice called with id: {}", id);
+        if(adminDAONotice.getNoticeById(id) == null) return false;
+        return adminDAONotice.deleteNotice(id);
     }
 
 

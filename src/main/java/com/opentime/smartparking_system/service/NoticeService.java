@@ -57,18 +57,6 @@ public enum NoticeService {
         return noticeDTOList;
     }
 
-    public boolean updateNotice(NoticeDTO noticeDTO){
-        log.info("updateNotice called with NoticeDTO: {}", noticeDTO);
-        if(noticeDTO == null) return false;
-        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
-        return noticeDAO.updateNotice(noticeVO);
-    }
-
-    public boolean deleteNotice(int id){
-        log.info("deleteNotice called with id: {}", id);
-        if(noticeDAO.getNoticeById(id) == null) return false;
-        return noticeDAO.deleteNotice(id);
-    }
 
     public int getTotalNoticeCount() {
         return noticeDAO.getNoticeCount();
