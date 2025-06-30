@@ -119,6 +119,13 @@ public enum AdminService {
 
 
     /* *********************** 요금제 관리 ******************************* */
+
+    public boolean insertFee(FeePolicyDTO feePolicyDTO) {
+        if(feePolicyDTO == null) return false;
+        FeePolicyVO feePolicyVO = modelMapper.map(feePolicyDTO, FeePolicyVO.class);
+        return adminDAOFee.insertFee(feePolicyVO);
+    }
+
     public List<FeePolicyDTO> getListFeePolicy() {
         List<FeePolicyVO> ListVO = adminDAOFee.selectAllFee();
         if (ListVO == null || ListVO.isEmpty()) {

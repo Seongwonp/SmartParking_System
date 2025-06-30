@@ -13,6 +13,26 @@ import java.util.List;
 
 public class AdminDAO_fee {
 
+    public boolean insertFee(FeePolicyVO feePolicyVO) {
+        String SQL = "INSERT INTO feePolicy(policyName, baseTime, baseFee, additionalTime, additionalFee, dailyMaxFee) VALUES (?,?,?,?,?,?)";
+        FeePolicyVO vo = null;
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, feePolicyVO.getPolicyName());
+            preparedStatement.setLong(2, feePolicyVO.getBaseTime());
+            preparedStatement.setLong(3, feePolicyVO.getBaseFee());
+            preparedStatement.setLong(4, feePolicyVO.getAdditionalTime());
+            preparedStatement.setLong(5, feePolicyVO.getAdditionalFee());
+            preparedStatement.setLong(6, feePolicyVO.getDailyMaxFee());
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     public List<FeePolicyVO> selectAllFee() {
         String SQL = "SELECT * FROM feePolicy";
         List<FeePolicyVO> feeList = new ArrayList<>();

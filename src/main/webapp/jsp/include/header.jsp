@@ -1,52 +1,51 @@
 <%@ page import="com.opentime.smartparking_system.model.dto.UserDTO" %>
-<%@ page import="com.sun.jna.platform.win32.Netapi32Util" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand mx-auto" href="${pageContext.request.contextPath}/index_public.jsp">
-            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" id="title_img"
-                 height="80">
-        </a>
-        <span id="headerClock" class="fs-5 fw-semibold ms-3 align-self-center"></span>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom shadow-sm">
+    <div class="container-fluid">
+        <!-- 로고 -->
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/index_public.jsp">
+            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="50" class="d-inline-block align-text-top" />
+        </a>
+
+        <!-- 햄버거 버튼 -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
-            <ul class="navbar-nav mx-auto">
 
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- 중앙 네비 메뉴 -->
+            <ul class="navbar-nav mx-auto fw-semibold fs-6">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/intro.jsp" id="parkingInfoDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         이용안내
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="parkingInfoDropdown">
+                    <ul class="dropdown-menu shadow-sm">
                         <li><a class="dropdown-item" href="/intro.jsp">주차장 소개</a></li>
                         <li><a class="dropdown-item" href="/guide.jsp">주차 안내</a></li>
                         <li><a class="dropdown-item" href="/location.jsp">오시는 길</a></li>
                     </ul>
                 </li>
 
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/fee/list" id="priceDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         이용요금
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="priceDropdown">
+                    <ul class="dropdown-menu shadow-sm">
                         <li><a class="dropdown-item" href="/fee/list">요금제 안내</a></li>
                         <li><a class="dropdown-item" href="/fee/list#discount-info">할인 정보</a></li>
                     </ul>
                 </li>
-
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/contact.jsp" id="supportDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         고객지원
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="supportDropdown">
+                    <ul class="dropdown-menu shadow-sm">
                         <li><a class="dropdown-item" href="/contact.jsp">문의하기</a></li>
                         <li><a class="dropdown-item" href="/faq.jsp">자주 묻는 질문</a></li>
                     </ul>
@@ -56,40 +55,45 @@
                     <a class="nav-link" href="/notice/list">공지사항</a>
                 </li>
             </ul>
-            <%
-                UserDTO user = (UserDTO) session.getAttribute("user");
-            %>
 
-            <ul class="navbar-nav">
-                <% if (user == null) { %>
+            <!-- 오른쪽 시계 -->
+            <span id="headerClock" class="me-3 fw-semibold text-dark fs-6 align-self-center"></span>
+
+            <!-- 오른쪽 로그인/회원가입 or 유저메뉴 -->
+            <ul class="navbar-nav fw-semibold fs-6">
+                <%
+                    UserDTO user = (UserDTO) session.getAttribute("user");
+                    if (user == null) {
+                %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Log In</a>
+                    <a class="nav-link text-secondary" href="/login">Log In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/signup">Sign Up</a>
+                    <a class="nav-link text-secondary" href="/user/signup">Sign Up</a>
                 </li>
                 <% } else { %>
                 <li class="nav-item">
-                <a class="nav-link text-primary fw-normal fs-7" href="#" tabindex="-1" aria-disabled="true" style="cursor: default;">
-                    <%= user.getName() %>님 환영합니다.
-                </a>
+                    <a class="nav-link text-primary" href="#" tabindex="-1" aria-disabled="true" style="cursor: default;">
+                        <%= user.getName() %>님 환영합니다.
+                    </a>
                 </li>
                 <% if ("ADMIN".equals(user.getRole())) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin/main">관리자 페이지</a>
+                    <a class="nav-link text-secondary" href="/admin/main">관리자 페이지</a>
                 </li>
                 <% } %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/jsp/user/myPageHome">마이페이지</a>
+                    <a class="nav-link text-secondary" href="/jsp/user/myPageHome">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="logoutLink" href="#">Logout</a>
+                    <a class="nav-link text-secondary" id="logoutLink" href="#">Logout</a>
                 </li>
                 <% } %>
             </ul>
         </div>
     </div>
 </nav>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const dropdownIds = [
@@ -117,18 +121,17 @@
             });
         }
 
-        // 시간 출력
+        // 시계 출력
         function updateClock() {
             const now = new Date();
             function pad(n) {
                 return n.toString().padStart(2, '0');
             }
-            document.getElementById('headerClock').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+            document.getElementById('headerClock').textContent =
+                pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
         }
 
-
-            updateClock(); // 처음 바로 표시
-            setInterval(updateClock, 1000); // 1초마다 갱신
-
+        updateClock();
+        setInterval(updateClock, 1000);
     });
 </script>

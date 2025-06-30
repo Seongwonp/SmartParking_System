@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<nav id="sidebarMenu" class="d-md-block bg-dark sidebar vh-100 position-fixed"
-     style="top: 106px; width: 250px; height: calc(100vh - 106px);">
-    <div class="position-sticky pt-3">
+<nav id="sidebarMenu"
+     class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse"
+     style="height: calc(100vh - 106px); width: 250px;">
+    <div class="position-sticky pt-3" style="top: 106px;">
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link
@@ -55,7 +56,7 @@
 
             <li class="nav-item">
                 <a class="nav-link
-       ${currentPage eq 'noticeManage' ? 'active text-white fw-bold' : 'text-secondary'}
+       ${currentPage eq 'noticeList' ? 'active text-white fw-bold' : 'text-secondary'}
        d-flex align-items-center"
                    href="${pageContext.request.contextPath}/admin/notice/list">
                     <i class="fas fa-bullhorn me-2"></i>
