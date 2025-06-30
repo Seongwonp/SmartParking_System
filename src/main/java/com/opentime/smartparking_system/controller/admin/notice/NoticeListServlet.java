@@ -27,6 +27,7 @@ public class NoticeListServlet extends HttpServlet {
 
         req.setAttribute("noticeList", noticeList);
         req.setAttribute("keyword", keyword);
+        req.setAttribute("currentPage", "noticeList"); // 사이드바 설정
 
         req.getRequestDispatcher("/WEB-INF/jsp/admin/notice/noticeList.jsp").forward(req, resp);
     }
