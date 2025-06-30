@@ -37,7 +37,7 @@
         /*회원정보수정 */
         .modifyInfo {
             width: 450px;
-            height: 550px;
+            height: 100%;
             padding: 30px;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -142,13 +142,14 @@
         <div class="modifyInfo">
             <h2 class="mb-3">회원정보수정</h2>
             <form name="frmModifyMember" action="${pageContext.request.contextPath}/user/myPageModify"  method="post">
+                <input type="hidden" name="userId" value="${userinfo.getUserId()}" />
                 <div class="input-group">
                     <i class="fa-solid fa-envelope icon"></i>  <!-- 이메일 아이콘 -->
                     <input type="email" id="userName" name="userName" class="form-control" value="${userinfo.getUserName()}">
                 </div>
                 <div class="input-group">
                     <i class="fa-solid fa-lock icon"></i>      <!-- 자물쇠 아이콘 -->
-                    <input type="password" id="passwd" name="passwd" class="form-control" value="${userinfo.getPassword()}">
+                    <input type="password" id="password" name="password" class="form-control" value="${userinfo.getPassword()}">
                 </div>
                 <div class="input-group">
                     <i class="fa-solid fa-lock icon"></i>      <!-- 자물쇠 아이콘 -->
