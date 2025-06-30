@@ -1,4 +1,4 @@
-package com.opentime.smartparking_system.controller.admin;
+package com.opentime.smartparking_system.controller.admin.adminUser;
 
 import com.opentime.smartparking_system.model.dto.UserDTO;
 import com.opentime.smartparking_system.service.AdminService;

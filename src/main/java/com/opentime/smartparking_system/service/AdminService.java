@@ -1,8 +1,8 @@
 package com.opentime.smartparking_system.service;
 
-import com.opentime.smartparking_system.dao.admin.AdminDAO_user;
-import com.opentime.smartparking_system.model.dto.UserDTO;
-import com.opentime.smartparking_system.model.vo.UserVO;
+import com.opentime.smartparking_system.dao.admin.*;
+import com.opentime.smartparking_system.model.dto.*;
+import com.opentime.smartparking_system.model.vo.*;
 import com.opentime.smartparking_system.util.MapperUtil;
 import com.opentime.smartparking_system.util.PasswordUtil;
 import org.modelmapper.ModelMapper;
@@ -15,9 +15,13 @@ public enum AdminService {
 
     private final ModelMapper modelMapper;
     private final AdminDAO_user adminDAOUser;
+    private final AdminDAO_fee adminDAOFee;
+    private final AdminDAO_discount adminDAODiscount;
 
     AdminService() {
         adminDAOUser = new AdminDAO_user();
+        adminDAOFee = new AdminDAO_fee();
+        adminDAODiscount = new AdminDAO_discount();
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
     }
 
@@ -107,4 +111,80 @@ public enum AdminService {
     public boolean deleteAdmin(int userId) {
         return adminDAOUser.deleteAdmin(userId);
     }
+
+
+
+
+    /* *********************** 요금제 관리 ******************************* */
+    public List<FeePolicyDTO> getListFeePolicy() {
+        List<FeePolicyVO> ListVO = adminDAOFee.selectAllFee();
+        if (ListVO == null || ListVO.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<FeePolicyDTO> dtoList = new ArrayList<>();
+        for (FeePolicyVO vo : ListVO) {
+            FeePolicyDTO dto = modelMapper.map(vo, FeePolicyDTO.class);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+
+    public FeePolicyDTO getFeePolicyById(int policyId) {
+        FeePolicyVO vo = adminDAOFee.selectFeePolicyById(policyId);
+        if (vo == null) {
+            return null;
+        }
+        return modelMapper.map(vo, FeePolicyDTO.class);
+    }
+
+    public boolean updateFeePolicy(FeePolicyDTO feePolicyDTO) {
+        if(feePolicyDTO == null) return false;
+        return adminDAOFee.updateFeePolicy(modelMapper.map(feePolicyDTO, FeePolicyVO.class));
+    }
+
+
+
+
+    /* *********************** 할인 정책 관리 ******************************* */
+
+    public List<DiscountPolicyDTO> getListDiscountPolicy() {
+        List<DiscountPolicyVO> listVO = adminDAODiscount.selectAllDiscount();
+        if (listVO == null || listVO.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<DiscountPolicyDTO> dtoList = new ArrayList<>();
+        for (DiscountPolicyVO vo : listVO) {
+            DiscountPolicyDTO dto = modelMapper.map(vo, DiscountPolicyDTO.class);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    public DiscountPolicyDTO getDiscountPolicyById(int discountId) {
+        DiscountPolicyVO vo = adminDAODiscount.selectDiscountById(discountId);
+        if (vo == null) {
+            return null;
+        }
+        return modelMapper.map(vo, DiscountPolicyDTO.class);
+    }
+
+    public boolean updateDiscountPolicy(DiscountPolicyDTO discountPolicyDTO) {
+        if(discountPolicyDTO == null) return false;
+        return adminDAODiscount.updateDiscount(modelMapper.map(discountPolicyDTO, DiscountPolicyVO.class));
+    }
+
+    public boolean insertDiscountPolicy(DiscountPolicyDTO discountPolicyDTO) {
+        if (discountPolicyDTO == null) return false;
+        return adminDAODiscount.insertDiscount(modelMapper.map(discountPolicyDTO, DiscountPolicyVO.class));
+    }
+
+    public boolean deleteDiscountPolicy(int discountId) {
+        if (discountId == 1) {
+            return false;
+        }
+        return adminDAODiscount.deleteDiscount(discountId);
+    }
+
+
 }
