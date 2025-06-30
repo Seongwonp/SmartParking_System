@@ -1,6 +1,6 @@
 package com.opentime.smartparking_system.dao.admin;
 
-import com.opentime.smartparking_system.dao.ConnectionUtill;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import com.opentime.smartparking_system.model.vo.UserVO;
 import lombok.Cleanup;
 
@@ -18,7 +18,7 @@ public class AdminDAO_user {
     public int getTotalMemberCount() {
         String SQL = "SELECT COUNT(*) FROM user";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -34,7 +34,7 @@ public class AdminDAO_user {
     public int getSubscriptionMemberCount() {
         String SQL = "SELECT COUNT(*) FROM user WHERE isSubscription = TRUE";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -53,7 +53,7 @@ public class AdminDAO_user {
         List<UserVO> list = new ArrayList<>();
 
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -85,7 +85,7 @@ public class AdminDAO_user {
         String SQL = "SELECT userId, userName, name, phone, role, isSubscription, subscriptionStart, subscriptionEnd, joinDate FROM user WHERE role = 'ADMIN' ORDER BY joinDate";
         List<UserVO> list = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -116,7 +116,7 @@ public class AdminDAO_user {
                 "WHERE role = 'ADMIN' AND (userName LIKE ? OR name LIKE ?) ORDER BY joinDate";
         List<UserVO> list = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, "%" + keyword + "%");
             preparedStatement.setString(2, "%" + keyword + "%");
@@ -150,7 +150,7 @@ public class AdminDAO_user {
         String SQL = "SELECT * FROM user WHERE userId = ? AND role = 'ADMIN'";
         UserVO user = null;
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, userId);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -181,7 +181,7 @@ public class AdminDAO_user {
         String SQL = "INSERT INTO user (userName, password, name, phone, role) " +
                 "VALUES (?, ?, ?, ?, 'ADMIN')";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, userVO.getUserName());
             preparedStatement.setString(2, userVO.getPassword());
@@ -197,7 +197,7 @@ public class AdminDAO_user {
     public boolean deleteAdmin(int userId) {
         String SQL = "DELETE FROM user WHERE userId = ? AND role = 'ADMIN'";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, userId);
             return preparedStatement.executeUpdate() > 0;
@@ -210,7 +210,7 @@ public class AdminDAO_user {
     public boolean updateAdmin(UserVO userVO) {
         String SQL = "UPDATE user SET userName = ?, password = ?, name = ?, phone = ? WHERE userId = ? AND role = 'ADMIN'";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, userVO.getUserName());
             preparedStatement.setString(2, userVO.getPassword());
@@ -227,7 +227,7 @@ public class AdminDAO_user {
     public boolean isUserIdDuplicate(String userName) {
         String sql = "SELECT COUNT(*) FROM user WHERE userName = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();

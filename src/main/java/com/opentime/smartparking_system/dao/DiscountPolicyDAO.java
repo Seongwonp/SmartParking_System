@@ -1,6 +1,7 @@
 package com.opentime.smartparking_system.dao;
 
 import com.opentime.smartparking_system.model.vo.DiscountPolicyVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ public class DiscountPolicyDAO {
     public boolean insertDiscount(DiscountPolicyVO discountPolicyVO) {
         String SQL = "INSERT INTO discountPolicy(type, description, rate) VALUES (?, ?, ?)";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, discountPolicyVO.getType());
             preparedStatement.setString(2, discountPolicyVO.getDescription());
@@ -30,7 +31,7 @@ public class DiscountPolicyDAO {
         String SQL = "SELECT * FROM discountPolicy";
         List<DiscountPolicyVO> discountList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -52,7 +53,7 @@ public class DiscountPolicyDAO {
         String SQL = "SELECT * FROM discountPolicy WHERE discountId = ?";
         DiscountPolicyVO discount = null;
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, id);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -73,7 +74,7 @@ public class DiscountPolicyDAO {
     public boolean updateDiscount(DiscountPolicyVO discountPolicyVO) {
         String SQL = "UPDATE discountPolicy SET type = ?, description = ?, rate = ? WHERE discountId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, discountPolicyVO.getType());
             preparedStatement.setString(2, discountPolicyVO.getDescription());
@@ -88,7 +89,7 @@ public class DiscountPolicyDAO {
     public boolean deleteDiscountById(int id) {
         String SQL = "DELETE FROM discountPolicy WHERE discountId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, id);
             return preparedStatement.executeUpdate() > 0;

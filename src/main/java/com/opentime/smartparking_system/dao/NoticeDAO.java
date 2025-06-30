@@ -1,6 +1,7 @@
 package com.opentime.smartparking_system.dao;
 
 import com.opentime.smartparking_system.model.vo.NoticeVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -12,12 +13,11 @@ import java.util.List;
 
 public class NoticeDAO {
 
-
     public List<NoticeVO> getListNotice(int offset, int limit) {
         String SQL = "SELECT * FROM notice ORDER BY isPinned DESC, createdAt DESC LIMIT ?,?";
         List<NoticeVO> noticeVOList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, offset);
             preparedStatement.setInt(2, limit);
@@ -45,7 +45,7 @@ public class NoticeDAO {
         String SQL = "SELECT * FROM notice WHERE noticeId = ?";
         NoticeVO noticeVO = null;
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, noticeId);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -71,7 +71,7 @@ public class NoticeDAO {
         String SQL = "SELECT * FROM notice WHERE title LIKE ? ORDER BY isPinned DESC, createdAt DESC LIMIT ?, ?";
         List<NoticeVO> noticeVOList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, "%" + text + "%");
             preparedStatement.setInt(2, offset);
@@ -96,11 +96,10 @@ public class NoticeDAO {
         return noticeVOList;
     }
 
-
     public int getNoticeCount() {
         String SQL = "SELECT COUNT(*) FROM notice";
         try{
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
@@ -115,7 +114,7 @@ public class NoticeDAO {
     public int getSearchNoticeCount(String text) {
         String SQL = "SELECT COUNT(*) FROM notice WHERE title LIKE ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, "%" + text + "%");
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
