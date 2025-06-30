@@ -86,7 +86,7 @@ public class UserDAO {
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userVO.getUserName());
             preparedStatement.setString(2, userVO.getPassword());
-            preparedStatement.setString(3, userVO.getName());
+            preparedStatement.setString(3, userVO.getName()); 
             preparedStatement.setString(4, userVO.getPhone());
             preparedStatement.setInt(5, userVO.getUserId());
 
