@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -74,6 +75,7 @@
             <thead class="table-secondary">
             <tr>
                 <th scope="col">번호</th>
+                <th scope="col">고정</th>
                 <th scope="col">제목</th>
                 <th scope="col">작성자</th>
                 <th scope="col">조회수</th>
@@ -84,16 +86,16 @@
             <tbody>
             <c:forEach var="notice" items="${noticeList}" varStatus="status">
                 <tr>
+                    <td>${notice.noticeId}</td>
                     <td>
-                        <c:if test="${notice.isPinned == 1}">
-                            <span class="pinned">[고정]</span>
+                        <c:if test="${notice.pinned}">
+                            <span class="badge bg-danger text-white">고정</span>
                         </c:if>
-                            ${notice.noticeId}
                     </td>
-                    <td>${notice.title}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/notice/modify?noticeId=${notice.noticeId}">${notice.title}</a></td>
                     <td>${notice.writer}</td>
                     <td>${notice.view}</td>
-                    <td><fmt:formatDate value="${notice.createdAt}" pattern="yyyy-MM-dd HH:mm"/></td>
+                    <td>${notice.createdAt}</td>
                     <td>
                         <form action="${pageContext.request.contextPath}/admin/notice/delete" method="post" style="display:inline;">
                             <input type="hidden" name="noticeId" value="${notice.noticeId}" />
@@ -105,7 +107,7 @@
             </c:forEach>
             <c:if test="${empty noticeList}">
                 <tr>
-                    <td colspan="6" class="text-center">공지사항이 없습니다.</td>
+                    <td colspan="7" class="text-center">공지사항이 없습니다.</td>
                 </tr>
             </c:if>
             </tbody>

@@ -5,6 +5,6 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @WebServlet(value="/admin/notice/add")
-public class NoticeAddService {
+public class NoticeAddServlet {
 
 }

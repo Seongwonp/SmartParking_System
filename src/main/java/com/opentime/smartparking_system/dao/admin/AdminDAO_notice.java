@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDAO_notice {
     public boolean insertNotice(NoticeVO noticeVO) {
@@ -22,6 +24,47 @@ public class AdminDAO_notice {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<NoticeVO> getListNotice(String keyword) {
+        String SQL = "SELECT * FROM notice";
+        List<NoticeVO> noticeVOList = new ArrayList<>();
+
+        // 검색 조건
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            SQL += " WHERE title LIKE ? OR writer LIKE ?";
+        }
+        SQL += " ORDER BY isPinned DESC, createdAt DESC";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(SQL);
+
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                String search = "%" + keyword.trim() + "%";
+                pstmt.setString(1, search);
+                pstmt.setString(2, search);
+            }
+
+            @Cleanup ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                NoticeVO noticeVO = NoticeVO.builder()
+                        .noticeId(rs.getInt("noticeId"))
+                        .title(rs.getString("title"))
+                        .writer(rs.getString("writer"))
+                        .content(rs.getString("content"))
+                        .view(rs.getInt("view"))
+                        .createdAt(rs.getString("createdAt"))
+                        .updatedAt(rs.getString("updatedAt"))
+                        .pinned(rs.getBoolean("isPinned"))
+                        .build();
+                noticeVOList.add(noticeVO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return noticeVOList;
     }
 
 
@@ -42,6 +85,7 @@ public class AdminDAO_notice {
                         .view(resultSet.getInt("view"))
                         .createdAt(resultSet.getString("createdAt"))
                         .updatedAt(resultSet.getString("updatedAt"))
+                        .pinned(resultSet.getBoolean("isPinned"))
                         .build();
             }
         } catch (SQLException e) {
