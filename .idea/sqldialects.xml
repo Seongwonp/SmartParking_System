@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/MonthlySubscription.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/ParkingRecord.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/car.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/discountDB.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/feeDB.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/noticeDB.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/opentime/smartparking_system/DB/userDB.sql" dialect="MariaDB" />
+  </component>
+</project>

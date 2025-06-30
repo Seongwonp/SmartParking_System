@@ -1,6 +1,7 @@
 package com.opentime.smartparking_system.dao;
 
 import com.opentime.smartparking_system.model.vo.NoticeVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ public class NoticeDAO {
     public boolean insertNotice(NoticeVO noticeVO) {
         String SQL = "INSERT INTO notice(title, content, writer) VALUES (?,?,?)";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, noticeVO.getTitle());
             preparedStatement.setString(2, noticeVO.getContent());
@@ -30,7 +31,7 @@ public class NoticeDAO {
         String SQL = "SELECT * FROM notice ORDER BY isPinned DESC, createdAt DESC LIMIT ?,?";
         List<NoticeVO> noticeVOList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, offset);
             preparedStatement.setInt(2, limit);
@@ -58,7 +59,7 @@ public class NoticeDAO {
         String SQL = "SELECT * FROM notice WHERE noticeId = ?";
         NoticeVO noticeVO = null;
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, noticeId);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -84,7 +85,7 @@ public class NoticeDAO {
         String SQL = "SELECT * FROM notice WHERE title LIKE ? ORDER BY isPinned DESC, createdAt DESC LIMIT ?, ?";
         List<NoticeVO> noticeVOList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, "%" + text + "%");
             preparedStatement.setInt(2, offset);
@@ -112,7 +113,7 @@ public class NoticeDAO {
     public boolean updateNotice(NoticeVO noticeVO) {
         String SQL = "UPDATE notice SET  title = ?, content = ? WHERE noticeId=?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, noticeVO.getTitle());
             preparedStatement.setString(2, noticeVO.getContent());
@@ -126,7 +127,7 @@ public class NoticeDAO {
     public boolean deleteNotice(int noticeId) {
         String SQL = "DELETE FROM notice WHERE noticeId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, noticeId);
             return preparedStatement.executeUpdate() > 0;
@@ -138,7 +139,7 @@ public class NoticeDAO {
     public int getNoticeCount() {
         String SQL = "SELECT COUNT(*) FROM notice";
         try{
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
@@ -153,7 +154,7 @@ public class NoticeDAO {
     public int getSearchNoticeCount(String text) {
         String SQL = "SELECT COUNT(*) FROM notice WHERE title LIKE ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, "%" + text + "%");
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();

@@ -2,14 +2,13 @@ package com.opentime.smartparking_system.dao;
 
 
 import com.opentime.smartparking_system.model.vo.UserVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserDAO {
 
@@ -18,7 +17,7 @@ public class UserDAO {
     public boolean insertUser(UserVO user) {
         String sql = "INSERT INTO user (userName, password, name, phone,joinDate) VALUES (?, ?, ?, ?, NOW())";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
             preparedStatement.setString(2, user.getPassword());
@@ -35,7 +34,7 @@ public class UserDAO {
     public UserVO findByUserName(String userName) {
         String sql = "SELECT * FROM user WHERE userName = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -64,7 +63,7 @@ public class UserDAO {
     public boolean isUserIdDuplicate(String userName) {
         String sql = "SELECT COUNT(*) FROM user WHERE userName = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -83,7 +82,7 @@ public class UserDAO {
     public boolean updateUser(UserVO userVO) {
         String sql = "UPDATE user SET userName= ?, password = ?, name = ?, phone = ? WHERE userId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userVO.getUserName());
             preparedStatement.setString(2, userVO.getPassword());
@@ -102,7 +101,7 @@ public class UserDAO {
     public boolean deleteUser(String userName) {
         String sql = "DELETE FROM user WHERE userName = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
 

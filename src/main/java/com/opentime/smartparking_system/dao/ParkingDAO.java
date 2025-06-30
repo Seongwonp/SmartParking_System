@@ -1,4 +1,87 @@
 package com.opentime.smartparking_system.dao;
 
+import com.opentime.smartparking_system.model.vo.ParkingVO;
+import com.opentime.smartparking_system.util.ConnectionUtil;
+import lombok.Cleanup;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingDAO {
+
+    // 입차 등록 (출차 전까지는 exitTime, fee는 NULL / isExited=false)
+    public boolean insertEntry(ParkingVO parking) {
+        String sql = "INSERT INTO parkingRecord (carId, entryTime, isExited) VALUES (?, ?, false)";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, parking.getCarId());
+            pstmt.setTimestamp(2, parking.getEntryTime());
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 출차 처리
+    public boolean updateExitInfo(ParkingVO parking) {
+        String sql = "UPDATE parkingRecord SET exitTime = ?, fee = ?, isExited = true WHERE recordId = ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setTimestamp(1, parking.getExitTime());
+            pstmt.setLong(2, parking.getFee());
+            pstmt.setInt(3, parking.getRecordId());
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // 출차되지 않은 최근 입차 기록 조회 (차량 1대 기준)
+    public ParkingVO findActiveEntryByCarId(int carId) {
+        String sql = "SELECT * FROM parkingRecord WHERE carId = ? AND isExited = false ORDER BY entryTime DESC LIMIT 1";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, carId);
+            @Cleanup ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return ParkingVO.builder()
+                        .recordId(rs.getInt("recordId"))
+                        .carId(rs.getInt("carId"))
+                        .entryTime(rs.getTimestamp("entryTime"))
+                        .exitTime(rs.getTimestamp("exitTime"))
+                        .fee((long) rs.getInt("fee")) // ✅ 명시적 형변환
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    // 전체 주차 기록 목록
+    public List<ParkingVO> findAllRecords() {
+        String sql = "SELECT * FROM parkingRecord ORDER BY entryTime DESC";
+        List<ParkingVO> list = new ArrayList<>();
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(sql);
+            @Cleanup ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                list.add(ParkingVO.builder()
+                        .recordId(rs.getInt("recordId"))
+                        .carId(rs.getInt("carId"))
+                        .entryTime(rs.getTimestamp("entryTime"))
+                        .exitTime(rs.getTimestamp("exitTime"))
+                        .fee((long) rs.getInt("fee")) // ✅ 여기도 형변환 적용
+                        .build());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
 }
