@@ -15,9 +15,9 @@
 
             <li class="nav-item">
                 <a class="nav-link
-       ${currentPage eq 'feePolicy' ? 'active text-white fw-bold' : 'text-secondary'}
+       ${currentPage eq 'feePolicyList' ? 'active text-white fw-bold' : 'text-secondary'}
        d-flex align-items-center"
-                   href="${pageContext.request.contextPath}/admin/feePolicy">
+                   href="${pageContext.request.contextPath}/admin/feePolicy/list">
                     <i class="fas fa-money-bill-wave me-2"></i>
                     요금 정책 관리
                 </a>
@@ -25,9 +25,9 @@
 
             <li class="nav-item">
                 <a class="nav-link
-       ${currentPage eq 'discountPolicy' ? 'active text-white fw-bold' : 'text-secondary'}
+       ${currentPage eq 'discountPolicyList' ? 'active text-white fw-bold' : 'text-secondary'}
        d-flex align-items-center"
-                   href="${pageContext.request.contextPath}/admin/discountPolicy">
+                   href="${pageContext.request.contextPath}/admin/discountPolicy/list">
                     <i class="fas fa-tags me-2"></i>
                     할인 정책 관리
                 </a>

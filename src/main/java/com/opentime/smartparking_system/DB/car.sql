@@ -1,7 +1,13 @@
 create table car
 (
-    carId	INT AUTO_INCREMENT primary key,
-    userId	INT,
-    carNumber VARCHAR(20)	UNIQUE,
-    carType	ENUM('일반','경차','장애인')	NOT NULL
-)
+    carId     int auto_increment
+        primary key,
+    userId    int                      null,
+    carNumber varchar(20)              null,
+    carType   enum ('일반', '경차', '장애인') not null,
+    carModel  varchar(30)               not null,
+    constraint carNumber
+        unique (carNumber),
+    constraint userId
+        foreign key (userId) references smartparking.user (userId)
+);
