@@ -83,11 +83,6 @@
             <td>28나0625</td>
             <td>VENUS</td>
         </tr>
-        <tr>
-            <td>4</td>
-            <td>123가4567</td>
-            <td>Lamborghini</td>
-        </tr>
         </tbody>
     </table>
 </div>
