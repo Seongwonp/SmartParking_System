@@ -4,12 +4,6 @@ CREATE TABLE discountPolicy (
                                 description VARCHAR(255),
                                 rate INT NOT NULL
 );
-
-INSERT INTO discountPolicy (type, description, rate)
-VALUES
-  ('장애인', '장애인 등록 차량은 주차 요금의 50% 할인', 50),
-  ('경차', '경형 차량은 주차 요금의 30% 할인', 30);
-
 INSERT INTO discountPolicy (type, description, rate)
 VALUES
     (

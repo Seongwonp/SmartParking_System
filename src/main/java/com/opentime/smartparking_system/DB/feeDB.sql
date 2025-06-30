@@ -1,4 +1,4 @@
-CREATE TABLE fee
+CREATE TABLE feePolicy
 (
     policyId       INT AUTO_INCREMENT PRIMARY KEY,
     policyName     VARCHAR(50) NOT NULL,
