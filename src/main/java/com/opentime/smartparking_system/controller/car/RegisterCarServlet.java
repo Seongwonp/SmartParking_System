@@ -1,9 +1,9 @@
 package com.opentime.smartparking_system.controller.car;
 
-import com.opentime.smartparking_system.dao.CarDAO;
-import com.opentime.smartparking_system.dao.ConnectionUtill;
+
 import com.opentime.smartparking_system.model.dto.CarDTO;
 import com.opentime.smartparking_system.model.dto.UserDTO;
+import com.opentime.smartparking_system.service.CarService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,13 +11,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Connection;
+import java.sql.SQLException;
 
 @WebServlet("/user/myPageCarForm")
 public class RegisterCarServlet extends HttpServlet {
+    private final CarService carService = CarService.INSTANCE;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+       //차량 등록 페이지로 차량 정보 전달
+        CarDTO carDTO = (CarDTO) req.getAttribute("carDTO");
+
+        if (carDTO != null) {
+            String carId = String.valueOf(carDTO.getCarId());
+            try {
+                CarDTO carinfo = carService.getCarInfo(carId);
+                req.setAttribute("carinfo", carinfo);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        req.getRequestDispatcher("/WEB-INF/jsp/user/myPageCarForm.jsp").forward(req, resp);
     }
 
     @Override
@@ -40,12 +54,12 @@ public class RegisterCarServlet extends HttpServlet {
         carDTO.setCarType(carType);
 
         try {
-
-            // 등록 후 차량 목록으로 이동
-            resp.sendRedirect(req.getContextPath() + "/user/myPageCarList");
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("errorMessage", "서버 오류가 발생했습니다.");
+            carService.addCar(carDTO);
+            req.setAttribute("successMessage", "차량 등록이 완료되었습니다!");
+            resp.sendRedirect(req.getContextPath() + "/jsp/user/myPageCarList");
+        } catch (SQLException ex) {
+            req.setAttribute("errorMessage", "차량 등록 실패!");
+            req.getRequestDispatcher("/WEB-INF/jsp/user/myPageCarForm.jsp").forward(req, resp);
         }
     }
 }

@@ -124,11 +124,11 @@
         </div>
         <div class="menu-list">
             <div><a href="/user/myPageHome.jsp">주차현황</a></div>
-            <div><a href="/jsp/user/myPage_carForm.jsp">차량등록</a></div>
-            <div><a href="/jsp/user/myPage_carList.jsp">등록차량목록</a></div>
-            <div><a href="/jsp/user/myPage_carInOut.jsp">최근입출차내역</a></div>
+            <div><a href="/user/myPageCarForm.jsp">차량등록</a></div>
+            <div><a href="/user/myPageCarList.jsp">등록차량목록</a></div>
+            <div><a href="/user/myPageInOut.jsp">최근입출차내역</a></div>
             <div><a href="/user/myPageModify">회원정보수정</a></div>
-            <div><a href="/jsp/user/myPage_membershipJoin.jsp">멤버쉽관리</a></div>
+            <div><a href="/jsp/user/MembershipJoin.jsp">멤버쉽관리</a></div>
         </div>
     </div>
 </div>

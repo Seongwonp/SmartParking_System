@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CarDAO {
     //차량 등록
-    public void insertCar(CarDTO car) throws SQLException {
+    public static void insertCar(CarDTO car) throws SQLException {
         String sql = "insert into car (userId, carNumber, carModel, carType)  values(?,?,?,?)";
         try {
             @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();

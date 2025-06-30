@@ -96,15 +96,15 @@
         <!-- 중앙 차량등록 카드 -->
         <div class="reg-container">
             <h2>차량 등록</h2>
-            <form action="register" method="post">
+            <form action="${pageContext.request.contextPath}/user/myPageCarForm" method="post">
                 <label for="carNumber">차량 번호</label>
-                <input type="text" id="carNumber" name="carNumber" required>
+                <input type="text" id="carNumber" name="carNumber" value ="${carinfo.getCarNumber()}" required>
 
                 <label for="carModel">차량 모델</label>
-                <input type="text" id="carModel" name="carModel" required>
+                <input type="text" id="carModel" name="carModel" value ="${carinfo.getCarModel()}" required>
 
                 <label for="carType" class="form-label">차량 타입</label>
-                <select id="carType" name="carType" class="form-select">
+                <select id="carType" name="carType" class="form-select" >
                     <option value="annual">일반</option>
                     <option value="monthly">경차</option>
                     <option value="monthly">장애인</option>
