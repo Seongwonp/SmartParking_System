@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -153,6 +154,11 @@
 <div class="container">
     <h1>회원가입</h1>
     <h2>회원정보를 입력해주세요</h2>
+    <c:if test="${not empty errorMessage}">
+        <div class="alert alert-danger mt-3" role="alert">
+                ${errorMessage}
+        </div>
+    </c:if>
     <form action="/user/signup" method="post">
         <div class="input-group">
             <i class="fa-solid fa-envelope icon"></i>
@@ -203,6 +209,16 @@
         const checkboxes = document.querySelectorAll(".agreement-box .agree");
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = isChecked;
+        });
+
+        const form = document.querySelector("form");
+        form.addEventListener("submit", (e) => {
+            const password = document.querySelector("input[name='password']").value;
+            const passwordConfirm = document.querySelector("input[name='passwordConfirm']").value;
+            if (password !== passwordConfirm) {
+                alert("비밀번호가 일치하지 않습니다.");
+                e.preventDefault(); // 제출 막기
+            }
         });
     });
 </script>
