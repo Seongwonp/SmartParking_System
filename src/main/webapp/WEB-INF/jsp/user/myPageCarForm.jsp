@@ -105,9 +105,9 @@
 
                 <label for="carType" class="form-label">차량 타입</label>
                 <select id="carType" name="carType" class="form-select" >
-                    <option value="annual">일반</option>
-                    <option value="monthly">경차</option>
-                    <option value="monthly">장애인</option>
+                    <option value="일반">일반</option>
+                    <option value="경차">경차</option>
+                    <option value="장애인">장애인</option>
                 </select>
 
                 <div class="button-group">
