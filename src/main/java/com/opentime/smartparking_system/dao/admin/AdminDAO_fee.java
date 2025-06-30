@@ -1,6 +1,6 @@
 package com.opentime.smartparking_system.dao.admin;
 
-import com.opentime.smartparking_system.dao.ConnectionUtill;
+import com.opentime.smartparking_system.util.ConnectionUtil;
 import com.opentime.smartparking_system.model.vo.FeePolicyVO;
 import lombok.Cleanup;
 
@@ -17,7 +17,7 @@ public class AdminDAO_fee {
         String SQL = "SELECT * FROM feePolicy";
         List<FeePolicyVO> feeList = new ArrayList<>();
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -42,7 +42,7 @@ public class AdminDAO_fee {
         String SQL = "SELECT * FROM feePolicy WHERE policyId = ?";
         FeePolicyVO feePolicyVO = null;
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setInt(1, policyId);
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
@@ -68,7 +68,7 @@ public class AdminDAO_fee {
         String SQL = "UPDATE feePolicy SET policyName = ?, baseTime = ?, baseFee = ?, " +
                 "additionalTime = ?, additionalFee = ?, dailyMaxFee = ? WHERE policyId = ?";
         try {
-            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, feePolicyVO.getPolicyName());
             preparedStatement.setInt(2, feePolicyVO.getBaseTime());
