@@ -7,8 +7,6 @@ import com.opentime.smartparking_system.util.MapperUtil;
 import com.opentime.smartparking_system.util.PasswordUtil;
 import org.modelmapper.ModelMapper;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public enum UserService {
     INSTANCE;
@@ -48,7 +46,6 @@ public enum UserService {
     }
 
 
-
     // 회원 정보 수정
     public boolean updateUser(UserDTO userDTO) {
         if (userDTO == null || userDAO.isUserIdDuplicate(userDTO.getUserName())) return false;
@@ -61,34 +58,9 @@ public enum UserService {
         return userDAO.updateUser(userVO);
     }
 
-
     // 회원 탈퇴
     public boolean deleteUser(String userName) {
         return userDAO.deleteUser(userName);
     }
-
-
-
-    // 총 회원 수
-    public int getTotalMemberCount() {
-        return userDAO.getTotalMemberCount();
-    }
-
-    // 월정액 회원 수
-    public int getSubscriptionMemberCount() {
-        return userDAO.getSubscriptionMemberCount();
-    }
-
-    // 최근 가입 회원 리스트 (DTO 리스트 반환)
-    public List<UserDTO> getRecentMembers() {
-        List<UserVO> voList = userDAO.getRecentMembers();
-        List<UserDTO> dtoList = new ArrayList<>();
-        for (UserVO vo : voList) {
-            UserDTO dto = modelMapper.map(vo, UserDTO.class);
-            dtoList.add(dto);
-        }
-        return dtoList;
-    }
-
 
 }

@@ -32,6 +32,15 @@ public class RegisterServlet extends HttpServlet {
         String name = req.getParameter("name");
         String phone = req.getParameter("phone");
 
+        String passwordConfirm = req.getParameter("passwordConfirm");
+
+        if (password == null || passwordConfirm == null || !password.equals(passwordConfirm)) {
+            req.setAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            req.getRequestDispatcher("/WEB-INF/jsp/user/signup.jsp").forward(req, resp);
+            return;
+        }
+
+
         // DTO에 담기
         UserDTO user = new UserDTO();
         user.setUserName(userName);
@@ -40,12 +49,13 @@ public class RegisterServlet extends HttpServlet {
         user.setPhone(phone);
 
         try {
+
             boolean result = userService.addUser(user);
             if (result) {
-                // 회원가입 성공 시 로그인 페이지 또는 메인으로 리다이렉트
+                // 회원가입 성공 시 로그인 페이지 또는 메인으로
                 resp.sendRedirect(req.getContextPath() + "/login?success=true");
             } else {
-                // 실패 시 회원가입 페이지로 다시 (실패 메시지 등 추가 가능)
+                // 실패 시 회원가입 페이지로
                 req.setAttribute("errorMessage", "회원가입에 실패했습니다.");
                 req.getRequestDispatcher("/WEB-INF/jsp/user/signup.jsp").forward(req, resp);
             }
