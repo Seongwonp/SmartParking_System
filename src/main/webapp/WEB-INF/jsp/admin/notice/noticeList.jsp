@@ -74,7 +74,6 @@
         <table class="table table-striped table-bordered table-hover">
             <thead class="table-secondary">
             <tr>
-                <th scope="col">번호</th>
                 <th scope="col">고정</th>
                 <th scope="col">제목</th>
                 <th scope="col">작성자</th>
@@ -86,7 +85,6 @@
             <tbody>
             <c:forEach var="notice" items="${noticeList}" varStatus="status">
                 <tr>
-                    <td>${notice.noticeId}</td>
                     <td>
                         <c:if test="${notice.pinned}">
                             <span class="badge bg-danger text-white">고정</span>
