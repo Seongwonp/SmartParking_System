@@ -7,6 +7,8 @@
             <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" id="title_img"
                  height="80">
         </a>
+        <span id="headerClock" class="fs-5 fw-semibold ms-3 align-self-center"></span>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -78,7 +80,7 @@
                 </li>
                 <% } %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/jsp/user/myPage_parkingStatus.jsp">마이페이지</a>
+                    <a class="nav-link" href="/jsp/user/myPageHome">마이페이지</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="logoutLink" href="#">Logout</a>
@@ -114,6 +116,19 @@
                 }
             });
         }
+
+        // 시간 출력
+        function updateClock() {
+            const now = new Date();
+            function pad(n) {
+                return n.toString().padStart(2, '0');
+            }
+            document.getElementById('headerClock').textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+        }
+
+
+            updateClock(); // 처음 바로 표시
+            setInterval(updateClock, 1000); // 1초마다 갱신
 
     });
 </script>

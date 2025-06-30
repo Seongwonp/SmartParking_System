@@ -21,15 +21,9 @@ public enum NoticeService {
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
     }
 
-    public boolean addNotice(NoticeDTO noticeDTO){
-        log.info("addNotice called with NoticeDTO: {}", noticeDTO);
-        if(noticeDTO == null) return false;
-        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
-        return noticeDAO.insertNotice(noticeVO);
-    }
 
     public List<NoticeDTO> getAllNotice(int offset, int limit){
-        log.info("getAllNotice called with limit: {}, offset: {}", limit, offset);
+        log.info("getListNotice called with limit: {}, offset: {}", limit, offset);
         List<NoticeVO> noticeVOList = noticeDAO.getListNotice(offset, limit);
         List<NoticeDTO> noticeDTOList = new ArrayList<>();
         for(NoticeVO noticeVO : noticeVOList){
@@ -57,18 +51,6 @@ public enum NoticeService {
         return noticeDTOList;
     }
 
-    public boolean updateNotice(NoticeDTO noticeDTO){
-        log.info("updateNotice called with NoticeDTO: {}", noticeDTO);
-        if(noticeDTO == null) return false;
-        NoticeVO noticeVO = modelMapper.map(noticeDTO, NoticeVO.class);
-        return noticeDAO.updateNotice(noticeVO);
-    }
-
-    public boolean deleteNotice(int id){
-        log.info("deleteNotice called with id: {}", id);
-        if(noticeDAO.getNoticeById(id) == null) return false;
-        return noticeDAO.deleteNotice(id);
-    }
 
     public int getTotalNoticeCount() {
         return noticeDAO.getNoticeCount();
@@ -80,6 +62,8 @@ public enum NoticeService {
         return noticeDAO.getSearchNoticeCount(text);
     }
 
-
+    public void addView(int noticeId){
+        noticeDAO.addView(noticeId);
+    }
 
 }

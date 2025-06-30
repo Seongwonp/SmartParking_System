@@ -13,20 +13,6 @@ import java.util.List;
 
 public class NoticeDAO {
 
-    public boolean insertNotice(NoticeVO noticeVO) {
-        String SQL = "INSERT INTO notice(title, content, writer) VALUES (?,?,?)";
-        try {
-            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, noticeVO.getTitle());
-            preparedStatement.setString(2, noticeVO.getContent());
-            preparedStatement.setString(3, noticeVO.getWriter());
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public List<NoticeVO> getListNotice(int offset, int limit) {
         String SQL = "SELECT * FROM notice ORDER BY isPinned DESC, createdAt DESC LIMIT ?,?";
         List<NoticeVO> noticeVOList = new ArrayList<>();
@@ -110,32 +96,6 @@ public class NoticeDAO {
         return noticeVOList;
     }
 
-    public boolean updateNotice(NoticeVO noticeVO) {
-        String SQL = "UPDATE notice SET  title = ?, content = ? WHERE noticeId=?";
-        try {
-            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, noticeVO.getTitle());
-            preparedStatement.setString(2, noticeVO.getContent());
-            preparedStatement.setLong(3, noticeVO.getNoticeId());
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public boolean deleteNotice(int noticeId) {
-        String SQL = "DELETE FROM notice WHERE noticeId = ?";
-        try {
-            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setInt(1, noticeId);
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public int getNoticeCount() {
         String SQL = "SELECT COUNT(*) FROM notice";
         try{
@@ -166,5 +126,19 @@ public class NoticeDAO {
         }
         return 0;
     }
+
+
+    public void addView(int noticeId) {
+        String SQL = "UPDATE notice SET view = view + 1 WHERE noticeId = ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtill.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setInt(1, noticeId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

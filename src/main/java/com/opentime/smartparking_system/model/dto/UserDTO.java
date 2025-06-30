@@ -13,10 +13,10 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private int userId;
-    private String userName;
+    private int userId; //일년번호
+    private String userName; //아이디
     private String password;
-    private String name;
+    private String name; //이름
     private String phone;
     private String role;
     private boolean isSubscription;
