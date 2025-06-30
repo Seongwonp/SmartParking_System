@@ -81,7 +81,7 @@
                     <a class="nav-link" href="/jsp/user/myPage_parkingStatus.jsp">마이페이지</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" id="logoutLink" href="#">Logout</a>
                 </li>
                 <% } %>
             </ul>
@@ -104,5 +104,16 @@
                 });
             }
         });
+
+        const logoutLink = document.getElementById('logoutLink');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (confirm('로그아웃하시겠습니까?')) {
+                    location.href = '/user/logout';
+                }
+            });
+        }
+
     });
 </script>
