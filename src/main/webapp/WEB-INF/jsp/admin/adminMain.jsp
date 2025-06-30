@@ -1,10 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%
-    String memberId = "김철수";
-
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +15,7 @@
 
 <main class="content" style="margin-left: 250px; padding:106px 20px;">
     <div class="container-fluid">
-        <h1 class="mb-4"><%=memberId%> 관리자님 환영합니다.</h1>
+        <h1 class="mb-4"><%=user.getName()%>님 환영합니다.</h1>
 
 
         <div class="row mb-4">
