@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
             // 로그인 성공 - 세션에 저장
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/jsp/user/index_user.jsp"); // 로그인 후 메인 페이지로
+            resp.sendRedirect(req.getContextPath() + "/index"); // 로그인 후 메인 페이지로
         } else {
             // 로그인 실패 - 에러 메시지와 함께 로그인 페이지 다시 보여주기
             req.setAttribute("errorMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
