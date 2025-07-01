@@ -53,13 +53,15 @@
         .search-form input[type="text"] {
             width: 250px;
         }
-        .pinned {
-            color: #dc3545;
-            font-weight: bold;
+        /* Center align table header and cell content */
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
         }
     </style>
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const msg = document.getElementById('successMsg');
             if (msg) {
                 setTimeout(() => {
@@ -83,9 +85,9 @@
 
             <div class="control-bar">
                 <a href="${pageContext.request.contextPath}/admin/notice/add" class="btn btn-success">공지사항 추가</a>
-                <c:if test="${not empty successMessage}">
+                <c:if test="${not empty param.successMessage}">
                     <div id="successMsg" class="alert alert-success mt-3" role="alert">
-                            ${successMessage}
+                            ${param.successMessage}
                     </div>
                 </c:if>
                 <form class="search-form" action="${pageContext.request.contextPath}/admin/notice/list" method="get">
@@ -114,7 +116,7 @@
                                     <span class="badge bg-danger text-white">고정</span>
                                 </c:if>
                             </td>
-                            <td><a href="${pageContext.request.contextPath}/admin/notice/modify?noticeId=${notice.noticeId}">${notice.title}</a></td>
+                            <td>${notice.title}</td>
                             <td>${notice.writer}</td>
                             <td>${notice.view}</td>
                             <td>${notice.createdAt}</td>
