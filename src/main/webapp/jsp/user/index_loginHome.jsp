@@ -112,6 +112,18 @@
      data-aos="fade-up"
      data-aos-duration="1000"
      data-aos-delay="200">
+    <!-- 입출차 관리 -->
+    <div class="section-block">
+        <h1 class="section-title">입출차 관리</h1>
+        <div class="card-container">
+            <a href ="/user/parking/entryForm" class="info-card2">
+                <h3 class="card-title">입차등록</h3>
+            </a>
+            <a href="/user/parking/exitForm" class="info-card2">
+                <h3 class="card-title">출차등록</h3>
+            </a>
+        </div>
+    </div>
     <!-- 입출차 현황 -->
     <div class="section-block">
         <h1 class="section-title">입출차 현황</h1>
