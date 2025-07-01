@@ -119,7 +119,7 @@
                 %>
                 <div class="profile-name"><%= name %>
                 </div>
-                <div class="logout-btn">로그아웃</div>
+                <div class="logout-btn"><a href="/user/logout">로그아웃</a></div>
             </div>
         </div>
         <div class="menu-list">

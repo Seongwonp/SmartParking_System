@@ -19,6 +19,9 @@ public enum AdminService {
     private final AdminDAO_fee adminDAOFee;
     private final AdminDAO_discount adminDAODiscount;
     private final AdminDAO_notice adminDAONotice;
+    private final AdminDAO_userSubscription adminUserSubscription;
+    private final AdminDAO_subscription adminDAOSubscription;
+
 
     AdminService() {
         adminDAOUser = new AdminDAO_user();
@@ -26,6 +29,8 @@ public enum AdminService {
         adminDAODiscount = new AdminDAO_discount();
         adminDAONotice = new AdminDAO_notice();
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
+        adminUserSubscription = new AdminDAO_userSubscription();
+        adminDAOSubscription = new AdminDAO_subscription();
     }
 
     // 총 회원 수
@@ -40,7 +45,7 @@ public enum AdminService {
 
     // 최근 가입 회원 리스트
     public List<UserDTO> getRecentMembers() {
-        List<UserVO> voList = adminDAOUser.getRecentMembers();
+        List<UserVO> voList = adminDAOUser.getRecentFiveMembers();
         List<UserDTO> dtoList = new ArrayList<>();
         for (UserVO vo : voList) {
             UserDTO dto = modelMapper.map(vo, UserDTO.class);
@@ -240,5 +245,96 @@ public enum AdminService {
     public boolean deleteNotice(int noticeId) {
         return adminDAONotice.deleteNotice(noticeId);
     }
+
+
+
+
+    /* *********************** 회원/ 정기권 관리 ******************************* */
+
+    public List<UserDTO> getListUsers(String op, String keyword, String orderBy) {
+        if (orderBy == null ||
+                (!orderBy.equalsIgnoreCase("ASC") && !orderBy.equalsIgnoreCase("DESC"))) {
+            orderBy = "DESC";
+        }
+
+        if (op == null ||
+                (!op.equals("userName") && !op.equals("name") && !op.equals("phone"))) {
+            op = null;
+        }
+
+        List<UserVO> userVOList = adminDAOUser.searchMembers(op, keyword, orderBy);
+
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (UserVO vo : userVOList) {
+            UserDTO dto = modelMapper.map(vo, UserDTO.class);
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    public List<UserDTO> getSubscriptionUsers(String op, String keyword, String orderBy) {
+        if (orderBy == null ||
+                (!orderBy.equalsIgnoreCase("ASC") && !orderBy.equalsIgnoreCase("DESC"))) {
+            orderBy = "DESC";
+        }
+
+        if (op == null ||
+                (!op.equals("userName") && !op.equals("name") && !op.equals("phone"))) {
+            op = null;
+        }
+
+        List<UserVO> userVOList = adminDAOUser.searchSubscriptionMembers(op, keyword, orderBy);
+
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (UserVO vo : userVOList) {
+            UserDTO dto = modelMapper.map(vo, UserDTO.class);
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+
+    }
+
+
+
+    /* *********************** 회원/ 정기권 회원 차량 조회 ******************************* */
+    public List<UserSubscriptionDTO> getUserSubscriptionsByUserId(int userId) {
+
+        List<UserSubscriptionVO> voList = adminUserSubscription.getUserSubscriptionsByUserId(userId);
+        List<UserSubscriptionDTO> dtoList = new ArrayList<>();
+
+        for (UserSubscriptionVO vo : voList) {
+            UserSubscriptionDTO dto = modelMapper.map(vo, UserSubscriptionDTO.class);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+
+    /* *********************** 정기권 차량 조회 ******************************* */
+
+    // 통합된 정기권 차량 조회 메서드
+    public List<UserSubscriptionDTO> getSubscriptions(String type, String status, Boolean expiredOnly) {
+        List<UserSubscriptionVO> voList = adminDAOSubscription.getSubscriptions(type, status, expiredOnly);
+        List<UserSubscriptionDTO> dtoList = new ArrayList<>();
+        for (UserSubscriptionVO vo : voList) {
+            dtoList.add(modelMapper.map(vo, UserSubscriptionDTO.class));
+        }
+        return dtoList;
+    }
+
+    // 정기권 차량 기록을 삭제한다.
+    public void deleteSubscription(int subscriptionId) {
+        adminDAOSubscription.deleteSubscription(subscriptionId);
+    }
+
+
+
+
+
+
+
 
 }

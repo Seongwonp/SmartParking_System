@@ -46,9 +46,107 @@ public class AdminDAO_user {
         return 0;
     }
 
+    //회원 조회
+    public List<UserVO> searchMembers(String op, String text, String orderBy) {
+        String SQL = "SELECT userId, userName, name, phone, role, isSubscription, subscriptionStart, subscriptionEnd, joinDate " +
+                "FROM user ";
+
+        List<UserVO> list = new ArrayList<>();
+
+        // 검색 조건 추가
+        if (op != null && text != null && !text.trim().isEmpty()) {
+            SQL += "WHERE " + op + " LIKE ? ";
+        }
+
+        SQL += "ORDER BY joinDate " + orderBy;
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            if (op != null && text != null && !text.trim().isEmpty()) {
+                preparedStatement.setString(1, "%" + text + "%");
+            }
+
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                UserVO user = UserVO.builder()
+                        .userId(resultSet.getInt("userId"))
+                        .userName(resultSet.getString("userName"))
+                        .name(resultSet.getString("name"))
+                        .phone(resultSet.getString("phone"))
+                        .role(resultSet.getString("role"))
+                        .isSubscription(resultSet.getBoolean("isSubscription"))
+                        .subscriptionStart(resultSet.getDate("subscriptionStart"))
+                        .subscriptionEnd(resultSet.getDate("subscriptionEnd"))
+                        .joinDate(resultSet.getTimestamp("joinDate"))
+                        .build();
+                list.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+
+
+    //회원 조회
+    public List<UserVO> searchSubscriptionMembers(String op, String text, String orderBy) {
+        String SQL = "SELECT userId, userName, name, phone, role, isSubscription, subscriptionStart, subscriptionEnd, joinDate " +
+                "FROM user WHERE isSubscription = TRUE ";
+
+        List<UserVO> list = new ArrayList<>();
+
+        // 검색 조건 추가
+        if (op != null && text != null && !text.trim().isEmpty()) {
+            SQL += " AND " + op + " LIKE ? ";
+        }
+
+        SQL += "ORDER BY joinDate " + orderBy;
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            if (op != null && text != null && !text.trim().isEmpty()) {
+                preparedStatement.setString(1, "%" + text + "%");
+            }
+
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                UserVO user = UserVO.builder()
+                        .userId(resultSet.getInt("userId"))
+                        .userName(resultSet.getString("userName"))
+                        .name(resultSet.getString("name"))
+                        .phone(resultSet.getString("phone"))
+                        .role(resultSet.getString("role"))
+                        .isSubscription(resultSet.getBoolean("isSubscription"))
+                        .subscriptionStart(resultSet.getDate("subscriptionStart"))
+                        .subscriptionEnd(resultSet.getDate("subscriptionEnd"))
+                        .joinDate(resultSet.getTimestamp("joinDate"))
+                        .build();
+                list.add(user);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+
+
+
+
+
+
 
     // 최근 가입 회원 5명 조회
-    public List<UserVO> getRecentMembers() {
+    public List<UserVO> getRecentFiveMembers() {
         String SQL = "SELECT userId, userName, name, phone, role, isSubscription, subscriptionStart, subscriptionEnd, joinDate FROM user ORDER BY joinDate DESC LIMIT 5";
         List<UserVO> list = new ArrayList<>();
 
