@@ -214,8 +214,12 @@ public enum AdminService {
     }
 
     // 공지 단건 조회
-    public NoticeVO getNoticeById(int noticeId) {
-        return adminDAONotice.getNoticeById(noticeId);
+    public NoticeDTO getNoticeById(int noticeId) {
+        NoticeVO vo = adminDAONotice.getNoticeById(noticeId);
+        if (vo == null) {
+            return null;
+        }
+        return modelMapper.map(vo, NoticeDTO.class);
     }
 
     // 공지 등록

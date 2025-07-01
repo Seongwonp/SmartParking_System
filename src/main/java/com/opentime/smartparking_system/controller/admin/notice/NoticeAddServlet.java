@@ -14,6 +14,13 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(value="/admin/notice/add")
 public class NoticeAddServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.getRequestDispatcher("/WEB-INF/jsp/admin/notice/noticeAdd.jsp").forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
