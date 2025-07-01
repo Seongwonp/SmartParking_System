@@ -6,7 +6,9 @@ import lombok.Cleanup;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ParkingDAO {
 
@@ -83,5 +85,29 @@ public class ParkingDAO {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    public List<Map<String, Object>> getParkingStatusList() throws SQLException {
+        String sql = "SELECT c.carNumber, pr.entryTime, pr.exitTime " +
+                "FROM car c " +
+                "JOIN parkingRecord pr ON c.carId = pr.carId " +
+                "WHERE pr.isExited = FALSE";
+
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery();
+            List<Map<String, Object>> list = new ArrayList<>();
+            while (resultSet.next()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("carNumber", resultSet.getString("carNumber"));
+                map.put("entryTime", resultSet.getTimestamp("entryTime"));
+                map.put("exitTime", resultSet.getTimestamp("exitTime"));
+                list.add(map);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

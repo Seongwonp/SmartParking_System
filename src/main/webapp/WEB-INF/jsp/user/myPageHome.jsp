@@ -77,18 +77,30 @@
                     <th>차량번호</th>
                     <th>입차시간</th>
                     <th>출차시간</th>
-                    <th>주차위치</th>
                     <th>상태</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>12가 3456</td>
-                    <td>2025-06-27 08:30</td>
-                    <td>-</td>
-                    <td>B2 101</td>
-                    <td class="text-success">주차중</td>
-                </tr>
+                <c:forEach var="record" items="${parkingStatusList}">
+                    <tr>
+                        <td>${record.carNumber}</td>
+                        <td>${record.entryTime}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${record.exitTime != null}">
+                                    ${record.exitTime}
+                                </c:when>
+                                <c:otherwise>-</c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td class="text-success">
+                            <c:choose>
+                                <c:when test="${record.exitTime == null}">주차중</c:when>
+                                <c:otherwise>출차완료</c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

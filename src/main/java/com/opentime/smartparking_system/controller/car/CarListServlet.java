@@ -27,9 +27,7 @@ public class CarListServlet extends HttpServlet {
 
         int userId = user.getUserId(); //로그인한 사용자의 사용자 ID 추출
 
-
         try {
-
             //2. 해당 사용자 ID로 차량 목록 조회
             List<CarDTO> dtoList = carService.getCarList(userId);
             //3. 차량 목록을 JSP로 포워딩
