@@ -11,3 +11,4 @@ create table car
     constraint userId
         foreign key (userId) references smartparking.user (userId)
 )
+

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CarDAO {
     //차량 등록
-    public static void insertCar(CarDTO car) throws SQLException {
+    public void insertCar(CarDTO car) throws SQLException {
         String sql = "insert into car (userId, carNumber, carModel, carType)  values(?,?,?,?)";
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -28,7 +28,7 @@ public class CarDAO {
         }
     }
 
-    //차량 목록 조회
+    //내 차량 목록 조회
     public List<CarDTO> getCarsByUserId(int userId) throws SQLException {
         List<CarDTO> carDTOList = new ArrayList<>();
         String sql = "select * from car where userId = ?";
@@ -39,9 +39,11 @@ public class CarDAO {
             @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 CarDTO carDTO = CarDTO.builder()
+                        .carId(resultSet.getInt("carId"))
                         .carNumber(resultSet.getString("carNumber"))
                         .carModel(resultSet.getString("carModel"))
                         .carType(resultSet.getString("carType"))
+                        .userId(Integer.parseInt(resultSet.getString("userId")))
                         .build();
                 carDTOList.add(carDTO);
             }
@@ -49,5 +51,28 @@ public class CarDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    //차량 아이디로 차량 상세조회
+    public CarDTO getCarById(int carId) throws SQLException {
+        String sql = "select * from car where carId = ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, carId);
+            @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                CarDTO carDTO = CarDTO.builder()
+                        .carId(resultSet.getInt("carId"))
+                        .userId(resultSet.getInt("userId"))
+                        .carNumber(resultSet.getString("carNumber"))
+                        .carModel(resultSet.getString("carModel"))
+                        .carType(resultSet.getString("carType"))
+                        .build();
+                return carDTO;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
