@@ -16,6 +16,6 @@ public class LogoutServlet extends HttpServlet {
         req.getSession().invalidate();
 
         // 로그아웃 후 메인 페이지로 리다이렉트
-        resp.sendRedirect(req.getContextPath() + "/index_public.jsp");
+        resp.sendRedirect(req.getContextPath() + "/index");
     }
 }
