@@ -6,6 +6,7 @@ import lombok.Cleanup;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SubscriptionDAO {
@@ -20,18 +21,6 @@ public class SubscriptionDAO {
             preparedStatement.setDate(4, subscriptionVO.getEndDate());
             preparedStatement.setString(5, subscriptionVO.getStatus().name());
             preparedStatement.setString(6, subscriptionVO.getType().name());
-            return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public boolean deleteSubscription(int memberId){
-        String SQL = "DELETE FROM subscription WHERE memberId = ?";
-        try{
-            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setInt(1, memberId);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -54,5 +43,34 @@ public class SubscriptionDAO {
         }
     }
 
+    public boolean updateStatus(int memberId, String status){
+        String SQL = "UPDATE subscription SET status = ? WHERE memberId = ?";
+        try{
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2, memberId);
+            return preparedStatement.executeUpdate() > 0;
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public boolean findSubscriptionByMemberId(int memberId){
+        String SQL = "SELECT COUNT(*) FROM subscription WHERE memberId = ?";
+        try{
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setInt(1, memberId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt(1) > 0;
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 
 }
