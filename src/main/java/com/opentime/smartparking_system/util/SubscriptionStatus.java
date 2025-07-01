@@ -5,4 +5,13 @@ public enum SubscriptionStatus {
     inactive,
     paused,
     cancelled;
+
+    public static boolean isValidStatus(String status) {
+        try {
+            SubscriptionStatus.valueOf(status);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 }

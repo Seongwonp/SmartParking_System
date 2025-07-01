@@ -186,7 +186,7 @@
         <div class="membership-status">
             <h2 class="mb-3">My 멤버십</h2>
             <h4 class="mb-3">멤버십 혜택</h4>
-            <form action="/membership" method="post">
+            <form action="/user/subscription/join" method="post">
                 <div class="membership-benefit">
                     <div class="box shopping">
                         <h3>연정액 혜택</h3>
@@ -215,10 +215,11 @@
                         </div>
 
                         <div class="agreement-box">
-                            <label><input type="checkbox" class="agree"> [필수] 만 14세 이상입니다</label>
-                            <label><input type="checkbox" class="agree"> [필수] 이용약관 동의</label>
-                            <label><input type="checkbox" class="agree"> [선택] 마케팅 정보 수신 동의</label>
+                            <label><input type="checkbox" name="agree1" class="agree"> [필수] 만 14세 이상입니다</label>
+                            <label><input type="checkbox" name="agree2" class="agree"> [필수] 이용약관 동의</label>
+                            <label><input type="checkbox" name="agree3" class="agree"> [선택] 마케팅 정보 수신 동의</label>
                         </div>
+                        <input type="hidden" name="userId" value="${userId}" />
                         <button type="submit" class="submit-btn">멤버쉽 혜택 시작하기</button>
                     </div>
                 </div>
@@ -227,5 +228,15 @@
     </div>
 </div>
 <%@include file="/jsp/include/footer.jsp" %>
+<script>
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const agree1 = document.querySelector('input[name="agree1"]');
+    const agree2 = document.querySelector('input[name="agree2"]');
+    if (!agree1.checked || !agree2.checked) {
+      alert('필수 동의 항목을 모두 체크해 주세요.');
+      e.preventDefault();
+    }
+  });
+</script>
 </body>
 </html>

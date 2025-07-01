@@ -8,6 +8,7 @@ import com.opentime.smartparking_system.util.PasswordUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,12 @@ public enum UserService {
         return userDAO.insertUser(userVO);
     }
 
+
+    // 고객 멤버쉽 최신화
+    public boolean updateSubscription(int userId, Date subscriptionStart, Date subscriptionEnd){
+        if(subscriptionStart == null || subscriptionEnd == null) return false;
+        return userDAO.updateSubscription(userId, subscriptionStart, subscriptionEnd);
+    }
 
     //로그인
     public UserDTO loginUser(String userName, String inputPassword) {
