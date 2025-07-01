@@ -1,10 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <style>
@@ -178,11 +178,9 @@
 <%@include file="/jsp/include/header.jsp" %>
 <div class="my-page">
     <div class="main-content">
-        <!-- 우측 프로필 카드 -->
         <div>
             <%@include file="/jsp/user/myPage_profile.jsp" %>
         </div>
-        <!-- 중앙 멤버쉽 카드 -->
         <div class="membership-status">
             <h2 class="mb-3">My 멤버십</h2>
             <h4 class="mb-3">멤버십 혜택</h4>
@@ -211,6 +209,17 @@
                             <select id="membershipType" name="membershipType" class="form-select">
                                 <option value="annual">연정액</option>
                                 <option value="monthly">월정액</option>
+                            </select>
+                        </div>
+
+                        <div class="membership-select mb-4">
+                            <label for="carId" class="form-label">차량 선택</label>
+                            <select id="carId" name="carId" class="form-select">
+                                <c:forEach var="car" items="${myCarList}">
+                                    <option value="${car.carId}">
+                                        ${car.carNumber} (${car.carModel})
+                                    </option>
+                                </c:forEach>
                             </select>
                         </div>
 

@@ -1,7 +1,9 @@
 package com.opentime.smartparking_system.controller.user.subscription;
 
+import com.opentime.smartparking_system.model.dto.CarDTO;
 import com.opentime.smartparking_system.model.dto.SubscriptionDTO;
 import com.opentime.smartparking_system.model.dto.UserDTO;
+import com.opentime.smartparking_system.service.CarService;
 import com.opentime.smartparking_system.service.SubscriptionService;
 import com.opentime.smartparking_system.service.UserService;
 import com.opentime.smartparking_system.util.SubscriptionStatus;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(value = "/user/subscription/join")
 public class SubscriptionJoinServlet extends HttpServlet {
@@ -26,7 +30,15 @@ public class SubscriptionJoinServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
+        int userId  = user.getUserId();
+        List<CarDTO> carList;
+        try {
+            carList = CarService.INSTANCE.getCarList(userId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+        request.setAttribute("myCarList",carList);
         request.setAttribute("userId", user.getUserId());
         // WEB-INF 경로의 JSP로 포워딩
         request.getRequestDispatcher("/WEB-INF/jsp/user/subscription/subscriptionJoin.jsp").forward(request, response);
@@ -55,7 +67,11 @@ public class SubscriptionJoinServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/jsp/user/subscription/subscriptionJoin.jsp").forward(request, response);
             return;
         }
+
+
+
         int userId = Integer.parseInt(request.getParameter("userId"));
+        int carId = Integer.parseInt(request.getParameter("carId"));
         int fee;
         Date endDate;
         if (type == SubscriptionType.annual) {
@@ -71,7 +87,7 @@ public class SubscriptionJoinServlet extends HttpServlet {
         }
         boolean success = subscriptionService.addSubscription(
                 SubscriptionDTO.builder()
-                        .userId(userId)
+                        .carId(carId)
                         .type(type)
                         .startDate(startDate)
                         .endDate(endDate)
