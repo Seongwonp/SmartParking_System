@@ -105,7 +105,7 @@
                                                 <td class="text-primary">${member.name}</td>
                                                 <td class="text-primary">${member.userName}</td>
                                                 <td class="text-primary">${member.phone}</td>
-                                                <td><fmt:formatDate value="${member.joinDate}" pattern="yyyy-MM-dd" /></td>
+                                                <td class="text-primary"><fmt:formatDate value="${member.joinDate}" pattern="yyyy-MM-dd" /></td>
                                             </tr>
                                         </c:when>
                                         <c:otherwise>

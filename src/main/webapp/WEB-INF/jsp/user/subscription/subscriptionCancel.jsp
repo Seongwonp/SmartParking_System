@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -209,15 +211,14 @@
 <%@include file="/jsp/include/header.jsp" %>
 <div class="my-page">
     <div class="main-content">
-        <!-- 우측 프로필 카드 -->
         <div>
             <%@include file="/jsp/user/myPage_profile.jsp" %>
         </div>
-        <!-- 중앙 멤버쉽 카드 -->
         <div class="membership-status">
             <h2 class="mb-3">My 멤버십</h2>
             <h4 class="mb-3">멤버십 혜택</h4>
-            <form action="/membership" method="post">
+            <form action="/user/subscription/cancel" method="post">
+                <input type="hidden" name="userId" value="${userId}" />
                 <div class="membership-benefit">
                     <div class="box shopping">
                         <h3>연정액 혜택</h3>
@@ -245,10 +246,26 @@
                         <div class="cancel-box">
                             <h3>사용 중인 멤버십</h3>
                             <div class="membership-card">
-                                <div class="plan-type">월간 이용권</div>
-                                <div class="info">
-                                    <div><span>이용 기간</span><span>25.06.24 ~ 25.07.23</span></div>
-                                    <div><span>결제 금액</span><span>₩120,000</span></div>
+                                <div class="plan-type">
+                                    <c:if test="${not empty subscription}">
+                                        ${subscription.type.label} 이용권
+                                    </c:if>
+                                    <c:if test="${empty subscription}">
+                                        가입된 멤버십이 없습니다.
+                                    </c:if>
+                                </div>
+
+                                <div class="period">
+                                    <c:if test="${not empty subscription}">
+                                        이용기간 : <fmt:formatDate value="${subscription.startDate}" pattern="yyyy-MM-dd" /> ~
+                                        <fmt:formatDate value="${subscription.endDate}" pattern="yyyy-MM-dd" />
+                                    </c:if>
+                                </div>
+
+                                <div class="price">
+                                    <c:if test="${not empty subscription}">
+                                        결제금액 : <fmt:formatNumber value="${subscription.fee}" pattern="#,###" /> 원
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -257,10 +274,9 @@
                             <p>멤버십 해지 시, 다음 결제일부터 멤버십 혜택이 중단됩니다.<br>
                                 이미 결제된 금액은 환불되지 않습니다.</p>
                         </div>
-
                         <div class="btn-group">
                             <button type="submit" class="cancel-btn">멤버십 해지하기</button>
-                            <button type="button" class="back-btn">멤버십 유지하기</button>
+                            <button type="button" class="back-btn" onclick="location.href='/user/myPageHome';">멤버십 유지하기</button>
                         </div>
                     </div>
                 </div>

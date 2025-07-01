@@ -4,6 +4,7 @@ import com.opentime.smartparking_system.dao.SubscriptionDAO;
 import com.opentime.smartparking_system.model.dto.SubscriptionDTO;
 import com.opentime.smartparking_system.model.vo.SubscriptionVO;
 import com.opentime.smartparking_system.util.MapperUtil;
+import com.opentime.smartparking_system.util.SubscriptionStatus;
 import org.modelmapper.ModelMapper;
 
 import static com.opentime.smartparking_system.util.SubscriptionStatus.isValidStatus;
@@ -31,13 +32,18 @@ public enum SubscriptionService {
         return subscriptionDAO.updateSubscription(subscriptionVO);
     }
 
-    public boolean updateStatus(int carId, String status) {
-        if(status == null || status.trim().isEmpty()) return false;
+    public boolean updateStatus(int carId, SubscriptionStatus status) {
+        if(status == null || !isValidStatus(status.name())) return false;
         if(!subscriptionDAO.findSubscriptionByCarId(carId)) return false;
-        if(!isValidStatus(status)) return false; // status 객체 검사
         return subscriptionDAO.updateStatus(carId, status);
     }
 
+
+    public SubscriptionDTO getActiveSubscriptionByUserId(int userId) {
+        SubscriptionDTO dto = modelMapper.map(subscriptionDAO.getActiveSubscriptionByUserId(userId), SubscriptionDTO.class);
+        if(dto == null) return null;
+        return dto;
+    }
 
 
 

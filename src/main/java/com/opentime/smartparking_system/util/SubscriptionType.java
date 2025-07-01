@@ -1,17 +1,16 @@
 package com.opentime.smartparking_system.util;
 
+import lombok.Getter;
+
+@Getter
 public enum SubscriptionType {
-    annual,
-    monthly;
+    annual("연정액"),
+    monthly("월정액");
 
+    private final String label;
 
-
-    public static boolean isValidType(String type) {
-        try {
-            SubscriptionType.valueOf(type);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+    SubscriptionType(String label) {
+        this.label = label;
     }
+
 }
