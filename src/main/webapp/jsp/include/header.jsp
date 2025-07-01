@@ -18,14 +18,14 @@
             <!-- 중앙 네비 메뉴 -->
             <ul class="navbar-nav mx-auto fw-semibold fs-6">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/intro.jsp" id="parkingInfoDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/Info/intro" id="parkingInfoDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         이용안내
                     </a>
                     <ul class="dropdown-menu shadow-sm">
-                        <li><a class="dropdown-item" href="/intro.jsp">주차장 소개</a></li>
-                        <li><a class="dropdown-item" href="/guide.jsp">주차 안내</a></li>
-                        <li><a class="dropdown-item" href="/location.jsp">오시는 길</a></li>
+                        <li><a class="dropdown-item" href="/Info/intro">주차장 소개</a></li>
+                        <li><a class="dropdown-item" href="/Info/guide">주차 안내</a></li>
+                        <li><a class="dropdown-item" href="/Info/location">오시는 길</a></li>
                     </ul>
                 </li>
 
@@ -41,13 +41,13 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/contact.jsp" id="supportDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/contact/Q&A" id="supportDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         고객지원
                     </a>
                     <ul class="dropdown-menu shadow-sm">
-                        <li><a class="dropdown-item" href="/contact.jsp">문의하기</a></li>
-                        <li><a class="dropdown-item" href="/faq.jsp">자주 묻는 질문</a></li>
+                        <li><a class="dropdown-item" href="/contact/Q&A">문의하기</a></li>
+                        <li><a class="dropdown-item" href="/contact/F&Q">자주 묻는 질문</a></li>
                     </ul>
                 </li>
 

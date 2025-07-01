@@ -16,21 +16,21 @@
   <h2 class="mb-4 text-center" data-aos="fade-up">무엇을 도와드릴까요?</h2>
 
   <div class="input-group input-group-lg mb-4" data-aos="fade-up" data-aos-delay="100">
-    <a href="/faq.jsp" class="form-control text-start text-muted" style="text-decoration: none; cursor: pointer;">
+    <a href="/WEB-INF/views/contact/faq.jsp/views/contact/faq.jsp" class="form-control text-start text-muted" style="text-decoration: none; cursor: pointer;">
       <i class="fas fa-search me-2 text-secondary"></i> 궁금한 점을 입력해 주세요
     </a>
   </div>
   <div class="list-group" data-aos="fade-up" data-aos-delay="200">
-    <a href="/faq.jsp#payment" class="list-group-item list-group-item-action">
+    <a href="/WEB-INF/views/contact/faq.jsp/views/contact/faq.jsp#payment" class="list-group-item list-group-item-action">
       <i class="fas fa-credit-card me-2"></i> 결제 관련 문의
     </a>
-    <a href="/faq.jsp#account" class="list-group-item list-group-item-action">
+    <a href="/WEB-INF/views/contact/faq.jsp/views/contact/faq.jsp#account" class="list-group-item list-group-item-action">
       <i class="fas fa-user me-2"></i> 계정 관련 문제
     </a>
-    <a href="/faq.jsp#membership" class="list-group-item list-group-item-action">
+    <a href="/WEB-INF/views/contact/faq.jsp/views/contact/faq.jsp#membership" class="list-group-item list-group-item-action">
       <i class="fas fa-ticket-alt me-2"></i> 정기권 이용 방법
     </a>
-    <a href="/contact.jsp" class="list-group-item list-group-item-action">
+    <a href="/WEB-INF/views/contact/contact.jsp" class="list-group-item list-group-item-action">
       <i class="fas fa-envelope-open-text me-2"></i> 기타 문의하기
     </a>
   </div>
