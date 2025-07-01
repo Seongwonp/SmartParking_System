@@ -94,14 +94,15 @@ public class UserDAO {
     }
 
     // 구독 업데이트
-    public boolean updateSubscription(int userId, Date subscriptionStart, Date subscriptionEnd) {
-        String SQL = "UPDATE user SET isSubscription = 1, subscriptionStart = ?, subscriptionEnd = ? WHERE userId = ? ";
+    public boolean updateSubscription(int userId,boolean isSub, Date subscriptionStart, Date subscriptionEnd) {
+        String SQL = "UPDATE user SET isSubscription = ?, subscriptionStart = ?, subscriptionEnd = ? WHERE userId = ? ";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setDate(1, subscriptionStart);
-            preparedStatement.setDate(2, subscriptionEnd);
-            preparedStatement.setInt(3, userId);
+            preparedStatement.setBoolean(1, isSub);
+            preparedStatement.setDate(2, subscriptionStart);
+            preparedStatement.setDate(3, subscriptionEnd);
+            preparedStatement.setInt(4, userId);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);

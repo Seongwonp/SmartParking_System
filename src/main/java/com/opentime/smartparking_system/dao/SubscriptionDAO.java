@@ -1,7 +1,10 @@
 package com.opentime.smartparking_system.dao;
 
+
 import com.opentime.smartparking_system.model.vo.SubscriptionVO;
 import com.opentime.smartparking_system.util.ConnectionUtil;
+import com.opentime.smartparking_system.util.SubscriptionStatus;
+import com.opentime.smartparking_system.util.SubscriptionType;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -43,12 +46,12 @@ public class SubscriptionDAO {
         }
     }
 
-    public boolean updateStatus(int carId, String status){
+    public boolean updateStatus(int carId, SubscriptionStatus status){
         String SQL = "UPDATE subscription SET status = ? WHERE carId = ?";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, status);
+            preparedStatement.setString(1, status.name());
             preparedStatement.setInt(2, carId);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
@@ -73,4 +76,32 @@ public class SubscriptionDAO {
         return false;
     }
 
+    public SubscriptionVO getActiveSubscriptionByUserId(int userId) {
+        String sql = "SELECT s.*" +
+                "FROM subscription s " +
+                "JOIN car c ON s.carId = c.carId " +
+                "WHERE c.userId = ? AND s.status = 'active'";
+
+        try (Connection conn = ConnectionUtil.INSTANCE.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return SubscriptionVO.builder()
+                        .subscriptionId(rs.getInt("subscriptionId"))
+                        .carId(rs.getInt("carId"))
+                        .fee(rs.getInt("fee"))
+                        .startDate(rs.getDate("startDate"))
+                        .endDate(rs.getDate("endDate"))
+                        .status(SubscriptionStatus.valueOf(rs.getString("status")))
+                        .type(SubscriptionType.valueOf(rs.getString("subscriptionType")))
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

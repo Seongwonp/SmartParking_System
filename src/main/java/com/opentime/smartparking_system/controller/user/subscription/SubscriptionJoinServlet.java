@@ -30,6 +30,10 @@ public class SubscriptionJoinServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user.isSubscription()) {
+            response.sendRedirect(request.getContextPath() + "/user/subscription/cancel");
+            return;
+        }
         int userId  = user.getUserId();
         List<CarDTO> carList;
         try {

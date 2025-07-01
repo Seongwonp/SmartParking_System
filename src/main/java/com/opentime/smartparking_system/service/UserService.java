@@ -42,8 +42,10 @@ public enum UserService {
 
     // 고객 멤버쉽 최신화
     public boolean updateSubscription(int userId, Date subscriptionStart, Date subscriptionEnd){
-        if(subscriptionStart == null || subscriptionEnd == null) return false;
-        return userDAO.updateSubscription(userId, subscriptionStart, subscriptionEnd);
+        if(subscriptionStart == null || subscriptionEnd == null){
+            return userDAO.updateSubscription(userId, false, null, null);
+        }
+        return userDAO.updateSubscription(userId, true, subscriptionStart, subscriptionEnd);
     }
 
     //로그인
