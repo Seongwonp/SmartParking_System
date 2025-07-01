@@ -14,4 +14,5 @@ public class ParkingDTO {
     private Timestamp entryTime;
     private Timestamp exitTime;
     private int fee;
+    private boolean isExisted;
 }

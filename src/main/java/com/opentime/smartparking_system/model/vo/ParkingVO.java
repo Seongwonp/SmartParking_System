@@ -15,4 +15,5 @@ public class ParkingVO {
     private Timestamp entryTime;
     private Timestamp exitTime;
     private int fee;
+    private boolean isExisted;
 }
