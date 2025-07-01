@@ -53,7 +53,7 @@ public class ParkingDAO {
                         .carId(rs.getInt("carId"))
                         .entryTime(rs.getTimestamp("entryTime"))
                         .exitTime(rs.getTimestamp("exitTime"))
-                        .fee((int) rs.getInt("fee"))
+                        .fee(rs.getInt("fee"))
                         .build();
             }
         } catch (SQLException e) {
