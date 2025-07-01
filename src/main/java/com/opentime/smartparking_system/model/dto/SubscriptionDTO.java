@@ -15,7 +15,7 @@ import java.sql.Date;
 @AllArgsConstructor
 public class SubscriptionDTO {
     private int subscriptionId;
-    private int userId;
+    private int carId;
     private int fee;
     private Date startDate;
     private Date endDate;

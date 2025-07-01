@@ -11,11 +11,11 @@ import java.sql.SQLException;
 
 public class SubscriptionDAO {
     public boolean insertSubscription(SubscriptionVO subscriptionVO) {
-        String SQL = "INSERT INTO subscription(memberId, fee, startDate, endDate, status, subscriptionType) VALUES (?,?,?,?,?,?)";
+        String SQL = "INSERT INTO subscription(carId, fee, startDate, endDate, status, subscriptionType) VALUES (?,?,?,?,?,?)";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setInt(1, subscriptionVO.getUserId());
+            preparedStatement.setInt(1, subscriptionVO.getCarId());
             preparedStatement.setInt(2, subscriptionVO.getFee());
             preparedStatement.setDate(3, subscriptionVO.getStartDate());
             preparedStatement.setDate(4, subscriptionVO.getEndDate());
@@ -28,7 +28,7 @@ public class SubscriptionDAO {
     }
 
     public boolean updateSubscription(SubscriptionVO subscriptionVO){
-        String SQL = "UPDATE subscription SET fee = ? , startDate = ?, endDate = ?, subscriptionType=? WHERE memberId = ?";
+        String SQL = "UPDATE subscription SET fee = ? , startDate = ?, endDate = ?, subscriptionType=? WHERE carId = ?";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
@@ -36,20 +36,20 @@ public class SubscriptionDAO {
             preparedStatement.setDate(2, subscriptionVO.getStartDate());
             preparedStatement.setDate(3, subscriptionVO.getEndDate());
             preparedStatement.setString(4, subscriptionVO.getType().name());
-            preparedStatement.setInt(5, subscriptionVO.getUserId());
+            preparedStatement.setInt(5, subscriptionVO.getCarId());
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public boolean updateStatus(int memberId, String status){
-        String SQL = "UPDATE subscription SET status = ? WHERE memberId = ?";
+    public boolean updateStatus(int carId, String status){
+        String SQL = "UPDATE subscription SET status = ? WHERE carId = ?";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             preparedStatement.setString(1, status);
-            preparedStatement.setInt(2, memberId);
+            preparedStatement.setInt(2, carId);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             throw new RuntimeException(e);
@@ -57,12 +57,12 @@ public class SubscriptionDAO {
     }
 
 
-    public boolean findSubscriptionByMemberId(int memberId){
-        String SQL = "SELECT COUNT(*) FROM subscription WHERE memberId = ?";
+    public boolean findSubscriptionByCarId(int carId){
+        String SQL = "SELECT COUNT(*) FROM subscription WHERE carId = ?";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setInt(1, memberId);
+            preparedStatement.setInt(1, carId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 return resultSet.getInt(1) > 0;
