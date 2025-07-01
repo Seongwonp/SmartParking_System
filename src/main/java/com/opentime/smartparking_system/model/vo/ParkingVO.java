@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class ParkingVO {
     private int recordId;
     private int carId;
+    private String carNumber;
     private Timestamp entryTime;
     private Timestamp exitTime;
     private int fee;

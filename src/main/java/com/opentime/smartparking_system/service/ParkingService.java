@@ -25,6 +25,12 @@ public enum ParkingService {
     public boolean registerEntry(ParkingDTO parkingDTO) {
         if (parkingDTO == null || parkingDTO.getCarId() == 0) return false;
 
+        // 이미 입차 중인 차량인지 확인
+        ParkingVO activeEntry = parkingDAO.findActiveEntryByCarId(parkingDTO.getCarId());
+        if (activeEntry != null && activeEntry.getExitTime() == null) {
+            return false; // 이미 입차된 상태이므로 등록하지 않음
+        }
+ 
         // entryTime이 null이면 현재 시간으로 설정
         if (parkingDTO.getEntryTime() == null) {
             parkingDTO.setEntryTime(Timestamp.valueOf(LocalDateTime.now()));
