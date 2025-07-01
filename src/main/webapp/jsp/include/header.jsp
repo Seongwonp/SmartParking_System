@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <!-- 로고 -->
         <a class="navbar-brand" href="${pageContext.request.contextPath}/index_public.jsp">
-            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="50" class="d-inline-block align-text-top" />
+            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="60" class="d-inline-block align-text-top" />
         </a>
 
         <!-- 햄버거 버튼 -->
