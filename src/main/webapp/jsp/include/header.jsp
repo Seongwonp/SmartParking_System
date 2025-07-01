@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom shadow-sm">
     <div class="container-fluid">
         <!-- 로고 -->
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/index_public.jsp">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="60" class="d-inline-block align-text-top" />
         </a>
 
