@@ -14,5 +14,5 @@ public class ParkingVO {
     private int carId;
     private Timestamp entryTime;
     private Timestamp exitTime;
-    private Long fee;
+    private int fee;
 }

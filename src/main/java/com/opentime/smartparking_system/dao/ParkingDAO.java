@@ -53,7 +53,7 @@ public class ParkingDAO {
                         .carId(rs.getInt("carId"))
                         .entryTime(rs.getTimestamp("entryTime"))
                         .exitTime(rs.getTimestamp("exitTime"))
-                        .fee((long) rs.getInt("fee")) // ✅ 명시적 형변환
+                        .fee((int) rs.getInt("fee"))
                         .build();
             }
         } catch (SQLException e) {
@@ -76,7 +76,7 @@ public class ParkingDAO {
                         .carId(rs.getInt("carId"))
                         .entryTime(rs.getTimestamp("entryTime"))
                         .exitTime(rs.getTimestamp("exitTime"))
-                        .fee((long) rs.getInt("fee")) // ✅ 여기도 형변환 적용
+                        .fee((int) rs.getInt("fee"))
                         .build());
             }
         } catch (SQLException e) {

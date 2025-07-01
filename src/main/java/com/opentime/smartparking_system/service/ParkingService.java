@@ -21,7 +21,7 @@ public enum ParkingService {
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
     }
 
-    // 🚗 입차 등록
+    // 입차 등록
     public boolean registerEntry(ParkingDTO parkingDTO) {
         if (parkingDTO == null || parkingDTO.getCarId() == 0) return false;
 
@@ -34,9 +34,9 @@ public enum ParkingService {
         return parkingDAO.insertEntry(parkingVO);
     }
 
-    // 🚘 출차 및 요금 계산
+    // 출차 및 요금 계산
     public ParkingDTO processExit(int carId) {
-        ParkingVO entry = parkingDAO.findActiveEntryByCarId(carId); // carId만으로 조회
+        ParkingVO entry = parkingDAO.findActiveEntryByCarId(carId);
 
         if (entry == null) return null;
 
@@ -44,9 +44,9 @@ public enum ParkingService {
         entry.setExitTime(Timestamp.valueOf(exitTime));
 
         LocalDateTime entryTime = entry.getEntryTime().toLocalDateTime();
-        long minutes = Duration.between(entryTime, exitTime).toMinutes();
+        int minutes = Math.toIntExact(Duration.between(entryTime, exitTime).toMinutes());
 
-        long fee = calculateFee(minutes);
+        int fee = calculateFee(minutes);
         entry.setFee(fee);
 
         parkingDAO.updateExitInfo(entry);
@@ -54,10 +54,10 @@ public enum ParkingService {
         return modelMapper.map(entry, ParkingDTO.class);
     }
 
-    // 💰 요금 계산: 10분당 1000원
-    private long calculateFee(long minutes) {
-        long unit = 10;
-        long rate = 1000;
+    // 요금 계산: 10분당 1000원
+    private int calculateFee(int minutes) {
+        int unit = 10;
+        int rate = 1000;
         return ((minutes + unit - 1) / unit) * rate;
     }
 }

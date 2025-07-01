@@ -13,5 +13,5 @@ public class ParkingDTO {
     private String carNumber;
     private Timestamp entryTime;
     private Timestamp exitTime;
-    private Long fee;
+    private int fee;
 }
