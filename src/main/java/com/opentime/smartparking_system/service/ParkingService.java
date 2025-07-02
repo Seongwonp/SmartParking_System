@@ -1,7 +1,9 @@
 package com.opentime.smartparking_system.service;
 
 import com.opentime.smartparking_system.dao.ParkingDAO;
+import com.opentime.smartparking_system.model.dto.AdminDTO_parkingrecord;
 import com.opentime.smartparking_system.model.dto.ParkingDTO;
+import com.opentime.smartparking_system.model.vo.AdminVO_parkingrecord;
 import com.opentime.smartparking_system.model.vo.ParkingVO;
 import com.opentime.smartparking_system.util.MapperUtil;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +13,8 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 public enum ParkingService {
@@ -18,6 +22,7 @@ public enum ParkingService {
 
     private final ParkingDAO parkingDAO;
     private final ModelMapper modelMapper;
+    private ParkingDAO parkingService;
 
     ParkingService() {
         parkingDAO = new ParkingDAO();
@@ -43,7 +48,7 @@ public enum ParkingService {
         return parkingDAO.insertEntry(parkingVO);
     }
 
-    // 출차 및 요금 계산
+    // 출차처리
     public ParkingDTO processExit(int carId) {
         ParkingVO entry = parkingDAO.findActiveEntryByCarId(carId);
         log.info("Parking exit: {}", entry.getExitTime());
@@ -56,7 +61,6 @@ public enum ParkingService {
 
         int fee = calculateFee(minutes, entry.getCarType(), entry.getSubscriptionType());
         entry.setFee(fee);
-
 
         boolean updated = parkingDAO.updateExitInfo(entry);
         if (!updated) return null;
@@ -115,6 +119,12 @@ public enum ParkingService {
         if (date == null) return parkingDAO.countExitsByDate(LocalDate.now());
         return parkingDAO.countExitsByDate(date);
     }
-
-
+    public List<AdminDTO_parkingrecord> existCarList(String carId){
+        List<AdminVO_parkingrecord> voList = parkingDAO.findAllJoinedRecords(true,carId);
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        for (AdminVO_parkingrecord vo : voList) {
+            dtoList.add(modelMapper.map(vo, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
 }

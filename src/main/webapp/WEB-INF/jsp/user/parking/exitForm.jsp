@@ -85,7 +85,7 @@
 
 <div class="container">
     <h2>출차 등록</h2>
-    <form action="/user/parking/exitForm" method="post">
+    <form action="/user/parking/exitForm" method="POST">
         <h4>출차등록할 차량을 선택하세요</h4>
         <select class="form-select" id="carId" name="carId" required>
             <option value="">차량선택</option>
