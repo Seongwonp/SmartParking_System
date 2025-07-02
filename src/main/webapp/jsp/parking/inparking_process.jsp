@@ -19,8 +19,8 @@
 
   boolean result = ParkingService.INSTANCE.registerEntry(dto);
   if (result) {
-    response.sendRedirect("inparking.jsp?success=true");
+    response.sendRedirect("inParking.jsp?success=true");
   } else {
-    response.sendRedirect("inparking.jsp?error=true");
+    response.sendRedirect("inParking.jsp?error=true");
   }
 %>
