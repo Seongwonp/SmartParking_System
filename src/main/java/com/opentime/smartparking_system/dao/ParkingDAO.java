@@ -112,8 +112,8 @@ public class ParkingDAO {
         }
     }
 
-    public int countAvailableParking(){
-        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE isExited = TRUE";
+    public int countParkedCars(){
+        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE isExited = FALSE";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);

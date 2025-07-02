@@ -16,12 +16,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int totalCapacity = 10;
-        int available = ParkingService.INSTANCE.countAvailableParking();
-        int parkingNow = totalCapacity - available;
+        int countParkedCars = ParkingService.INSTANCE.countParkedCars();
+        int available = totalCapacity - countParkedCars;
         int yesterdayEntry = ParkingService.INSTANCE.countEntriesByDate(LocalDate.now().minusDays(1));
         int yesterdayExit = ParkingService.INSTANCE.countExitsByDate(LocalDate.now().minusDays(1));
 
-        req.setAttribute("parkingNow", parkingNow);
+        req.setAttribute("parkingNow", countParkedCars);
         req.setAttribute("available", available);
         req.setAttribute("yesterdayEntry", yesterdayEntry);
         req.setAttribute("yesterdayExit", yesterdayExit);
