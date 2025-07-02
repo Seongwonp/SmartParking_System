@@ -18,82 +18,89 @@ public class ParkingServlet extends HttpServlet {
     private final ParkingService parkingService = ParkingService.INSTANCE;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getServletPath();
 
         if (path.equals("/parking/in")) {
-            handleEntry(req, resp);
-        } else if (path.equals("/parking/out")) {
-            handleExit(req, resp);
-        }
-    }
-
-    private void handleEntry(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            String carIdStr = req.getParameter("carId");
-            String entryTimeStr = req.getParameter("entryTime");
-
-            if (carIdStr == null || carIdStr.isBlank()) {
-                req.setAttribute("errorMessage", "차량 ID를 입력하세요.");
-                req.getRequestDispatcher("/WEB-INF/jsp/parking/inparking.jsp").forward(req, resp);
-                return;
-            }
-
-            int carId = Integer.parseInt(carIdStr);
-            Timestamp entryTime = (entryTimeStr != null && !entryTimeStr.isBlank())
-                    ? Timestamp.valueOf(entryTimeStr.replace("T", " ") + ":00")
-                    : Timestamp.valueOf(LocalDateTime.now());
-
-            ParkingDTO parkingDTO = ParkingDTO.builder()
-                    .carId(carId)
-                    .entryTime(entryTime)
-                    .build();
-
-            boolean result = parkingService.registerEntry(parkingDTO);
-
-            if (result) {
-                resp.sendRedirect(req.getContextPath() + "/jsp/parking/inparking.jsp?success=true");
-            } else {
-                req.setAttribute("errorMessage", "입차 등록 실패");
-                req.getRequestDispatcher("/WEB-INF/jsp/parking/inparking.jsp").forward(req, resp);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("errorMessage", "서버 오류가 발생했습니다.");
             req.getRequestDispatcher("/WEB-INF/jsp/parking/inparking.jsp").forward(req, resp);
+        } else if (path.equals("/parking/out")) {
+            req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
+        } else {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void handleExit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            String carIdStr = req.getParameter("carId");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        String path = req.getServletPath();
 
-            if (carIdStr == null || carIdStr.isBlank()) {
-                req.setAttribute("errorMessage", "차량 ID를 입력하세요.");
-                req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
-                return;
+        if (path.equals("/parking/in")) {
+            try {
+                String carIdStr = req.getParameter("carId");
+                String entryTimeStr = req.getParameter("entryTime");
+
+                if (carIdStr == null || carIdStr.isBlank()) {
+                    req.setAttribute("errorMessage", "차량 ID를 입력하세요.");
+                    req.getRequestDispatcher("/WEB-INF/jsp/parking/inparking.jsp").forward(req, resp);
+                    return;
+                }
+
+                int carId = Integer.parseInt(carIdStr);
+                Timestamp entryTime = (entryTimeStr != null && !entryTimeStr.isBlank())
+                        ? Timestamp.valueOf(entryTimeStr.replace("T", " ") + ":00")
+                        : Timestamp.valueOf(LocalDateTime.now());
+
+                ParkingDTO parkingDTO = ParkingDTO.builder()
+                        .carId(carId)
+                        .entryTime(entryTime)
+                        .build();
+
+                boolean result = parkingService.registerEntry(parkingDTO);
+
+                if (result) {
+                    resp.sendRedirect(req.getContextPath() + "/jsp/parking/inparking.jsp?success=true");
+                } else {
+                    req.setAttribute("errorMessage", "입차 등록 실패");
+                    req.getRequestDispatcher("/WEB-INF/jsp/parking/inparking.jsp").forward(req, resp);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("errorMessage", "서버 오류가 발생했습니다.");
+                req.getRequestDispatcher("/WEB-INF/jsp/parking/inparking.jsp").forward(req, resp);
             }
 
-            int carId = Integer.parseInt(carIdStr);
+        } else if (path.equals("/parking/out")) {
+            try {
+                String carIdStr = req.getParameter("carId");
 
-            ParkingDTO result = parkingService.processExit(carId);
+                if (carIdStr == null || carIdStr.isBlank()) {
+                    req.setAttribute("errorMessage", "차량 ID를 입력하세요.");
+                    req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
+                    return;
+                }
 
-            if (result != null) {
-                req.setAttribute("carId", result.getCarId());
-                req.setAttribute("entryTime", result.getEntryTime());
-                req.setAttribute("exitTime", result.getExitTime());
-                req.setAttribute("fee", result.getFee());
-                req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
-            } else {
-                req.setAttribute("errorMessage", "출차 가능한 차량 기록이 없습니다.");
+                int carId = Integer.parseInt(carIdStr);
+
+                ParkingDTO result = parkingService.processExit(carId);
+
+                if (result != null) {
+                    req.setAttribute("carId", result.getCarId());
+                    req.setAttribute("entryTime", result.getEntryTime());
+                    req.setAttribute("exitTime", result.getExitTime());
+                    req.setAttribute("fee", result.getFee());
+                    req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
+                } else {
+                    req.setAttribute("errorMessage", "출차 가능한 차량 기록이 없습니다.");
+                    req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("errorMessage", "서버 오류가 발생했습니다.");
                 req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("errorMessage", "서버 오류가 발생했습니다.");
-            req.getRequestDispatcher("/WEB-INF/jsp/parking/outparking.jsp").forward(req, resp);
+        } else {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }
