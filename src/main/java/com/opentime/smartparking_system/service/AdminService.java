@@ -21,6 +21,7 @@ public enum AdminService {
     private final AdminDAO_notice adminDAONotice;
     private final AdminDAO_userSubscription adminUserSubscription;
     private final AdminDAO_subscription adminDAOSubscription;
+    private final AdminDAO_parkingrecord adminDAOParkingrecord;
 
 
     AdminService() {
@@ -31,6 +32,7 @@ public enum AdminService {
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
         adminUserSubscription = new AdminDAO_userSubscription();
         adminDAOSubscription = new AdminDAO_subscription();
+        adminDAOParkingrecord = new AdminDAO_parkingrecord();
     }
 
     // 총 회원 수
@@ -330,9 +332,22 @@ public enum AdminService {
         adminDAOSubscription.deleteSubscription(subscriptionId);
     }
 
+    /* *********************** 주차 기록 조회 ******************************* */
+    public List<AdminDTO_parkingrecord> getHistory(Boolean isExited, String carNumberKeyword, String userNameKeyword) {
+        List<AdminVO_parkingrecord> voList = adminDAOParkingrecord.findAllJoinedRecords(isExited, carNumberKeyword, userNameKeyword);
+        if (voList == null) {
+            return new ArrayList<>();
+        }
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        for (AdminVO_parkingrecord vo : voList) {
+            dtoList.add(modelMapper.map(vo, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
 
-
-
+    public int countParkingSpace(){
+        return adminDAOParkingrecord.countParkedCars();
+    }
 
 
 

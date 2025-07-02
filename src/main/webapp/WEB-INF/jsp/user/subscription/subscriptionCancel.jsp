@@ -1,3 +1,4 @@
+<%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -239,8 +240,8 @@
                     <h4 class="mb-3">멤버십 가입정보</h4>
                     <div class="membership-cancel-page">
                         <div class="membership-period">
-                            <strong>멤버십 이용기간</strong>
-                            <span>25.06.24 ~ 25.07.23</span>
+                            <strong>멤버십 이용기간: </strong>
+                            <span>${today} ~ ${endDate}</span>
                         </div>
 
                         <div class="cancel-box">
