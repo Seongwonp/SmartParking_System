@@ -197,9 +197,11 @@
             width: 48%;
         }
 
-        .cancel-btn:hover,
-        .back-btn:hover {
+        .cancel-btn:hover{
             background: linear-gradient(45deg, #ff3b3b, #c0392b);
+        }
+        .back-btn:hover {
+            background: linear-gradient(45deg, #93ff3b, #55c02b);
         }
         .membership-cancel {
             margin-top: 40px;

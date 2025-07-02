@@ -54,6 +54,13 @@ public class ParkingEntryServlet extends HttpServlet {
             return;
         }
 
+        if(parkingService.countParkedCars() >= 10){
+            req.setAttribute("errorMessage", "만차입니다! 잠시만 기다려주십시오!");
+            req.getRequestDispatcher("/WEB-INF/jsp/user/parking/entryForm.jsp").forward(req, resp);
+            return;
+        }
+
+
         //3.입차 등록처리
         int carId = Integer.parseInt(carIdParam);
         ParkingDTO parkingDTO = new ParkingDTO();
