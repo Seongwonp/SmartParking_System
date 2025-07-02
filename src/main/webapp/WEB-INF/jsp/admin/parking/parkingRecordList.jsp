@@ -137,7 +137,16 @@
                   <td class="text-center align-middle">${record.carType}</td>
                   <td class="text-center align-middle">${record.name}</td>
                   <td class="text-center align-middle">${record.entryTime}</td>
-                  <td class="text-center align-middle">${record.exitTime}</td>
+                  <td class="text-center align-middle">
+                  <c:choose>
+                      <c:when test="${record.exitTime != null}">
+                          ${record.exitTime}
+                      </c:when>
+                      <c:otherwise>
+                          <span class="text-danger">주차중</span>
+                      </c:otherwise>
+                  </c:choose>
+                  </td>
                   <td class="text-center align-middle"><c:out value="${record.fee}" default="0" />원</td>
                   <td class="text-center align-middle">
                     <c:choose>
