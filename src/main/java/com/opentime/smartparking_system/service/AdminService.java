@@ -8,6 +8,8 @@ import com.opentime.smartparking_system.util.PasswordUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Log4j2
@@ -349,7 +351,28 @@ public enum AdminService {
         return adminDAOParkingrecord.countParkedCars();
     }
 
+    public List<AdminDTO_parkingrecord> fiveParkingHistory(){
+        List<AdminVO_parkingrecord> vo = adminDAOParkingrecord.fiveParkingHistory();
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        for (AdminVO_parkingrecord vo1 : vo) {
+            dtoList.add(modelMapper.map(vo1, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
+
+    public int countTodayParkedRecords(){
+        LocalDate today = LocalDate.now();
+        Timestamp start = Timestamp.valueOf(today.atStartOfDay());
+        Timestamp end = Timestamp.valueOf(today.plusDays(1).atStartOfDay());
+        return adminDAOParkingrecord.countTodayParkedRecords(start, end);
+    }
 
 
+    public int todayTotalCost(){
+        LocalDate today = LocalDate.now();
+        Timestamp start = Timestamp.valueOf(today.atStartOfDay());
+        Timestamp end = Timestamp.valueOf(today.plusDays(1).atStartOfDay());
+        return adminDAOParkingrecord.totalTodayCost(start, end);
+    }
 
 }
