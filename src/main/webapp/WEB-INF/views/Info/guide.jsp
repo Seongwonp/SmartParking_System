@@ -64,7 +64,7 @@
         </div>
 
         <div class="col-md-6">
-            <a href="/jsp/user/myPage_membershipJoin.jsp" class="text-decoration-none text-dark">
+            <a href="/user/subscription/join" class="text-decoration-none text-dark">
                 <div class="p-4 border rounded shadow-sm h-100 card-hover">
                     <h4 class="section-title"><i class="fas fa-ticket-alt me-2"></i>정기권</h4>
                     <p>월 120,000원에 정기권 이용이 가능합니다.</p>

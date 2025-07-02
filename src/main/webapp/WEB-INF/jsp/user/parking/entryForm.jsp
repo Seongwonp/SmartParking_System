@@ -101,7 +101,7 @@
 
         <div class="button-group">
             <input type="submit" value="등록">
-            <input type="button" value="취소">
+            <input type="button" value="취소" onclick="history.back()">
         </div>
     </form>
 </div>

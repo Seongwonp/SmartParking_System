@@ -87,75 +87,91 @@
             text-decoration: none;
             color: #0d6efd;
         }
+        /* 추가: intro-text 내부 영역 구분용 스타일 */
+        .profile-area {
+            margin-bottom: 1rem;
+        }
+        .intro-message {
+            color: #fff;
+        }
+        .container {
+            padding-top: 7rem;
+        }
     </style>
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<div class="position-relative" style="height: 500px; min-height: 500px; overflow: hidden;">
+<div class="position-relative" style="height: 250px; min-height: 500px; overflow: hidden;">
     <video autoplay muted loop class="w-100 h-100" style="object-fit: cover;">
         <source src="${pageContext.request.contextPath}/resources/videos/intro.mp4" type="video/mp4">
         브라우저가 video 태그를 지원하지 않습니다.
     </video>
 
-    <div id="intro-text" class="position-absolute top-50 start-50 translate-middle px-3 py-2 text-center"
-         style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
-        <h1 id="intro-title" data-aos="fade-up" data-aos-duration="1000" style="color: #fff; margin-bottom: 0.5rem;">
-            주차가 더 스마트해지는 세상
-        </h1>
-        <p id="intro-subtitle" data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000"
-           style="color: #ddd; margin: 0;">
-            스마트파킹 시스템과 함께 편리하고 안전한 주차 환경을 경험해보세요.
-        </p>
+    <div id="intro-text" class="position-absolute start-50 px-3 py-2 text-center"
+         style="top: 60%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0); border-radius: 10px; padding: 1rem 2rem;">
+        <div class="intro-message">
+            <h1 id="intro-title" data-aos="fade-up" data-aos-duration="1000" style="margin-bottom: 0.5rem;">
+                주차가 더 스마트해지는 세상
+            </h1>
+            <p id="intro-subtitle" data-aos="fade-up" data-aos-delay="1000" data-aos-duration="1000"
+               style="color: #ddd; margin: 0;">
+                스마트파킹 시스템과 함께 편리하고 안전한 주차 환경을 경험해보세요.
+            </p>
+        </div>
     </div>
 </div>
-<div class="container mt-5 mb-5 pt-5 text-start"
-     data-aos="fade-up"
-     data-aos-duration="1000"
-     data-aos-delay="200">
-    <!-- 입출차 관리 -->
-    <div class="section-block">
-        <h1 class="section-title">입출차 관리</h1>
-        <div class="card-container">
-            <a href ="/user/parking/entryForm" class="info-card2">
-                <h3 class="card-title">입차등록</h3>
-            </a>
-            <a href="/user/parking/exitForm" class="info-card2">
-                <h3 class="card-title">출차등록</h3>
-            </a>
-        </div>
-    </div>
-    <!-- 입출차 현황 -->
-    <div class="section-block">
-        <h1 class="section-title">입출차 현황</h1>
-        <div class="card-container">
-            <div class="info-card">
-                <h3 class="card-title">현재 주차가능공간</h3>
-                <p class="card-value">${available}대</p>
+
+<div class="d-flex">
+    <div class="flex-grow-1">
+        <div class="container mt-5 mb-5 pt-5 text-start"
+             data-aos="fade-up"
+             data-aos-duration="1000"
+             data-aos-delay="200">
+            <div class="section-block">
+                <h1 class="section-title">입출차 관리</h1>
+                <div class="card-container">
+                    <a href ="/user/parking/entryForm" class="info-card2">
+                        <h3 class="card-title">입차등록</h3>
+                    </a>
+                    <a href="/user/parking/exitForm" class="info-card2">
+                        <h3 class="card-title">출차등록</h3>
+                    </a>
+                </div>
             </div>
-            <div class="info-card">
-                <h3 class="card-title">현재 주차중</h3>
-                <p class="card-value">${parkingNow}대</p>
+            <!-- 입출차 현황 -->
+            <div class="section-block">
+                <h1 class="section-title">입출차 현황</h1>
+                <div class="card-container">
+                    <div class="info-card">
+                        <h3 class="card-title">현재 주차가능공간</h3>
+                        <p class="card-value">${available}대</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title">현재 주차중</h3>
+                        <p class="card-value">${parkingNow}대</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title">전일 입차대수</h3>
+                        <p class="card-value">${yesterdayEntry}대</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="card-title">전일 출차대수</h3>
+                        <p class="card-value">${yesterdayExit}대</p>
+                    </div>
+                </div>
             </div>
-            <div class="info-card">
-                <h3 class="card-title">전일 입차대수</h3>
-                <p class="card-value">${yesterdayEntry}대</p>
+            <!-- 내 차량 정보 -->
+            <div class="section-block">
+                <h1 class="section-title">내 차량 정보</h1>
+                <div class="card-container">
+                    <a href ="/user/myPageCarList" class="info-card2">
+                        <h3 class="card-title">등록차량목록</h3>
+                    </a>
+                    <a href="/user/myPageInOut" class="info-card2">
+                        <h3 class="card-title">최근 입출차 내역</h3>
+                    </a>
+                </div>
             </div>
-            <div class="info-card">
-                <h3 class="card-title">전일 출차대수</h3>
-                <p class="card-value">${yesterdayExit}대</p>
-            </div>
-        </div>
-    </div>
-    <!-- 내 차량 정보 -->
-    <div class="section-block">
-        <h1 class="section-title">내 차량 정보</h1>
-        <div class="card-container">
-            <a href ="/user/myPageCarList" class="info-card2">
-                <h3 class="card-title">등록차량목록</h3>
-            </a>
-            <a href="/user/myPageInOut" class="info-card2">
-                <h3 class="card-title">최근 입출차 내역</h3>
-            </a>
         </div>
     </div>
 </div>
