@@ -32,7 +32,7 @@ public class ParkingEntryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("carService is null? " + (carService == null));
+//        System.out.println("carService is null? " + (carService == null));
         //1. 로그인한 사용자 확인
         UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
         if (userDTO == null) {
@@ -61,7 +61,7 @@ public class ParkingEntryServlet extends HttpServlet {
         ParkingDTO parkingDTO = new ParkingDTO();
         parkingDTO.setCarId(carId);
         parkingDTO.setEntryTime(Timestamp.valueOf(LocalDateTime.now()));
-        parkingService.registerEntry(parkingDTO);
+//        parkingService.registerEntry(parkingDTO);
 
         //4. 결과전달
         boolean success = parkingService.registerEntry(parkingDTO);
@@ -72,13 +72,6 @@ public class ParkingEntryServlet extends HttpServlet {
             return;
         }
         req.setAttribute("successMessage", "입차 등록이 완료되었습니다!");
-        List<Map<String, Object>> parkingStatusList = null;
-        try {
-            parkingStatusList = parkingDAO.getParkingStatusList();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        req.setAttribute("parkingStatusList", parkingStatusList);
-        req.getRequestDispatcher("/WEB-INF/jsp/user/myPageHome.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/user/myPageHome");
     }
 }

@@ -83,7 +83,7 @@
                 </li>
                 <% } %>
                 <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/jsp/user/myPageHome">마이페이지</a>
+                    <a class="nav-link text-secondary" href="/user/myPageHome">마이페이지</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-secondary" id="logoutLink" href="#">Logout</a>

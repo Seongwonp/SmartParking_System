@@ -11,3 +11,5 @@ create table parkingRecord
 ALTER TABLE parkingRecord MODIFY exitTime TIMESTAMP NULL;
 
 ALTER TABLE parkingRecord MODIFY fee INT NULL;
+
+
