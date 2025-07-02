@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public enum ParkingService {
@@ -66,4 +67,22 @@ public enum ParkingService {
         int rate = 1000;
         return ((minutes + unit - 1) / unit) * rate;
     }
+
+
+    public int countAvailableParking() {
+        return parkingDAO.countAvailableParking();
+    }
+
+    public int countEntriesByDate(LocalDate date) {
+        if (date == null) return parkingDAO.countEntriesByDate(LocalDate.now());
+        return parkingDAO.countEntriesByDate(date);
+    }
+
+    public int countExitsByDate(LocalDate date) {
+        if(date==null) return parkingDAO.countExitsByDate(LocalDate.now());
+        return parkingDAO.countExitsByDate(date);
+    }
+
+
+
 }
