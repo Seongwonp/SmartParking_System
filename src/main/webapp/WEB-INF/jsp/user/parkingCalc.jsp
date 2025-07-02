@@ -82,20 +82,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="dto" items="${parkingDTO}">
                     <tr>
-                        <td>${dto.carNumber}</td>
-                        <td>${dto.entryTime}</td>
-                        <td>${dto.exitTime}</td>
-                        <td>${dto.fee}</td>
+                        <td>${parkingDTO.carNumber}</td>
+                        <td>${parkingDTO.entryTime}</td>
+                        <td>${parkingDTO.exitTime}</td>
+                        <td>${parkingDTO.fee}</td>
                         <td class="text-success">
                             <c:choose>
-                                <c:when test="${dto.exitTime == null}">주차중</c:when>
+                                <c:when test="${parkingDTO.exitTime == null}">주차중</c:when>
                                 <c:otherwise>출차완료</c:otherwise>
                             </c:choose>
                         </td>
                     </tr>
-                </c:forEach>
                 </tbody>
             </table>
         </div>
