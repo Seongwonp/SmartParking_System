@@ -49,7 +49,7 @@ public class ParkingDAO {
 
     // 출차되지 않은 최근 입차 기록 조회 (차량 1대 기준)
     public ParkingVO findActiveEntryByCarId(int carId) {
-        String sql = "SELECT c.cartype, pr.carId, pr.entryTime, pr.exitTime, pr.fee, s.subscriptionType " +
+        String sql = "SELECT c.cartype, pr.carId, pr.entryTime, pr.exitTime, pr.fee, s.subscriptionType,pr.recordId " +
                 " FROM car c JOIN parkingRecord pr ON c.carId = pr.carId LEFT JOIN subscription s ON c.carId = s.carId " +
                 " WHERE c.carId = ? AND pr.isExited = false ORDER BY pr.entryTime DESC LIMIT 1";
         try {
@@ -59,6 +59,7 @@ public class ParkingDAO {
             @Cleanup ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 ParkingVO vo = ParkingVO.builder()
+                        .recordId(rs.getInt("recordId"))
                         .carId(rs.getInt("carId"))
                         .entryTime(rs.getTimestamp("entryTime"))
                         .exitTime(rs.getTimestamp("exitTime"))
