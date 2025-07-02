@@ -130,19 +130,19 @@
         <div class="card-container">
             <div class="info-card">
                 <h3 class="card-title">현재 주차가능공간</h3>
-                <p class="card-value">5대</p>
+                <p class="card-value">${available}대</p>
             </div>
             <div class="info-card">
                 <h3 class="card-title">현재 주차중</h3>
-                <p class="card-value">5대</p>
+                <p class="card-value">${parkingNow}대</p>
             </div>
             <div class="info-card">
                 <h3 class="card-title">전일 입차대수</h3>
-                <p class="card-value">25대</p>
+                <p class="card-value">${yesterdayEntry}대</p>
             </div>
             <div class="info-card">
                 <h3 class="card-title">전일 출차대수</h3>
-                <p class="card-value">18대</p>
+                <p class="card-value">${yesterdayExit}대</p>
             </div>
         </div>
     </div>

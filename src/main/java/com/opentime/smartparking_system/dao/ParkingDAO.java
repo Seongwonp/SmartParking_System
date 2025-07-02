@@ -5,6 +5,7 @@ import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +113,7 @@ public class ParkingDAO {
     }
 
     public int countAvailableParking(){
-        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE isExited = FALSE";
+        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE isExited = TRUE";
         try{
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
@@ -126,7 +127,37 @@ public class ParkingDAO {
         return 0;
     }
 
+    public int countExitsByDate(LocalDate date) {
+        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE isExited = TRUE AND DATE(exitTime) = ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(SQL);
+            pstmt.setDate(1, Date.valueOf(date));
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 
+    public int countEntriesByDate(LocalDate date) {
+        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE DATE(entryTime) = ?";
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(SQL);
+            pstmt.setDate(1, Date.valueOf(date));
+            @Cleanup ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 
 
 }
