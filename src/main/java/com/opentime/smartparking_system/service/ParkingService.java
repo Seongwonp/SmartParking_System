@@ -69,8 +69,8 @@ public enum ParkingService {
     }
 
 
-    public int countAvailableParking() {
-        return parkingDAO.countAvailableParking();
+    public int countParkedCars() {
+        return parkingDAO.countParkedCars();
     }
 
     public int countEntriesByDate(LocalDate date) {
