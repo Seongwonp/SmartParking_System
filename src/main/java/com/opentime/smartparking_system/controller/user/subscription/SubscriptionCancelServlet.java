@@ -6,6 +6,7 @@ import com.opentime.smartparking_system.service.SubscriptionService;
 
 import com.opentime.smartparking_system.service.UserService;
 import com.opentime.smartparking_system.util.SubscriptionStatus;
+import com.opentime.smartparking_system.util.SubscriptionType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 @WebServlet("/user/subscription/cancel")
 public class SubscriptionCancelServlet extends HttpServlet {
@@ -22,10 +24,20 @@ public class SubscriptionCancelServlet extends HttpServlet {
         HttpSession session = req.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         req.setAttribute("userId", user.getUserId());
-
         // userId로 활성 멤버십 조회
         SubscriptionDTO subscription = SubscriptionService.INSTANCE.getActiveSubscriptionByUserId(user.getUserId());
         req.setAttribute("subscription", subscription);
+        LocalDate today = LocalDate.now();
+        req.setAttribute("today", today);
+        LocalDate endDate;
+        if(subscription.getType()== SubscriptionType.annual){
+            endDate = today.plusYears(1);
+        }else if(subscription.getType() == SubscriptionType.monthly){
+            endDate = today.plusMonths(1);
+        }else{
+            endDate = today;
+        }
+        req.setAttribute("endDate", endDate);
         if (subscription == null) {
             // 가입된 멤버십이 없을 경우
             session.setAttribute("message", "가입된 멤버십이 없습니다.");

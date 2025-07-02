@@ -48,7 +48,7 @@
                 <a class="nav-link
                     ${currentPage eq 'parkingRecords' ? 'active text-white fw-bold' : 'text-secondary'}
                     d-flex align-items-center"
-                   href="${pageContext.request.contextPath}/admin/parkingRecords">
+                   href="${pageContext.request.contextPath}/admin/parking/history">
                     <i class="fas fa-parking me-2"></i>
                     주차 기록 조회
                 </a>
