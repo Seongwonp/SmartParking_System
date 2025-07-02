@@ -4,6 +4,7 @@ import com.opentime.smartparking_system.dao.ParkingDAO;
 import com.opentime.smartparking_system.model.dto.ParkingDTO;
 import com.opentime.smartparking_system.model.vo.ParkingVO;
 import com.opentime.smartparking_system.util.MapperUtil;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
 import java.sql.Timestamp;
@@ -11,6 +12,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Log4j2
 public enum ParkingService {
     INSTANCE;
 
@@ -44,7 +46,7 @@ public enum ParkingService {
     // 출차 및 요금 계산
     public ParkingDTO processExit(int carId) {
         ParkingVO entry = parkingDAO.findActiveEntryByCarId(carId);
-
+        log.info("Parking exit: {}", entry.getExitTime());
         if (entry == null || entry.getEntryTime() == null) return null;
         LocalDateTime exitTime = LocalDateTime.now();
         entry.setExitTime(Timestamp.valueOf(exitTime));
