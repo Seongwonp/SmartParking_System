@@ -23,7 +23,7 @@ public class MainServlet extends HttpServlet {
 
         if (user != null) {
             // 로그인된 경우
-            req.getRequestDispatcher("/WEB-INF/jsp/user/index_loginHome.jsp").forward(req, resp);
+            req.getRequestDispatcher("/index/home").forward(req, resp);
         } else {
             // 로그인 안 된 경우
             req.getRequestDispatcher("/WEB-INF/views/index_public.jsp").forward(req, resp);
