@@ -110,4 +110,23 @@ public class ParkingDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public int countAvailableParking(){
+        String SQL = "SELECT COUNT(*) FROM parkingRecord WHERE isExited = FALSE";
+        try{
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+
+
+
 }
