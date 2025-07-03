@@ -101,6 +101,10 @@ public class SubscriptionJoinServlet extends HttpServlet {
         ) && UserService.INSTANCE.updateSubscription(userId,startDate,endDate);
 
         if (success) {
+            HttpSession session = request.getSession();
+            UserDTO user = (UserDTO) session.getAttribute("user");
+            user.setSubscription(true);
+            session.setAttribute("user",user);
             response.sendRedirect(request.getContextPath() + "/user/myPageHome");
         } else {
             request.setAttribute("errorMsg", "멤버십 가입에 실패했습니다.");

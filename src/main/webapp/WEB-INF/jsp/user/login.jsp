@@ -98,7 +98,12 @@
 <%@include file="/jsp/include/header.jsp"%>
 <main class="container">
     <h1>로그인</h1>
-
+    <c:if test="${not empty sessionScope.loginMessage}">
+        <div class="alert alert-warning mt-3" role="alert">
+                ${sessionScope.loginMessage}
+        </div>
+        <c:remove var="loginMessage" scope="session"/>
+    </c:if>
     <%-- 에러 메시지 출력 --%>
     <c:if test="${not empty errorMessage}">
         <div class="error-message">${errorMessage}</div>

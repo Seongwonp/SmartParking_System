@@ -23,12 +23,23 @@ public class SubscriptionCancelServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("message", "로그인 정보가 만료되었습니다.");
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
         req.setAttribute("userId", user.getUserId());
         // userId로 활성 멤버십 조회
         SubscriptionDTO subscription = SubscriptionService.INSTANCE.getActiveSubscriptionByUserId(user.getUserId());
+        if (subscription == null) {
+            // 가입된 멤버십이 없을 경우
+            session.setAttribute("message", "가입된 멤버십이 없습니다.");
+            resp.sendRedirect(req.getContextPath() + "/user/myPageHome");
+            return;
+        }
         req.setAttribute("subscription", subscription);
         LocalDate today = LocalDate.now();
-        req.setAttribute("today", today);
+        req.setAttribute("today", today); 
         LocalDate endDate;
         if(subscription.getType()== SubscriptionType.annual){
             endDate = today.plusYears(1);
@@ -38,12 +49,7 @@ public class SubscriptionCancelServlet extends HttpServlet {
             endDate = today;
         }
         req.setAttribute("endDate", endDate);
-        if (subscription == null) {
-            // 가입된 멤버십이 없을 경우
-            session.setAttribute("message", "가입된 멤버십이 없습니다.");
-            resp.sendRedirect(req.getContextPath() + "/user/myPageHome");
-            return;
-        }
+
 
 
         req.getRequestDispatcher("/WEB-INF/jsp/user/subscription/subscriptionCancel.jsp").forward(req, resp);

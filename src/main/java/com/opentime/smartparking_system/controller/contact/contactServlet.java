@@ -14,4 +14,12 @@ public class contactServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/views/contact/contact.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String message = req.getParameter("message");
+
+        req.setAttribute("resultMessage", "문의가 정상적으로 접수되었습니다.");
+        req.getRequestDispatcher("/WEB-INF/views/contact/contact.jsp").forward(req, resp);
+    }
 }
