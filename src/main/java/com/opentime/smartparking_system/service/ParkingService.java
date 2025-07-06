@@ -127,4 +127,16 @@ public enum ParkingService {
         }
         return dtoList;
     }
+
+    // 최근 주차기록 조회
+    public List<AdminDTO_parkingrecord> historicalCarList(String carId, int limit) {
+        if (carId == null || carId.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+        limit = (limit < 1) ? 5 : limit;
+
+        return parkingDAO.ParkingHistoryByCarId(carId, limit).stream()
+                .map(vo -> modelMapper.map(vo, AdminDTO_parkingrecord.class))
+                .toList();
+    }
 }

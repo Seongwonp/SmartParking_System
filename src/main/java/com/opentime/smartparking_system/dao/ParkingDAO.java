@@ -66,6 +66,45 @@ public class ParkingDAO {
     }
 
 
+    // carId별 주차 히스토리 리스트
+    public List<AdminVO_parkingrecord> ParkingHistoryByCarId(String carId, int limit) {
+        String SQL = "SELECT pr.recordId, pr.entryTime, pr.exitTime, pr.fee, pr.isExited, " +
+                "c.carId, c.carNumber, c.carModel, c.carType, u.userId, u.name " +
+                "FROM parkingRecord pr " +
+                "JOIN car c ON pr.carId = c.carId " +
+                "JOIN user u ON c.userId = u.userId " +
+                "WHERE c.carId = ? ORDER BY pr.exitTime DESC LIMIT ?";
+        List<AdminVO_parkingrecord> list = new ArrayList<>();
+        try {
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement pstmt = connection.prepareStatement(SQL);
+            pstmt.setString(1, carId);
+            pstmt.setInt(2, limit);
+            @Cleanup ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                AdminVO_parkingrecord vo = AdminVO_parkingrecord.builder()
+                        .recordId(rs.getInt("recordId"))
+                        .entryTime(rs.getTimestamp("entryTime"))
+                        .exitTime(rs.getTimestamp("exitTime"))
+                        .fee(rs.getInt("fee"))
+                        .isExited(rs.getBoolean("isExited"))
+                        .carId(rs.getInt("carId"))
+                        .carNumber(rs.getString("carNumber"))
+                        .carModel(rs.getString("carModel"))
+                        .carType(rs.getString("carType"))
+                        .userId(rs.getInt("userId"))
+                        .name(rs.getString("name"))
+                        .build();
+                list.add(vo);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+
+
 
     // 입차 등록 (출차 전까지는 exitTime, fee는 NULL / isExited=false)
     public boolean insertEntry(ParkingVO parking) {
