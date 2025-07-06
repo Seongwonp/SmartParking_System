@@ -79,23 +79,27 @@ public enum ParkingService {
         }
 
         // 일반 요금 계산
-        int totalFee;
-        if (minutes <= 60) {
-            totalFee = baseFee;
-        } else {
-            int extraMinutes = minutes - 60; // 기본시간 이후 추가 시간
-            int extraUnits = (extraMinutes + additionalUnit - 1) / additionalUnit; //30분 = 1단위
-            totalFee = baseFee + extraUnits * additionalFee;
-        }
-        totalFee = Math.min(totalFee, dailyMaxFee); // 최대 요금 제한, 15000까지만 부과
-         /*
-        추가시간 계산
-        61분 = (1+29)/30 = 1
-        62분 = (2+29)/30 = 1.03
-        91분 = (31+29)/30 = 2
-        119분 = (59+29)/30 = 2.93
-         */
+        int totalFee = 0;
+        int totalMinutes = minutes;
 
+        // 하루(1440분) 단위로 요금 계산
+        while (totalMinutes > 0) {
+            int todayMinutes = Math.min(totalMinutes, 1440); // 하루 최대 1440분
+            int dayFee;
+
+            if (todayMinutes <= 60) {
+                dayFee = baseFee;
+            } else {
+                int extraMinutes = todayMinutes - 60; // 기본시간 이후 추가 시간
+                int extraUnits = (extraMinutes + additionalUnit - 1) / additionalUnit;
+                dayFee = baseFee + extraUnits * additionalFee;
+            }
+
+            dayFee = Math.min(dayFee, dailyMaxFee); // 하루 최대 요금 제한
+            totalFee += dayFee;
+            totalMinutes -= 1440;
+
+        }
         //차량 유형 할인 적용
         if ("장애인".equals(carType)) {
             totalFee = totalFee / 2;
@@ -119,8 +123,9 @@ public enum ParkingService {
         if (date == null) return parkingDAO.countExitsByDate(LocalDate.now());
         return parkingDAO.countExitsByDate(date);
     }
-    public List<AdminDTO_parkingrecord> existCarList(String carId){
-        List<AdminVO_parkingrecord> voList = parkingDAO.findAllJoinedRecords(true,carId);
+
+    public List<AdminDTO_parkingrecord> existCarList(String carId) {
+        List<AdminVO_parkingrecord> voList = parkingDAO.findAllJoinedRecords(true, carId);
         List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
         for (AdminVO_parkingrecord vo : voList) {
             dtoList.add(modelMapper.map(vo, AdminDTO_parkingrecord.class));
