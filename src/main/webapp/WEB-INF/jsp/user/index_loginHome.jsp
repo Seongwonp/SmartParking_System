@@ -167,7 +167,7 @@
                     <a href ="/user/myPageCarList" class="info-card2">
                         <h3 class="card-title">등록차량목록</h3>
                     </a>
-                    <a href="/user/myPageInOut" class="info-card2">
+                    <a href="/user/parking/history" class="info-card2">
                         <h3 class="card-title">최근 입출차 내역</h3>
                     </a>
                 </div>

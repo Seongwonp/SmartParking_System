@@ -125,7 +125,7 @@
             <div><a href="/user/myPageHome">주차현황</a></div>
             <div><a href="/user/myPageCarForm">차량등록</a></div>
             <div><a href="/user/myPageCarList">등록차량목록</a></div>
-            <div><a href="/user/myPageInOut">최근입출차내역</a></div>
+            <div><a href="/user/parking/history">최근입출차내역</a></div>
             <div><a href="/user/myPageModify">회원정보수정</a></div>
             <div><a href="/user/subscription/join">멤버쉽관리</a></div>
         </div>
