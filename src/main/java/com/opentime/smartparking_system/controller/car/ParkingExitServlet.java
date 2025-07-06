@@ -34,7 +34,6 @@ public class ParkingExitServlet extends HttpServlet {
             parkingDTO.setExitTime(Timestamp.valueOf(LocalDateTime.now()));
             req.setAttribute("message", "출차가 완료되었습니다. 요금: " + parkingDTO.getFee() + "원");
             req.setAttribute("parkingDTO", parkingDTO);
-//            resp.sendRedirect(req.getContextPath() + "/user/parkingCalc");
             req.getRequestDispatcher("/WEB-INF/jsp/user/parkingCalc.jsp").forward(req, resp);
         }
         else {
