@@ -2,6 +2,7 @@ package com.opentime.smartparking_system.controller.car;
 
 import com.opentime.smartparking_system.dao.ParkingDAO;
 import com.opentime.smartparking_system.model.dto.UserDTO;
+import com.opentime.smartparking_system.service.ParkingService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @WebServlet("/user/myPageHome")
 public class ParkingStatusServlet extends HttpServlet {
-    private ParkingDAO parkingDAO  = new ParkingDAO();
+    private final ParkingService parkingService  = ParkingService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,7 +33,7 @@ public class ParkingStatusServlet extends HttpServlet {
             int userId = user.getUserId();
             List<Map<String, Object>> parkingStatusList;
             try {
-                parkingStatusList = parkingDAO.getParkingStatusList();
+                parkingStatusList = parkingService.getParkingStatusList(user.getUserId());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

@@ -9,12 +9,14 @@ import com.opentime.smartparking_system.util.MapperUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public enum ParkingService {
@@ -127,6 +129,12 @@ public enum ParkingService {
         }
         return dtoList;
     }
+
+    public List<Map<String, Object>> getParkingStatusList(int userId) throws SQLException {
+        if(userId < 0) return null;
+        return parkingDAO.getParkingStatusList(userId);
+    }
+
 
     // 최근 주차기록 조회
     public List<AdminDTO_parkingrecord> historicalCarList(String carId, int limit) {
