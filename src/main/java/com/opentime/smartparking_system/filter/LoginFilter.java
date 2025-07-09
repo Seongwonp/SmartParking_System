@@ -50,7 +50,7 @@ public class LoginFilter implements Filter {
                 || uri.equals("/jsp/include/header.jsp")          // 해더 푸터 파일
                 || uri.equals("/jsp/include/footer.jsp")
                 || uri.startsWith("/login")            // 로그인 페이지
-                || uri.equals("/user/signin")          // 일반 회원가입 페이지
+                || uri.equals("/user/signup")          // 일반 회원가입 페이지
                 || uri.startsWith("/resources/")       // 정적 리소스(css, js 등)
                 || uri.startsWith("/css/")
                 || uri.startsWith("/Info/")        // 공개 컨텐츠
