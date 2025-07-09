@@ -191,15 +191,22 @@ public class ParkingDAO {
         return list;
     }
 
-    public List<Map<String, Object>> getParkingStatusList() throws SQLException {
+    public List<Map<String, Object>> getParkingStatusList(int userId) throws SQLException {
+        // 차량별 가장 최근 주차 기록만 조회하는 쿼리
         String sql = "SELECT c.carNumber, pr.entryTime, pr.exitTime " +
                 "FROM car c " +
                 "JOIN parkingRecord pr ON c.carId = pr.carId " +
-                "WHERE pr.isExited = FALSE";
+                "JOIN ( " +
+                "    SELECT carId, MAX(entryTime) AS latestEntry " +
+                "    FROM parkingRecord " +
+                "    GROUP BY carId " +
+                ") latest ON pr.carId = latest.carId AND pr.entryTime = latest.latestEntry " +
+                "WHERE c.userId = ?";
 
         try {
             @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
             @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
              ResultSet resultSet = preparedStatement.executeQuery();
             List<Map<String, Object>> list = new ArrayList<>();
             while (resultSet.next()) {
