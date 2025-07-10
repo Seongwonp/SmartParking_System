@@ -1,105 +1,118 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>마이페이지</title>
-    <!-- Bootstrap CSS -->
+    <title>주차 영수증</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <style>
-        /*프로필카드와 남은공간 배치*/
         html, body {
             height: 100%;
-            margin: 0 auto;
+            margin: 0;
+            padding: 0;
             display: flex;
-            /*flex-direction: column;*/
-        }
-        body {
-            background: #f9f9f9;
-            font-family: sans-serif;
+            flex-direction: column;
         }
 
-        body > .my-page {
+        .main-content {
+            flex: 1 0 auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            background-color: #f9f9f9;
-            margin-top: 140px;
+            justify-content: flex-start;
+            padding-bottom: 20px;
         }
 
-        body> .my-page .main-content {
-            display: flex;
+        footer, .footer {
+            flex-shrink: 0;
+            height: 60px; /* adjust based on your footer height */
         }
 
-        /*주차현황카드 */
-        .parking-status {
-            width: 800px;
-            max-width: 1200px;
-            margin:20px auto;
-            background-color: #ffffff;
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 50px 0;
+        }
+        .receipt {
+            background: #fff;
+            width: 400px;
+            margin: auto;
             padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 0.375rem;
+            border: 2px dashed #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
-        .parking-status>h2 {
+        .receipt h2 {
             text-align: center;
-            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
-        .parking-status thead th{
-            background-color: #4a97d8;
-            color: white;
+        .receipt hr {
+            border: none;
+            border-top: 1px dashed #333;
+            margin: 15px 0;
+        }
+        .receipt .line {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        .total {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .btn-home {
+            display: block;
+            margin: 30px auto 0;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 <%@include file="/jsp/include/header.jsp" %>
-<% String msg = (String) request.getAttribute("successMsg"); %>
+
+<div class="main-content">
+<% String msg = (String) request.getAttribute("message"); %>
 <% if (msg != null) { %>
-<div class="alert alert-success text-center" role="alert" style="margin-top: 100px;">
+<div class="alert alert-success text-center" role="alert" style="margin-top: 20px;" data-aos="fade-down">
     <%= msg %>
 </div>
 <% } %>
 
-<div class="my-page">
-    <div class="main-content">
-        <!-- 우측 프로필 카드 -->
-        <div>
-            <%@include file="/jsp/user/myPage_profile.jsp" %>
-        </div>
-        <!-- 중앙 주차현황 카드 -->
-        <div class="parking-status">
-            <h2 class="mb-3">주차요금정산</h2>
-            <table class="table table-bordered text-center">
-                <thead class="table-light">
-                <tr>
-                    <th>차량번호</th>
-                    <th>입차시간</th>
-                    <th>출차시간</th>
-                    <th>금액</th>
-                    <th>상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>${parkingDTO.carNumber}</td>
-                        <td>${parkingDTO.entryTime}</td>
-                        <td>${parkingDTO.exitTime}</td>
-                        <td>${parkingDTO.fee}</td>
-                        <td class="text-success">
-                            <c:choose>
-                                <c:when test="${parkingDTO.exitTime == null}">주차중</c:when>
-                                <c:otherwise>출차완료</c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="receipt" data-aos="fade-up">
+    <h2>영수증</h2>
+    <hr>
+    <div class="line">
+        <span>차량번호</span>
+        <span>${parkingDTO.carNumber}</span>
     </div>
+    <div class="line">
+        <span>입차시간</span>
+        <span>${parkingDTO.entryTime}</span>
+    </div>
+    <div class="line">
+        <span>출차시간</span>
+        <span>${parkingDTO.exitTime}</span>
+    </div>
+    <hr>
+    <div class="total">
+        총 요금: ₩${parkingDTO.fee}
+    </div>
+    <hr>
+    <div class="line" style="justify-content: center;">
+        감사합니다. 안전운전하고 좋은하루 되세요!
+    </div>
+    <a href="${pageContext.request.contextPath}/index" class="btn btn-primary btn-home">메인으로</a>
 </div>
+</div>
+
 <%@include file="/jsp/include/footer.jsp" %>
+
 <script>
     const alertBox = document.querySelector('.alert-success');
     if (alertBox) {

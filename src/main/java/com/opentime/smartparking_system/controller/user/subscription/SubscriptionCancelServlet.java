@@ -1,7 +1,9 @@
 package com.opentime.smartparking_system.controller.user.subscription;
 
+import com.opentime.smartparking_system.model.dto.CarDTO;
 import com.opentime.smartparking_system.model.dto.SubscriptionDTO;
 import com.opentime.smartparking_system.model.dto.UserDTO;
+import com.opentime.smartparking_system.service.CarService;
 import com.opentime.smartparking_system.service.SubscriptionService;
 
 import com.opentime.smartparking_system.service.UserService;
@@ -15,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @WebServlet("/user/subscription/cancel")
 public class SubscriptionCancelServlet extends HttpServlet {
@@ -37,7 +41,14 @@ public class SubscriptionCancelServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/user/myPageHome");
             return;
         }
+        CarDTO car;
+        try {
+          car = CarService.INSTANCE.getCarInfo(String.valueOf(subscription.getCarId()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         req.setAttribute("subscription", subscription);
+        req.setAttribute("carInfo",car);
         LocalDate today = LocalDate.now();
         req.setAttribute("today", today); 
         LocalDate endDate;
