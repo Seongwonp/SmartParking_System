@@ -109,8 +109,10 @@
 
 </body>
 <c:if test="${not empty errorMessage}">
-    <script>
-        alert("${errorMessage}");
-    </script>
+    <script>alert("${errorMessage}");</script>
+</c:if>
+
+<c:if test="${not empty successMessage}">
+    <script>alert("${successMessage}");</script>
 </c:if>
 </html>

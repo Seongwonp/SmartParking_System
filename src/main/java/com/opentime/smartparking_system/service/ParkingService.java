@@ -50,11 +50,26 @@ public enum ParkingService {
         return parkingDAO.insertEntry(parkingVO);
     }
 
-    // 출차처리
     public ParkingDTO processExit(int carId) {
         ParkingVO entry = parkingDAO.findActiveEntryByCarId(carId);
-        log.info("Parking exit: {}", entry.getExitTime());
-        if (entry == null || entry.getEntryTime() == null) return null;
+
+        if (entry == null) {
+            log.warn("출차 시도: carId {} 에 대한 활성화된 입차 기록이 없습니다.", carId);
+            return null;
+        }
+
+        if (entry.getExitTime() != null) {
+            log.warn("출차 시도: carId {} 는 이미 출차가 완료된 차량입니다.", carId);
+            return null;
+        }
+
+        if (entry.getEntryTime() == null) {
+            log.warn("출차 시도: carId {} 의 입차 시간이 null 입니다.", carId);
+            return null;
+        }
+
+        log.info("Parking exit 처리 진행: carId={}, entryTime={}", carId, entry.getEntryTime());
+
         LocalDateTime exitTime = LocalDateTime.now();
         entry.setExitTime(Timestamp.valueOf(exitTime));
 
@@ -65,7 +80,10 @@ public enum ParkingService {
         entry.setFee(fee);
 
         boolean updated = parkingDAO.updateExitInfo(entry);
-        if (!updated) return null;
+        if (!updated) {
+            log.error("출차 정보 업데이트 실패: carId={}", carId);
+            return null;
+        }
         return modelMapper.map(entry, ParkingDTO.class);
     }
 

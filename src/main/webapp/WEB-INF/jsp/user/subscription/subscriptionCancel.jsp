@@ -161,9 +161,20 @@
 
         .info div {
             display: flex;
-            justify-content: space-between;
             margin-bottom: 10px;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .info div span:first-child {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .info div span:last-child {
+            color: #333;
+            font-weight: 600;
+            font-size: 17px;
         }
 
         .warning-box {
@@ -257,6 +268,19 @@
                                         가입된 멤버십이 없습니다.
                                     </c:if>
                                 </div>
+
+                                <c:if test="${not empty carInfo}">
+                                    <div class="period">
+                                        <div>
+                                            <span>차량번호: </span>
+                                            <span>${carInfo.carNumber}</span>
+                                        </div>
+                                        <div>
+                                            <span>차량모델: </span>
+                                            <span>${carInfo.carModel}</span>
+                                        </div>
+                                    </div>
+                                </c:if>
 
                                 <div class="period">
                                     <c:if test="${not empty subscription}">
