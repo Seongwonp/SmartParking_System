@@ -3,10 +3,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom shadow-sm">
     <div class="container-fluid">
-        <!-- 로고 -->
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/index">
-            <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="60" class="d-inline-block align-text-top" />
-        </a>
+
+        <div style="width: 200px; margin-right: 500px;">
+            <!-- 로고 -->
+            <a class="navbar-brand " href="${pageContext.request.contextPath}/index">
+                <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="50" />
+            </a>
+        </div>
 
         <!-- 햄버거 버튼 -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -15,8 +18,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarContent">
-            <!-- 중앙 네비 메뉴 -->
-            <ul class="navbar-nav mx-auto fw-semibold fs-6">
+            <!-- 중앙 메뉴 -->
+            <ul class="navbar-nav mx-auto fw-semibold fs-6 flex-nowrap" style="max-width: 70%;">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/Info/intro" id="parkingInfoDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,7 +31,6 @@
                         <li><a class="dropdown-item" href="/Info/location">오시는 길</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/fee/list" id="priceDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,28 +41,26 @@
                         <li><a class="dropdown-item" href="/fee/list#discount-info">할인 정보</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/contact/Q&A" id="supportDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="/contact/Q&amp;A" id="supportDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         고객지원
                     </a>
                     <ul class="dropdown-menu shadow-sm">
-                        <li><a class="dropdown-item" href="/contact/Q&A">문의하기</a></li>
-                        <li><a class="dropdown-item" href="/contact/F&Q">자주 묻는 질문</a></li>
+                        <li><a class="dropdown-item" href="/contact/Q&amp;A">문의하기</a></li>
+                        <li><a class="dropdown-item" href="/contact/F&amp;Q">자주 묻는 질문</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/notice/list">공지사항</a>
                 </li>
             </ul>
 
-            <!-- 오른쪽 시계 -->
-            <span id="headerClock" class="me-3 fw-semibold text-dark fs-6 align-self-center"></span>
-
-            <!-- 오른쪽 로그인/회원가입 or 유저메뉴 -->
-            <ul class="navbar-nav fw-semibold fs-6">
+            <!-- 우측 시계 및 유저 메뉴 -->
+            <ul class="navbar-nav fw-semibold fs-6 flex-row align-items-center justify-content-end w-100" style="margin: 0; min-width: 300px;">
+                <li class="nav-item me-3">
+                    <span id="headerClock" class="fw-semibold text-dark fs-6" style="min-width: 80px; font-family: monospace; text-align: right;"></span>
+                </li>
                 <%
                     UserDTO user = (UserDTO) session.getAttribute("user");
                     if (user == null) {
@@ -74,7 +74,7 @@
                 <% } else { %>
                 <li class="nav-item">
                     <a class="nav-link text-primary" href="#" tabindex="-1" aria-disabled="true" style="cursor: default;">
-                        <%= user.getName() %>님 환영합니다.
+                        <%= user.getName() %>님
                     </a>
                 </li>
                 <% if ("ADMIN".equals(user.getRole())) { %>
@@ -93,6 +93,15 @@
         </div>
     </div>
 </nav>
+
+<style>
+    .navbar-nav.flex-nowrap {
+        flex-wrap: nowrap;
+    }
+    .navbar-nav > li {
+        white-space: nowrap;
+    }
+</style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
