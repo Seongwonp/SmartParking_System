@@ -54,6 +54,20 @@
                 </a>
             </li>
 
+
+            <li class="nav-item">
+                <a class="nav-link
+                    ${currentPage eq 'parkingStatus' ? 'active text-white fw-bold' : 'text-secondary'}
+                    d-flex align-items-center"
+                   href="${pageContext.request.contextPath}/admin/parkingList">
+                    <i class="fas fa-parking me-2"></i>
+                    차량 출차 처리
+                </a>
+            </li>
+
+
+
+
             <li class="nav-item">
                 <a class="nav-link
                     ${currentPage eq 'noticeList' ? 'active text-white fw-bold' : 'text-secondary'}
