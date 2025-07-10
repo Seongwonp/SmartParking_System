@@ -30,14 +30,14 @@
             justify-content: center;
             gap: 50px;
             box-sizing: border-box;
-            font-size: 18px;
+            font-size: 20px;
 
         }
 
         .profile-card {
             position: absolute;
             right: 30px;
-            top: 25%;
+            top: 20%;
             transform: translateY(-50%);
             width: 250px;
             background: #fff;
@@ -45,7 +45,7 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            height: 400px;
+            height: 500px;
 
         }
 
@@ -113,8 +113,8 @@
             <img src="${pageContext.request.contextPath}/jsp/user/img/icon01.png" alt="profile" class="profileImg">
             <div class="profile-info">
                 <%
-                    UserDTO userDTO = (UserDTO) session.getAttribute("user");
-                    String name = (userDTO != null && userDTO.getName() != null) ? userDTO.getName() : "회원";
+                    UserDTO user1 = (UserDTO) session.getAttribute("user");
+                    String name = (user1 != null && user1.getName() != null) ? user1.getName() : "회원";
                 %>
                 <div class="profile-name"><%= name %>
                 </div>
@@ -123,6 +123,8 @@
         </div>
         <div class="menu-list">
             <div><a href="/user/myPageHome">주차현황</a></div>
+            <div><a href="/user/parking/entryForm">입차등록</a></div>
+            <div><a href="/user/parking/exitForm">출차등록</a></div>
             <div><a href="/user/myPageCarForm">차량등록</a></div>
             <div><a href="/user/myPageCarList">등록차량목록</a></div>
             <div><a href="/user/parking/history">최근입출차내역</a></div>
