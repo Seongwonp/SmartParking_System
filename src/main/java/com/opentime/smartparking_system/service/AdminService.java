@@ -9,7 +9,9 @@ import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Log4j2
@@ -24,6 +26,7 @@ public enum AdminService {
     private final AdminDAO_userSubscription adminUserSubscription;
     private final AdminDAO_subscription adminDAOSubscription;
     private final AdminDAO_parkingrecord adminDAOParkingrecord;
+    private final AdminDAO_Parking adminDAOParking;
 
 
     AdminService() {
@@ -35,6 +38,7 @@ public enum AdminService {
         adminUserSubscription = new AdminDAO_userSubscription();
         adminDAOSubscription = new AdminDAO_subscription();
         adminDAOParkingrecord = new AdminDAO_parkingrecord();
+        adminDAOParking = new AdminDAO_Parking();
     }
 
     // 총 회원 수
@@ -374,5 +378,105 @@ public enum AdminService {
         Timestamp end = Timestamp.valueOf(today.plusDays(1).atStartOfDay());
         return adminDAOParkingrecord.totalTodayCost(start, end);
     }
+
+
+
+    /* *********************** 관리자 출차 기능 ******************************* */
+    public List<AdminDTO_parkingrecord> getParkingList( String carNumberKeyword, String userNameKeyword){
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        List<AdminVO_parkingrecord> voList = adminDAOParking.findParkingList(carNumberKeyword, userNameKeyword);
+        for (AdminVO_parkingrecord vo : voList) {
+            dtoList.add(modelMapper.map(vo, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
+
+    public boolean adminExitCar(int carId) {
+        if (carId <= 0) {
+            log.warn("Invalid carId received: {}", carId);
+            return false;
+        }
+        try {
+            ParkingVO car = adminDAOParking.findActiveEntryByCarId(carId);
+            if (car == null) {
+                log.info("No active parking record found for carId: {}", carId);
+                return false;
+            }
+            ParkingDTO carDTO = modelMapper.map(car, ParkingDTO.class);
+            int recordId = carDTO.getRecordId();
+            LocalDateTime exitTime = LocalDateTime.now();
+            LocalDateTime entryTime = carDTO.getEntryTime().toLocalDateTime();
+            int minutes = Math.toIntExact(Duration.between(entryTime, exitTime).toMinutes());
+            int fee = calculateFee(minutes, carDTO.getCarType(), carDTO.getSubscriptionType());
+
+            log.info("Processing exit for carId: {}, recordId: {}, parkedMinutes: {}, calculatedFee: {}",
+                    carId, recordId, minutes, fee);
+
+            boolean result = adminDAOParking.adminExitCar(recordId, fee);
+
+            if (result) {
+                log.info("Exit processed successfully for recordId: {}", recordId);
+            } else {
+                log.error("Failed to process exit for recordId: {}", recordId);
+            }
+
+            return result;
+
+        } catch (Exception e) {
+            log.error("Error during exit process for carId: " + carId, e);
+            return false;
+        }
+    }
+
+    private int calculateFee(int minutes, String carType, String subscriptionType) {
+        try {
+            int baseFee = 2000;             // 기본 1시간 요금
+            int additionalUnit = 30;        // 추가 요금 단위 (분)
+            int additionalFee = 1000;       // 30분마다 부과 요금
+            int dailyMaxFee = 15000;        // 일일 최대 요금
+
+            if ("monthly".equalsIgnoreCase(subscriptionType) || "annual".equalsIgnoreCase(subscriptionType)) {
+                log.info("Subscription member detected (type: {}), fee set to 0", subscriptionType);
+                return 0;
+            }
+
+            int totalFee = 0;
+            int totalMinutes = minutes;
+
+            while (totalMinutes > 0) {
+                int todayMinutes = Math.min(totalMinutes, 1440);
+                int dayFee;
+
+                if (todayMinutes <= 60) {
+                    dayFee = baseFee;
+                } else {
+                    int extraMinutes = todayMinutes - 60;
+                    int extraUnits = (extraMinutes + additionalUnit - 1) / additionalUnit;
+                    dayFee = baseFee + extraUnits * additionalFee;
+                }
+
+                dayFee = Math.min(dayFee, dailyMaxFee);
+                totalFee += dayFee;
+                totalMinutes -= 1440;
+            }
+
+            if ("장애인".equals(carType)) {
+                totalFee /= 2;
+                log.info("Disability discount applied. New fee: {}", totalFee);
+            } else if ("경차".equals(carType)) {
+                totalFee = (int) (totalFee * 0.7);
+                log.info("Compact car discount applied. New fee: {}", totalFee);
+            }
+
+            return totalFee;
+        } catch (Exception e) {
+            log.error("Error calculating fee: minutes={}, carType={}, subscriptionType={}", minutes, carType, subscriptionType, e);
+            // 실패 시 기본 요금 반환
+            return 2000;
+        }
+    }
+
+
+
 
 }
