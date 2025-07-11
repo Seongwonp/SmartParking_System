@@ -32,7 +32,7 @@
 <%@ include file="/jsp/include/header.jsp" %>
 
 
-<div class="banner" data-aos="fade-down" style="margin-top: 100px;">
+<div class="banner" data-aos="fade-down">
     <h1 class="display-4 fw-bold">주차 이용 안내</h1>
     <p class="lead">SmartParking 반월당점을 찾아주셔서 감사합니다.</p>
 </div>

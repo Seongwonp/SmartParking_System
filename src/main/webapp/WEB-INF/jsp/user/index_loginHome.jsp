@@ -88,14 +88,8 @@
             color: #0d6efd;
         }
         /* 추가: intro-text 내부 영역 구분용 스타일 */
-        .profile-area {
-            margin-bottom: 1rem;
-        }
         .intro-message {
             color: #fff;
-        }
-        .container {
-            padding-top: 7rem;
         }
     </style>
 </head>

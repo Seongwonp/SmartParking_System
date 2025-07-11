@@ -1,125 +1,70 @@
 <%@ page import="com.opentime.smartparking_system.model.dto.UserDTO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom shadow-sm">
-    <div class="container-fluid">
+<nav class="navbar-custom">
+    <div class="navbar-container">
 
-        <div style="width: 200px; margin-right: 500px;">
-            <!-- 로고 -->
-            <a class="navbar-brand " href="${pageContext.request.contextPath}/index">
-                <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" height="50" />
+        <!-- 왼쪽 로고 -->
+        <div class="navbar-logo">
+            <a href="${pageContext.request.contextPath}/index">
+                <img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="SmartParking Logo" />
             </a>
+            <span id="headerClock"></span>
         </div>
 
-        <!-- 햄버거 버튼 -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- 가운데 메뉴 -->
+        <ul class="navbar-menu">
+            <li class="dropdown">
+                <a href="/Info/intro">이용안내</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/Info/intro">주차장 소개</a></li>
+                    <li><a href="/Info/guide">주차 안내</a></li>
+                    <li><a href="/Info/location">오시는 길</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="/fee/list">이용요금</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/fee/list">요금제 안내</a></li>
+                    <li><a href="/fee/list#discount-info">할인 정보</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="/contact/Q&amp;A">고객지원</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/contact/Q&amp;A">문의하기</a></li>
+                    <li><a href="/contact/F&amp;Q">자주 묻는 질문</a></li>
+                </ul>
+            </li>
+            <li><a href="/notice/list">공지사항</a></li>
+        </ul>
 
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <!-- 중앙 메뉴 -->
-            <ul class="navbar-nav mx-auto fw-semibold fs-6 flex-nowrap" style="max-width: 70%;">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/Info/intro" id="parkingInfoDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        이용안내
-                    </a>
-                    <ul class="dropdown-menu shadow-sm">
-                        <li><a class="dropdown-item" href="/Info/intro">주차장 소개</a></li>
-                        <li><a class="dropdown-item" href="/Info/guide">주차 안내</a></li>
-                        <li><a class="dropdown-item" href="/Info/location">오시는 길</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/fee/list" id="priceDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        이용요금
-                    </a>
-                    <ul class="dropdown-menu shadow-sm">
-                        <li><a class="dropdown-item" href="/fee/list">요금제 안내</a></li>
-                        <li><a class="dropdown-item" href="/fee/list#discount-info">할인 정보</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/contact/Q&amp;A" id="supportDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        고객지원
-                    </a>
-                    <ul class="dropdown-menu shadow-sm">
-                        <li><a class="dropdown-item" href="/contact/Q&amp;A">문의하기</a></li>
-                        <li><a class="dropdown-item" href="/contact/F&amp;Q">자주 묻는 질문</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/notice/list">공지사항</a>
-                </li>
-            </ul>
-
-            <!-- 우측 시계 및 유저 메뉴 -->
-            <ul class="navbar-nav fw-semibold fs-6 flex-row align-items-center justify-content-end w-100" style="margin: 0; min-width: 300px;">
-                <li class="nav-item me-3">
-                    <span id="headerClock" class="fw-semibold text-dark fs-6" style="min-width: 80px; font-family: monospace; text-align: right;"></span>
-                </li>
+        <!-- 유저 메뉴 -->
+        <div class="navbar-right">
+            <ul class="user-menu">
                 <%
                     UserDTO user = (UserDTO) session.getAttribute("user");
                     if (user == null) {
                 %>
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/login">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/user/signup">Sign Up</a>
-                </li>
+                <li><a href="/login">Log In</a></li>
+                <li><a href="/user/signup">Sign Up</a></li>
                 <% } else { %>
-                <li class="nav-item">
-                    <a class="nav-link text-primary" href="#" tabindex="-1" aria-disabled="true" style="cursor: default;">
-                        <%= user.getName() %>님
-                    </a>
-                </li>
+                <li class="fw-bold text-primary" style="cursor: default;"><%= user.getName() %>님</li>
                 <% if ("ADMIN".equals(user.getRole())) { %>
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/admin/main">관리자 페이지</a>
-                </li>
+                <li><a href="/admin/main">관리자 페이지</a></li>
                 <% } %>
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/user/myPageHome">마이페이지</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-secondary" id="logoutLink" href="#">Logout</a>
-                </li>
+                <li><a href="/user/myPageHome">마이페이지</a></li>
+                <li><a href="#" id="logoutLink">Logout</a></li>
                 <% } %>
             </ul>
         </div>
     </div>
 </nav>
 
-<style>
-    .navbar-nav.flex-nowrap {
-        flex-wrap: nowrap;
-    }
-    .navbar-nav > li {
-        white-space: nowrap;
-    }
-</style>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const dropdownIds = [
-            "parkingInfoDropdown",
-            "priceDropdown",
-            "supportDropdown"
-        ];
-
-        dropdownIds.forEach(function (id) {
-            const link = document.getElementById(id);
-            if (link) {
-                link.addEventListener("click", function (e) {
-                    window.location.href = link.href;
-                });
-            }
-        });
-
+        // 로그아웃
         const logoutLink = document.getElementById('logoutLink');
         if (logoutLink) {
             logoutLink.addEventListener('click', function (e) {
@@ -133,9 +78,7 @@
         // 시계 출력
         function updateClock() {
             const now = new Date();
-            function pad(n) {
-                return n.toString().padStart(2, '0');
-            }
+            const pad = n => n.toString().padStart(2, '0');
             document.getElementById('headerClock').textContent =
                 pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
         }

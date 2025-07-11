@@ -22,7 +22,7 @@
             padding: 30px;
         }
 
-        .container {
+        .container_signUp {
             width: 420px;
             margin: 150px auto 100px;
             padding: 30px;
@@ -151,7 +151,7 @@
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
 
-<div class="container">
+<div class="container_signUp">
     <h1>회원가입</h1>
     <h2>회원정보를 입력해주세요</h2>
     <c:if test="${not empty errorMessage}">

@@ -15,7 +15,6 @@
             color: white;
             padding: 80px 20px;
             text-align: center;
-            margin-top: 100px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
