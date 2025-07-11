@@ -40,10 +40,13 @@ public enum SubscriptionService {
 
 
     public SubscriptionDTO getActiveSubscriptionByUserId(int userId) {
-        SubscriptionDTO dto = modelMapper.map(subscriptionDAO.getActiveSubscriptionByUserId(userId), SubscriptionDTO.class);
-        if(dto == null) return null;
-        return dto;
+        SubscriptionVO vo = subscriptionDAO.getActiveSubscriptionByUserId(userId);
+        if (vo == null) {
+            return null;
+        }
+        return modelMapper.map(vo, SubscriptionDTO.class);
     }
+
 
 
 

@@ -38,14 +38,15 @@ public class SubscriptionCancelServlet extends HttpServlet {
         if (subscription == null) {
             // 가입된 멤버십이 없을 경우
             session.setAttribute("message", "가입된 멤버십이 없습니다.");
-            resp.sendRedirect(req.getContextPath() + "/user/myPageHome");
+            resp.sendRedirect(req.getContextPath() + "/user/subscription/join");
             return;
         }
-        CarDTO car;
+        CarDTO car = null;
         try {
           car = CarService.INSTANCE.getCarInfo(String.valueOf(subscription.getCarId()));
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            resp.sendRedirect(req.getContextPath() + "/user/subscription/join");
         }
         req.setAttribute("subscription", subscription);
         req.setAttribute("carInfo",car);
@@ -90,10 +91,7 @@ public class SubscriptionCancelServlet extends HttpServlet {
             }
         } catch (NumberFormatException e) {
             session.setAttribute("message", "잘못된 사용자 ID입니다.");
-        } catch (Exception e) {
-            session.setAttribute("message", "서버 오류가 발생했습니다.");
+            response.sendRedirect(request.getContextPath() + "/user/subscription/join");
         }
-
-
     }
 }
