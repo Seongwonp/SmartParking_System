@@ -5,10 +5,7 @@ import com.opentime.smartparking_system.model.vo.UserVO;
 import com.opentime.smartparking_system.util.ConnectionUtil;
 import lombok.Cleanup;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAO {
 
@@ -95,6 +92,23 @@ public class UserDAO {
             throw new RuntimeException(e);
         }
     }
+
+    // 구독 업데이트
+    public boolean updateSubscription(int userId,boolean isSub, Date subscriptionStart, Date subscriptionEnd) {
+        String SQL = "UPDATE user SET isSubscription = ?, subscriptionStart = ?, subscriptionEnd = ? WHERE userId = ? ";
+        try{
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setBoolean(1, isSub);
+            preparedStatement.setDate(2, subscriptionStart);
+            preparedStatement.setDate(3, subscriptionEnd);
+            preparedStatement.setInt(4, userId);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     // 회원 탈퇴

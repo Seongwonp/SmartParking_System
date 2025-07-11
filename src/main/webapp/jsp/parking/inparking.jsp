@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.opentime.smartparking_system.dao.CarDAO" %>
-<%@ page import="com.opentime.smartparking_system.model.dto.CarDTO" %>
-<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.opentime.smartparking_system.model.vo.CarVO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,14 +45,8 @@
 <%@ include file="/jsp/include/header.jsp" %>
 
 <%
-  int userId = (Integer) session.getAttribute("userId"); // 세션에서 로그인된 사용자 ID 가져옴
   CarDAO carDAO = new CarDAO();
-  List<CarDTO> carList = new ArrayList<>();
-  try {
-    carList = carDAO.getCarsByUserId(userId); // 사용자 차량 조회
-  } catch (SQLException e) {
-    e.printStackTrace();
-  }
+  List<CarVO> carList = carDAO.findAll(); // 차량 목록 조회
 %>
 
 <div class="container">
@@ -64,7 +57,7 @@
       <select class="form-select" id="carId" name="carId" required>
         <option value="">차량을 선택하세요</option>
         <%
-          for (CarDTO car : carList) {
+          for (CarVO car : carList) {
         %>
         <option value="<%=car.getCarId()%>"><%=car.getCarNumber()%> - <%=car.getCarType()%></option>
         <%

@@ -68,7 +68,6 @@
                 <thead class="table-light">
                 <tr>
                     <th>NO</th>
-                    <th>날짜</th>
                     <th>입차시간</th>
                     <th>출차시간</th>
                     <th>요금</th>

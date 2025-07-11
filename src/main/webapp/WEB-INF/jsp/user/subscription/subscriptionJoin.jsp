@@ -1,10 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>마이페이지</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
     <style>
@@ -71,8 +71,8 @@
             justify-content: space-between;
             margin-bottom: 32px;
             gap: 20px;
-
         }
+
 
         .box {
             background: linear-gradient(145deg, #ffffff, #f2f2f2);
@@ -85,7 +85,6 @@
             flex: 1 1 45%;
             margin: 10px;
         }
-
         .box:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
@@ -116,89 +115,59 @@
             color: #222;
         }
 
-        /*멤버쉽해지*/
-
-        .membership-cancel-page,
-        .btn-group{
+        /*멤버쉽가입*/
+        .agreement-container,
+        .agreement-box,
+        .submit-btn,
+        .membership-select {
             width: 100%;
         }
-        .membership-cancel-page {
+        .agreement-container {
             margin: 0 auto;
         }
-
-        .membership-period {
-            background: white;
+        .agreement-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 20px;
-            border-radius: 8px;
+            background-color: #fff;
             margin-bottom: 20px;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            border: 1px solid #cde9df;
+            font-size: 13px;
         }
 
-        .cancel-box h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-        }
-
-        .membership-card {
-            background: white;
-            border: 1px solid #dfe5ef;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .plan-type {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .info div {
-            display: flex;
-            justify-content: space-between;
+        .agreement-box label {
+            display: block;
             margin-bottom: 10px;
-            font-size: 14px;
         }
 
-        .warning-box {
-            background-color: #fff7f5;
-            border: 1px solid #f2c7c2;
-            color: #c0392b;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.6;
+        input[type="checkbox"] {
+            margin-right: 8px;
         }
 
-        .btn-group {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .cancel-btn,
-        .back-btn {
-            background: #878787;
+        .submit-btn {
+            padding: 14px;
+            background-color: #878787;
             color: white;
-            border: none;
-            padding: 14px 28px;
             font-size: 16px;
+            border: none;
             border-radius: 6px;
             cursor: pointer;
-            transition: background 0.3s ease;
-            min-width: 180px;
-            width: 48%;
+            transition: background 0.4s ease;
         }
 
-        .cancel-btn:hover,
-        .back-btn:hover {
-            background: linear-gradient(45deg, #ff3b3b, #c0392b);
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #45a049, #1e88e5);
         }
-        .membership-cancel {
+
+        .membership-select {
+            margin-bottom: 20px;
+        }
+
+        .form-select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        .membership-join {
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid #ddd;
@@ -209,15 +178,13 @@
 <%@include file="/jsp/include/header.jsp" %>
 <div class="my-page">
     <div class="main-content">
-        <!-- 우측 프로필 카드 -->
         <div>
             <%@include file="/jsp/user/myPage_profile.jsp" %>
         </div>
-        <!-- 중앙 멤버쉽 카드 -->
         <div class="membership-status">
             <h2 class="mb-3">My 멤버십</h2>
             <h4 class="mb-3">멤버십 혜택</h4>
-            <form action="/membership" method="post">
+            <form action="/user/subscription/join" method="post">
                 <div class="membership-benefit">
                     <div class="box shopping">
                         <h3>연정액 혜택</h3>
@@ -234,41 +201,51 @@
                         <div class="item"><span>장애인 50%할인</span></div>
                     </div>
                 </div>
-                <div class="membership-cancel">
-                    <h4 class="mb-3">멤버십 가입정보</h4>
-                    <div class="membership-cancel-page">
-                        <div class="membership-period">
-                            <strong>멤버십 이용기간</strong>
-                            <span>25.06.24 ~ 25.07.23</span>
+                <div class="membership-join">
+                    <div class="agreement-container">
+                        <h4>멤버십 가입하기</h4>
+                        <div class="membership-select mb-4">
+                            <label for="membershipType" class="form-label">멤버십 종류 선택</label>
+                            <select id="membershipType" name="membershipType" class="form-select">
+                                <option value="annual">연정액</option>
+                                <option value="monthly">월정액</option>
+                            </select>
                         </div>
 
-                        <div class="cancel-box">
-                            <h3>사용 중인 멤버십</h3>
-                            <div class="membership-card">
-                                <div class="plan-type">월간 이용권</div>
-                                <div class="info">
-                                    <div><span>이용 기간</span><span>25.06.24 ~ 25.07.23</span></div>
-                                    <div><span>결제 금액</span><span>₩120,000</span></div>
-                                </div>
-                            </div>
+                        <div class="membership-select mb-4">
+                            <label for="carId" class="form-label">차량 선택</label>
+                            <select id="carId" name="carId" class="form-select">
+                                <c:forEach var="car" items="${myCarList}">
+                                    <option value="${car.carId}">
+                                        ${car.carNumber} (${car.carModel})
+                                    </option>
+                                </c:forEach>
+                            </select>
                         </div>
 
-                        <div class="warning-box">
-                            <p>멤버십 해지 시, 다음 결제일부터 멤버십 혜택이 중단됩니다.<br>
-                                이미 결제된 금액은 환불되지 않습니다.</p>
+                        <div class="agreement-box">
+                            <label><input type="checkbox" name="agree1" class="agree"> [필수] 만 14세 이상입니다</label>
+                            <label><input type="checkbox" name="agree2" class="agree"> [필수] 이용약관 동의</label>
+                            <label><input type="checkbox" name="agree3" class="agree"> [선택] 마케팅 정보 수신 동의</label>
                         </div>
-
-                        <div class="btn-group">
-                            <button type="submit" class="cancel-btn">멤버십 해지하기</button>
-                            <button type="button" class="back-btn">멤버십 유지하기</button>
-                        </div>
+                        <input type="hidden" name="userId" value="${userId}" />
+                        <button type="submit" class="submit-btn">멤버쉽 혜택 시작하기</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
 </div>
 <%@include file="/jsp/include/footer.jsp" %>
+<script>
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const agree1 = document.querySelector('input[name="agree1"]');
+    const agree2 = document.querySelector('input[name="agree2"]');
+    if (!agree1.checked || !agree2.checked) {
+      alert('필수 동의 항목을 모두 체크해 주세요.');
+      e.preventDefault();
+    }
+  });
+</script>
 </body>
 </html>

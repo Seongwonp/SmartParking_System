@@ -15,4 +15,6 @@ public class ParkingDTO {
     private Timestamp exitTime;
     private int fee;
     private boolean isExisted;
+    private String carType;
+    private String subscriptionType;
 }

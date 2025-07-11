@@ -8,6 +8,10 @@ import com.opentime.smartparking_system.util.PasswordUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Log4j2
@@ -19,6 +23,11 @@ public enum AdminService {
     private final AdminDAO_fee adminDAOFee;
     private final AdminDAO_discount adminDAODiscount;
     private final AdminDAO_notice adminDAONotice;
+    private final AdminDAO_userSubscription adminUserSubscription;
+    private final AdminDAO_subscription adminDAOSubscription;
+    private final AdminDAO_parkingrecord adminDAOParkingrecord;
+    private final AdminDAO_Parking adminDAOParking;
+
 
     AdminService() {
         adminDAOUser = new AdminDAO_user();
@@ -26,6 +35,10 @@ public enum AdminService {
         adminDAODiscount = new AdminDAO_discount();
         adminDAONotice = new AdminDAO_notice();
         modelMapper = MapperUtil.INSTANCE.getModelMapper();
+        adminUserSubscription = new AdminDAO_userSubscription();
+        adminDAOSubscription = new AdminDAO_subscription();
+        adminDAOParkingrecord = new AdminDAO_parkingrecord();
+        adminDAOParking = new AdminDAO_Parking();
     }
 
     // 총 회원 수
@@ -40,7 +53,7 @@ public enum AdminService {
 
     // 최근 가입 회원 리스트
     public List<UserDTO> getRecentMembers() {
-        List<UserVO> voList = adminDAOUser.getRecentMembers();
+        List<UserVO> voList = adminDAOUser.getRecentFiveMembers();
         List<UserDTO> dtoList = new ArrayList<>();
         for (UserVO vo : voList) {
             UserDTO dto = modelMapper.map(vo, UserDTO.class);
@@ -240,5 +253,230 @@ public enum AdminService {
     public boolean deleteNotice(int noticeId) {
         return adminDAONotice.deleteNotice(noticeId);
     }
+
+
+
+
+    /* *********************** 회원/ 정기권 관리 ******************************* */
+
+    public List<UserDTO> getListUsers(String op, String keyword, String orderBy) {
+        if (orderBy == null ||
+                (!orderBy.equalsIgnoreCase("ASC") && !orderBy.equalsIgnoreCase("DESC"))) {
+            orderBy = "DESC";
+        }
+
+        if (op == null ||
+                (!op.equals("userName") && !op.equals("name") && !op.equals("phone"))) {
+            op = null;
+        }
+
+        List<UserVO> userVOList = adminDAOUser.searchMembers(op, keyword, orderBy);
+
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (UserVO vo : userVOList) {
+            UserDTO dto = modelMapper.map(vo, UserDTO.class);
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
+
+
+    public List<UserDTO> getSubscriptionUsers(String op, String keyword, String orderBy) {
+        if (orderBy == null ||
+                (!orderBy.equalsIgnoreCase("ASC") && !orderBy.equalsIgnoreCase("DESC"))) {
+            orderBy = "DESC";
+        }
+
+        if (op == null ||
+                (!op.equals("userName") && !op.equals("name") && !op.equals("phone"))) {
+            op = null;
+        }
+
+        List<UserVO> userVOList = adminDAOUser.searchSubscriptionMembers(op, keyword, orderBy);
+
+        List<UserDTO> dtoList = new ArrayList<>();
+        for (UserVO vo : userVOList) {
+            UserDTO dto = modelMapper.map(vo, UserDTO.class);
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+
+    }
+
+
+
+    /* *********************** 회원/ 정기권 회원 차량 조회 ******************************* */
+    public List<UserSubscriptionDTO> getUserSubscriptionsByUserId(int userId) {
+
+        List<UserSubscriptionVO> voList = adminUserSubscription.getUserSubscriptionsByUserId(userId);
+        List<UserSubscriptionDTO> dtoList = new ArrayList<>();
+
+        for (UserSubscriptionVO vo : voList) {
+            UserSubscriptionDTO dto = modelMapper.map(vo, UserSubscriptionDTO.class);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+
+    /* *********************** 정기권 차량 조회 ******************************* */
+
+    // 통합된 정기권 차량 조회 메서드
+    public List<UserSubscriptionDTO> getSubscriptions(String type, String status, Boolean expiredOnly) {
+        List<UserSubscriptionVO> voList = adminDAOSubscription.getSubscriptions(type, status, expiredOnly);
+        List<UserSubscriptionDTO> dtoList = new ArrayList<>();
+        for (UserSubscriptionVO vo : voList) {
+            dtoList.add(modelMapper.map(vo, UserSubscriptionDTO.class));
+        }
+        return dtoList;
+    }
+
+    // 정기권 차량 기록을 삭제한다.
+    public void deleteSubscription(int subscriptionId) {
+        adminDAOSubscription.deleteSubscription(subscriptionId);
+    }
+
+    /* *********************** 주차 기록 조회 ******************************* */
+    public List<AdminDTO_parkingrecord> getHistory(Boolean isExited, String carNumberKeyword, String userNameKeyword) {
+        List<AdminVO_parkingrecord> voList = adminDAOParkingrecord.findAllJoinedRecords(isExited, carNumberKeyword, userNameKeyword);
+        if (voList == null) {
+            return new ArrayList<>();
+        }
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        for (AdminVO_parkingrecord vo : voList) {
+            dtoList.add(modelMapper.map(vo, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
+
+    public int countParkingSpace(){
+        return adminDAOParkingrecord.countParkedCars();
+    }
+
+    public List<AdminDTO_parkingrecord> fiveParkingHistory(){
+        List<AdminVO_parkingrecord> vo = adminDAOParkingrecord.fiveParkingHistory();
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        for (AdminVO_parkingrecord vo1 : vo) {
+            dtoList.add(modelMapper.map(vo1, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
+
+    public int countTodayParkedRecords(){
+        LocalDate today = LocalDate.now();
+        Timestamp start = Timestamp.valueOf(today.atStartOfDay());
+        Timestamp end = Timestamp.valueOf(today.plusDays(1).atStartOfDay());
+        return adminDAOParkingrecord.countTodayParkedRecords(start, end);
+    }
+
+
+    public int todayTotalCost(){
+        LocalDate today = LocalDate.now();
+        Timestamp start = Timestamp.valueOf(today.atStartOfDay());
+        Timestamp end = Timestamp.valueOf(today.plusDays(1).atStartOfDay());
+        return adminDAOParkingrecord.totalTodayCost(start, end);
+    }
+
+
+
+    /* *********************** 관리자 출차 기능 ******************************* */
+    public List<AdminDTO_parkingrecord> getParkingList( String carNumberKeyword, String userNameKeyword){
+        List<AdminDTO_parkingrecord> dtoList = new ArrayList<>();
+        List<AdminVO_parkingrecord> voList = adminDAOParking.findParkingList(carNumberKeyword, userNameKeyword);
+        for (AdminVO_parkingrecord vo : voList) {
+            dtoList.add(modelMapper.map(vo, AdminDTO_parkingrecord.class));
+        }
+        return dtoList;
+    }
+
+    public boolean adminExitCar(int carId) {
+        if (carId <= 0) {
+            log.warn("Invalid carId received: {}", carId);
+            return false;
+        }
+        try {
+            ParkingVO car = adminDAOParking.findActiveEntryByCarId(carId);
+            if (car == null) {
+                log.info("No active parking record found for carId: {}", carId);
+                return false;
+            }
+            ParkingDTO carDTO = modelMapper.map(car, ParkingDTO.class);
+            int recordId = carDTO.getRecordId();
+            LocalDateTime exitTime = LocalDateTime.now();
+            LocalDateTime entryTime = carDTO.getEntryTime().toLocalDateTime();
+            int minutes = Math.toIntExact(Duration.between(entryTime, exitTime).toMinutes());
+            int fee = calculateFee(minutes, carDTO.getCarType(), carDTO.getSubscriptionType());
+
+            log.info("Processing exit for carId: {}, recordId: {}, parkedMinutes: {}, calculatedFee: {}",
+                    carId, recordId, minutes, fee);
+
+            boolean result = adminDAOParking.adminExitCar(recordId, fee);
+
+            if (result) {
+                log.info("Exit processed successfully for recordId: {}", recordId);
+            } else {
+                log.error("Failed to process exit for recordId: {}", recordId);
+            }
+
+            return result;
+
+        } catch (Exception e) {
+            log.error("Error during exit process for carId: " + carId, e);
+            return false;
+        }
+    }
+
+    private int calculateFee(int minutes, String carType, String subscriptionType) {
+        try {
+            int baseFee = 2000;             // 기본 1시간 요금
+            int additionalUnit = 30;        // 추가 요금 단위 (분)
+            int additionalFee = 1000;       // 30분마다 부과 요금
+            int dailyMaxFee = 15000;        // 일일 최대 요금
+
+            if ("monthly".equalsIgnoreCase(subscriptionType) || "annual".equalsIgnoreCase(subscriptionType)) {
+                log.info("Subscription member detected (type: {}), fee set to 0", subscriptionType);
+                return 0;
+            }
+
+            int totalFee = 0;
+            int totalMinutes = minutes;
+
+            while (totalMinutes > 0) {
+                int todayMinutes = Math.min(totalMinutes, 1440);
+                int dayFee;
+
+                if (todayMinutes <= 60) {
+                    dayFee = baseFee;
+                } else {
+                    int extraMinutes = todayMinutes - 60;
+                    int extraUnits = (extraMinutes + additionalUnit - 1) / additionalUnit;
+                    dayFee = baseFee + extraUnits * additionalFee;
+                }
+
+                dayFee = Math.min(dayFee, dailyMaxFee);
+                totalFee += dayFee;
+                totalMinutes -= 1440;
+            }
+
+            if ("장애인".equals(carType)) {
+                totalFee /= 2;
+                log.info("Disability discount applied. New fee: {}", totalFee);
+            } else if ("경차".equals(carType)) {
+                totalFee = (int) (totalFee * 0.7);
+                log.info("Compact car discount applied. New fee: {}", totalFee);
+            }
+
+            return totalFee;
+        } catch (Exception e) {
+            log.error("Error calculating fee: minutes={}, carType={}, subscriptionType={}", minutes, carType, subscriptionType, e);
+            // 실패 시 기본 요금 반환
+            return 2000;
+        }
+    }
+
+
+
 
 }

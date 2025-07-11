@@ -88,7 +88,6 @@
             <table class="car-table">
                 <thead>
                 <tr>
-<%--                    <th>NO</th>--%>
                     <th>차량 번호</th>
                     <th>차량 모델</th>
                     <th>타입</th>
@@ -97,11 +96,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="dto" items="${carList}">
-                    <%
-                        int i = 1;
-                    %>
                     <tr>
-<%--                        <td><%= i++ %></td>--%>
                         <td>${dto.carNumber}</td>
                         <td>${dto.carModel}</td>
                         <td>${dto.carType}</td>

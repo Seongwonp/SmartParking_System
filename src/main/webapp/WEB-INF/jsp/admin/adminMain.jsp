@@ -69,15 +69,15 @@
                     <div class="card text-white bg-warning mb-3">
                         <div class="card-body">
                             <h5 class="card-title">오늘 주차 건수</h5>
-                            <p class="card-text fs-2">${todayParkingCount} 건</p>
+                            <p class="card-text fs-2">${getTodayParkedRecords} 건</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card text-white bg-danger mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">미납 요금 건수</h5>
-                            <p class="card-text fs-2">${unpaidCount} 건</p>
+                            <h5 class="card-title">오늘 매출</h5>
+                            <p class="card-text fs-2"><fmt:formatNumber value="${todayCost}" type="number" groupingUsed="true"/> 원</p>
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                                                 <td class="text-primary">${member.name}</td>
                                                 <td class="text-primary">${member.userName}</td>
                                                 <td class="text-primary">${member.phone}</td>
-                                                <td><fmt:formatDate value="${member.joinDate}" pattern="yyyy-MM-dd" /></td>
+                                                <td class="text-primary"><fmt:formatDate value="${member.joinDate}" pattern="yyyy-MM-dd" /></td>
                                             </tr>
                                         </c:when>
                                         <c:otherwise>
@@ -128,32 +128,60 @@
                 </div>
 
                 <div class="col-md-6">
-                    <h4>최근 주차 기록</h4>
+                    <h4>최근 주차 기록 (5명)</h4>
                     <c:choose>
                         <c:when test="${not empty recentParkingRecords}">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>차량 번호</th>
+                                    <th>차량번호</th>
+                                    <th>차종</th>
+                                    <th>차 모델</th>
+                                    <th>사용자 이름</th>
                                     <th>입차 시간</th>
                                     <th>출차 시간</th>
                                     <th>요금</th>
+                                    <th>상태</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach var="record" items="${recentParkingRecords}">
                                     <tr>
                                         <td>${record.carNumber}</td>
-                                        <td>${record.inTime}</td>
-                                        <td>${record.outTime}</td>
-                                        <td>${record.fee}원</td>
+                                        <td>${record.carType}</td>
+                                        <td>${record.carModel}</td>
+                                        <td>${record.name}</td>
+                                        <td>
+                                            <fmt:formatDate value="${record.entryTime}" pattern="yyyy-MM-dd HH:mm"/>
+                                        </td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${record.exitTime != null}">
+                                                    <fmt:formatDate value="${record.exitTime}" pattern="yyyy-MM-dd HH:mm"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="text-danger">주차중</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td>${record.fee} 원</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${record.exited}">
+                                                    출차완료
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="text-danger">주차중</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
                         </c:when>
                         <c:otherwise>
-                            <p>목록이 없습니다!</p>
+                            <p>최근 주차 기록이 없습니다.</p>
                         </c:otherwise>
                     </c:choose>
                 </div>
