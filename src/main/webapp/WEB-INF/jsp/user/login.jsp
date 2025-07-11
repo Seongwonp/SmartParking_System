@@ -22,14 +22,14 @@
             background: #fff;
             padding: 30px;
         }
-        .container {
+        .container_login {
             width: 420px;
             padding: 30px;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             background-color: #fafafa;
-            margin: 150px auto
+            margin: 220px auto
         }
 
         .input-group {
@@ -96,7 +96,7 @@
 </head>
 <body>
 <%@include file="/jsp/include/header.jsp"%>
-<main class="container">
+<main class="container_login">
     <h1>로그인</h1>
     <c:if test="${not empty sessionScope.loginMessage}">
         <div class="alert alert-warning mt-3" role="alert">

@@ -30,7 +30,7 @@
 </head>
 <body>
 <%@ include file="/jsp/include/header.jsp" %>
-<div class="banner" data-aos="fade-down" style="margin-top: 100px;">
+<div class="banner" data-aos="fade-down">
     <h1 class="display-4 fw-bold">오시는 길</h1>
 </div>
 <div class="container my-5" data-aos="fade-up">
