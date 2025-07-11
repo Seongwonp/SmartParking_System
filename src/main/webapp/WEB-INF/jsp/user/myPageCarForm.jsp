@@ -40,7 +40,7 @@
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             width: 430px;
-            margin-bottom: 30px;
+            /*margin-bottom: 30px;*/
         }
         h2 {
             text-align: center;

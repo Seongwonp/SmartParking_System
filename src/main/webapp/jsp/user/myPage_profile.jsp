@@ -37,7 +37,7 @@
         .profile-card {
             position: absolute;
             right: 30px;
-            top: 20%;
+            top: 15%;
             transform: translateY(-50%);
             width: 250px;
             background: #fff;
@@ -60,7 +60,7 @@
             height: 50px;
             object-fit: cover;
             border-radius: 50%;
-            margin-right: 12px;
+            margin-right: 15px;
         }
 
         .profile-name {
@@ -81,10 +81,12 @@
 
         .sub-menu div {
             text-align: center;
+
         }
 
         .menu-list {
             border-top: 1px solid #eee;
+
         }
 
         .menu-list > div > a {
