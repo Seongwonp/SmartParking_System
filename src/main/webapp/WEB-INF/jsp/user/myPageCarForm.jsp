@@ -26,7 +26,7 @@
             align-items: center;
             justify-content: center;
             background-color: #f9f9f9;
-            margin-top: 140px;
+            top: 20%;
         }
 
         body > .my-page .main-content {
