@@ -1,12 +1,18 @@
-CREATE TABLE user (
-                      userId INT AUTO_INCREMENT PRIMARY KEY,
-                      userName VARCHAR(50) UNIQUE NOT NULL,
-                      password VARCHAR(255) NOT NULL,
-                      name VARCHAR(50) NOT NULL,
-                      phone VARCHAR(20) NOT NULL,
-                      role ENUM('USER','ADMIN') DEFAULT 'USER',
-                      isSubscription BOOLEAN DEFAULT FALSE,
-                      subscriptionStart DATE NULL,
-                      subscriptionEnd DATE NULL,
-                      joinDate DATETIME DEFAULT CURRENT_TIMESTAMP
+-- auto-generated definition
+create table user
+(
+    userId            int auto_increment
+        primary key,
+    userName          varchar(50)                                        not null,
+    password          varchar(255)                                       not null,
+    name              varchar(50)                                        not null,
+    phone             varchar(20)                                        not null,
+    role              enum ('USER', 'ADMIN') default 'USER'              null,
+    isSubscription    tinyint(1)             default 0                   null,
+    subscriptionStart date                                               null,
+    subscriptionEnd   date                                               null,
+    joinDate          datetime               default current_timestamp() null,
+    constraint userName
+        unique (userName)
 );
+

@@ -59,7 +59,7 @@ public class RegisterCarServlet extends HttpServlet {
             req.setAttribute("successMessage", "차량 등록이 완료되었습니다!");
             resp.sendRedirect(req.getContextPath() + "/user/myPageCarList");
         } catch (SQLException ex) {
-            req.setAttribute("errorMessage", "차량 등록 실패!");
+            req.setAttribute("errorMessage", "차량 등록 실패!"); 
             req.getRequestDispatcher("/WEB-INF/jsp/user/myPageCarForm.jsp").forward(req, resp);
         }
     }
