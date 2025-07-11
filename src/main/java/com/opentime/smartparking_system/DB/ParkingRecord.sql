@@ -1,15 +1,12 @@
-create table parkingRecord
+-- auto-generated definition
+create table parkingrecord
 (
-    recordId INT AUTO_INCREMENT primary key,
-    carId    INT,
-    entryTime DATETIME NOT NULL,
-    exitTime DATETIME not null,
-    fee INT not null ,
-    isExited BOOLEAN DEFAULT FALSE
+    recordId  int auto_increment
+        primary key,
+    carId     int                  null,
+    entryTime datetime             not null,
+    exitTime  timestamp            null,
+    fee       int                  null,
+    isExited  tinyint(1) default 0 null
 );
-
-ALTER TABLE parkingRecord MODIFY exitTime TIMESTAMP NULL;
-
-ALTER TABLE parkingRecord MODIFY fee INT NULL;
-
 
