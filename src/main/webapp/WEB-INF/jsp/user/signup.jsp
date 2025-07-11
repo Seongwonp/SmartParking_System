@@ -24,7 +24,7 @@
 
         .container_signUp {
             width: 420px;
-            margin: 150px auto 100px;
+            margin: 60px auto 100px;
             padding: 30px;
             border: 1px solid #ddd;
             border-radius: 8px;
