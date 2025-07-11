@@ -175,6 +175,33 @@
     </style>
 </head>
 <body>
+<c:if test="${not empty errorMsg}">
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" data-aos="zoom-in">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="errorModalLabel">🚫 멤버십 안내</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+                </div>
+                <div class="modal-body">
+                        ${errorMsg}
+                </div>
+                <div class="modal-footer">
+                    <a href="/contact/Q&A" class="btn btn-secondary">문의하기</a>
+                    <button type="button" class="btn btn-primary" onclick="history.back()">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            myModal.show();
+        };
+    </script>
+</c:if>
+
 <%@include file="/jsp/include/header.jsp" %>
 <div class="my-page">
     <div class="main-content">

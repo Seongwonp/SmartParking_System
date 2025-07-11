@@ -53,6 +53,7 @@ public class RegisterCarServlet extends HttpServlet {
         carDTO.setCarModel(carModel);
         carDTO.setCarType(carType);
 
+
         try {
             carService.addCar(carDTO);
             req.setAttribute("successMessage", "차량 등록이 완료되었습니다!");

@@ -30,10 +30,12 @@ public class SubscriptionJoinServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
-        if (user.isSubscription()) {
+        SubscriptionDTO activeSub = subscriptionService.getActiveSubscriptionByUserId(user.getUserId());
+        if (activeSub != null) {
             response.sendRedirect(request.getContextPath() + "/user/subscription/cancel");
             return;
         }
+
         int userId  = user.getUserId();
         List<CarDTO> carList;
         try {
@@ -67,7 +69,7 @@ public class SubscriptionJoinServlet extends HttpServlet {
         try {
             type = SubscriptionType.valueOf(membershipType.toLowerCase());
         } catch (IllegalArgumentException e) {
-            request.setAttribute("errorMsg", "존재하지 않는 멤버십입니다.");
+            request.setAttribute("errorMsg", "존제하지 않는 멤버쉽입니다.");
             request.getRequestDispatcher("/WEB-INF/jsp/user/subscription/subscriptionJoin.jsp").forward(request, response);
             return;
         }
@@ -107,7 +109,7 @@ public class SubscriptionJoinServlet extends HttpServlet {
             session.setAttribute("user",user);
             response.sendRedirect(request.getContextPath() + "/user/myPageHome");
         } else {
-            request.setAttribute("errorMsg", "멤버십 가입에 실패했습니다.");
+            request.setAttribute("errorMsg", "이미 해지된 차량입니다! 다음달에 다시 등록하세요!");
             request.getRequestDispatcher("/WEB-INF/jsp/user/subscription/subscriptionJoin.jsp").forward(request, response);
         }
     }
