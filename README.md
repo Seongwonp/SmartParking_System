@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img src="./SmartParking.gif" alt="SmartParking Demo" width="800">
+</p>
+
 # 🅿️ Smart Parking System
 
 **Smart Parking System**은 차량의 입출차 관리, 요금 계산, 실시간 주차 현황, 정기권 및 할인 정책 등  
