@@ -8,8 +8,9 @@
 **Smart Parking System**은 차량의 입출차 관리, 요금 계산, 실시간 주차 현황, 정기권 및 할인 정책 등  
 다양한 기능을 포함한 **웹 기반 주차장 통합 관리 시스템**입니다.  
 
-**JSP + Servlet + JDBC** 기반의 MVC 구조로 설계되었으며,  
-웹 서비스 전체 흐름(로그인 → 이용 → 마이페이지/관리자 대시보드)까지 직접 설계하고 구현했습니다.
+JSP/Servlet 기반의 MVC 아키텍처로 구성되었으며,
+Controller(Servlet) - Service/DAO - View(JSP) 계층을 명확히 분리하여
+유지보수성과 확장성을 고려한 구조로 설계했습니다.
 
 <br/>
 
@@ -48,6 +49,21 @@
 -  **Git 브랜치 전략 및 협업 가이드 정리**: 팀원들과 IntelliJ 기반 협업
 
 <br/>
+
+## 📌 Why JSP/Servlet?
+
+프레임워크(Spring 등) 없이 웹 애플리케이션의 동작 원리를 이해하기 위해
+JSP와 Servlet을 활용하여 직접 MVC 구조를 구현했습니다.
+
+## 🔄 Request Flow
+
+Client → Servlet(Controller) → Service → DAO → DB → JSP(View)
+
+사용자의 요청이 Servlet으로 전달되면,
+비즈니스 로직 처리 후 JSP를 통해 결과를 렌더링하는 구조로 동작합니다.
+
+<br/>
+
 
 ## ✅ 주요 기능
 
