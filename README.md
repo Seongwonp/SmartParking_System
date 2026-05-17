@@ -1,144 +1,113 @@
-
-<p align="center">
-  <img src="./SmartParking.gif" alt="SmartParking Demo" width="800">
-</p>
-
 # 🅿️ Smart Parking System
 
-**Smart Parking System**은 차량의 입출차 관리, 요금 계산, 실시간 주차 현황, 정기권 및 할인 정책 등  
-다양한 기능을 포함한 **웹 기반 주차장 통합 관리 시스템**입니다.  
+<p align="center">
+  <img src="./SmartParking.gif" alt="SmartParking Demo" width="900" />
+</p>
 
-JSP/Servlet 기반의 MVC 아키텍처로 구성되었으며,
-Controller(Servlet) - Service/DAO - View(JSP) 계층을 명확히 분리하여
-유지보수성과 확장성을 고려한 구조로 설계했습니다.
+차량 입출차, 요금 계산, 정기권/할인 정책, 실시간 주차 현황을 통합 관리하는 **웹 기반 주차 운영 시스템**입니다.  
+**JSP + Servlet + JDBC** 기반 MVC 구조로 설계했으며, 사용자 키오스크와 관리자 페이지를 분리해 구현했습니다.
 
-<br/>
+---
 
-## 🗓 프로젝트 개요
+## 프로젝트 개요
 
-- 프로젝트명 : Smart Parking System
-- 키오스크 개발인원 : 2명
-- 프로젝트 기간: 2025.06.25~2025.07.11(16일)
+- **프로젝트명**: Smart Parking System
+- **개발 인원**: 2명
+- **개발 기간**: 2025.06.25 ~ 2025.07.11 (16일)
+- **구성**: 사용자 키오스크 + 관리자 웹 대시보드
+- **핵심 목표**: 입출차부터 정산/운영까지 주차장 업무 흐름을 하나의 시스템으로 통합
 
-<br />
+---
 
-## 👥 역할 분담
+## 팀 역할
 
-| 이름 | 담당 역할 |
-|------|------------|
-| Rachel (Seojeong Yun) | 풀스택, 마이페이지 화면 및 기능 구현 |
-| Seong Won Park| 풀스택, 관리자 페이지 화면 및 기능 구현 |
-<br />
+| 이름 | 담당 |
+|------|------|
+| **Rachel (Seojeong Yun)** | 풀스택 · 마이페이지 및 사용자 기능 구현 |
+| **Seong Won Park** | 풀스택 · 관리자 페이지 및 대시보드 구현 |
 
-## 🛠️ Tech Stack
+---
 
-- **Language/Backend**: Java, JSP, Servlet, JDBC
+## 기술 스택
+
+- **Backend**: Java, JSP, Servlet, JDBC
 - **Database**: MariaDB
 - **Frontend**: HTML, CSS, JavaScript, jQuery
-- **Tools**: IntelliJ IDEA, Apache Tomcat, DBeaver, Git
+- **Infra/Tools**: Apache Tomcat, IntelliJ IDEA, DBeaver, Git
 
-<br/>
+---
+## 아키텍처
 
-## 🚩 프로젝트 주요 특징
+JSP/Servlet 기반의 클래식 MVC 패턴으로 계층을 분리했습니다.
 
--  **차량 입출차 관리**: 입차/출차 시간 자동 기록, 요금 계산 로직 구현
--  **요금 계산 + 할인 정책**: 기본 요금, 장기 주차 요금, 정기권 할인 기능 포함
--  **로그인 인증 및 관리자 권한 분리**: 세션 기반 인증, 필터(Filter)로 권한 체크
--  **실시간 주차 현황**: 현재 주차 중인 차량 수, 장기 주차 차량 알림 기능
--  **공지사항, 마이페이지, 관리자 대시보드 등 웹 서비스 전반 구성**
--  **Git 브랜치 전략 및 협업 가이드 정리**: 팀원들과 IntelliJ 기반 협업
+- **Controller**: Servlet (요청 라우팅/권한 체크)
+- **Service/DAO**: 비즈니스 로직/DB 접근
+- **View**: JSP (화면 렌더링)
 
-<br/>
+### Request Flow
+`Client → Servlet(Controller) → Service → DAO → DB → JSP(View)`
 
-## 📌 Why JSP/Servlet?
+---
 
-프레임워크(Spring 등) 없이 웹 애플리케이션의 동작 원리를 이해하기 위해
-JSP와 Servlet을 활용하여 직접 MVC 구조를 구현했습니다.
-
-## 🔄 Request Flow
-
-Client → Servlet(Controller) → Service → DAO → DB → JSP(View)
-
-사용자의 요청이 Servlet으로 전달되면,
-비즈니스 로직 처리 후 JSP를 통해 결과를 렌더링하는 구조로 동작합니다.
-
-<br/>
-
-
-## ✅ 주요 기능
+## 주요 기능
 
 ### 사용자(User)
-- **입차 등록**: 차량번호 입력 → 입차 시각 DB 저장
-- **출차 처리**: 출차 시각 기록 + 요금 계산 + 할인 적용
-- **정기권 등록 및 확인**
-- **내 주차 이력 확인 (마이페이지)**
-- **공지사항 확인**
+- 차량 **입차 등록** (차량번호 입력 → 입차 시각 저장)
+- **출차 처리** (출차 시각 기록 + 요금 계산 + 할인 적용)
+- **정기권 등록/조회**
+- **주차 이력 조회** (마이페이지)
+- **공지사항 조회**
 
 ### 관리자(Admin)
 - **전체 주차 현황 모니터링**
 - **장기 주차 차량 알림**
 - **공지사항 등록/수정**
-- **관리자 대시보드**: 차량 목록, 요금 통계 등
+- **관리자 대시보드** (차량 목록/상태/운영 정보)
 
-<br/>
+---
+## 요금/정책 로직
 
-## 🧮 요금/정책 로직 예시
-
-| 항목 | 내용 |
+| 항목 | 정책 |
 |------|------|
 | 기본 요금 | 1시간 2,000원 |
 | 추가 요금 | 30분당 1,000원 |
-| 장기 주차 | 24시간 이상 주차 차량 별도 표시 |
-| 할인 정책 | 정기권 소지 시 요금 면제 or 할인 적용 |
-
-
-## 🧠 프로젝트 회고
-
-- Servlet을 이용한 **클래식한 MVC 웹 아키텍처**를 처음부터 직접 설계하고 구성함으로써 Java 웹 개발의 구조와 흐름을 깊이 이해할 수 있었음
-- JDBC를 통해 SQL과 자바 로직을 연결하고, 시간 차 계산 및 상태 출력 등 **백엔드 중심의 핵심 로직 처리** 경험
-- 유지보수를 고려하여 **기능별 클래스 분리**, 유틸리티 클래스 구성 등 코드 구조화에 신경 씀
-
-<br/>
-
-## 📸 주요 화면 
-### 초기 화면
-
-![Image](https://github.com/user-attachments/assets/35e12776-98d6-42fc-b91e-ca3230477a77)
-
-### 회원가입 화면
-<img width="900"  alt="회원가입" src="https://github.com/user-attachments/assets/cf0ac3cb-304c-4336-966b-3d2639606b8f" />
-
-### 입차등록 화면
-<img width="900" alt="입차등록" src="https://github.com/user-attachments/assets/0a4ca436-40e1-48de-8ccb-8b61293fbf87" />
-
-### 주차기록 조회 화면
-<img width="900" alt="주차기록" src="https://github.com/user-attachments/assets/c7486d6b-491e-445e-bae0-25eb168faab5" />
-
-### 멤버쉽관리 화면
-<img width="900"  alt="멤버쉽관리" src="https://github.com/user-attachments/assets/7b49ac7e-66f6-48ab-a521-84deef274f2e" />
-
-<br/>
+| 장기 주차 | 24시간 이상 차량 별도 표시 |
+| 할인 정책 | 정기권 소지 시 요금 면제 또는 할인 적용 |
 
 ---
 
-## 💭 프로젝트를 진행하면서....
+## 구현 포인트
 
-처음엔 단순히 “차량 입출차 관리”라는 기능 하나만 떠올리고 시작했지만,  
-막상 구현을 시작하니 생각보다 훨씬 많은 흐름과 책임이 얽혀 있다는 걸 알게 됐습니다.
+- 세션 기반 로그인 + 필터(Filter) 권한 분리
+- 시간 차 계산 기반 요금 산정 로직 구현
+- DAO/유틸 분리로 유지보수 가능한 코드 구조화
+- Git 브랜치 전략 기반 협업 워크플로우 적용
 
-로그인부터 시작해서, 입차 등록, 요금 계산, 마이페이지, 관리자 대시보드까지—  
-하나하나가 독립적인 기능 같지만, 결국엔 **전체 시스템이 유기적으로 연결되어야 한다는 사실**을 실감했어요.
+---
 
-특히 JSP와 Servlet을 이용해 MVC 구조를 직접 설계하면서,  
-단순히 코드를 나누는 게 아니라 **역할을 분리하고 흐름을 제어하는 구조적 사고**가 얼마나 중요한지 깨달았습니다.  
-컨트롤러가 요청을 받고, DAO가 데이터를 처리하고, JSP가 결과를 보여주는 이 흐름이  
-처음엔 낯설었지만, 점점 익숙해지면서 “아, 이게 진짜 웹 개발이구나” 싶었어요.
+## 주요 화면
 
-요금 계산 로직을 짜면서는 단순한 수치 계산을 넘어서  
-**시간 차 계산, 할인 정책 적용, 예외 상황 처리**까지 고려해야 했고,  
-그 과정에서 백엔드 로직의 복잡함과 재미를 동시에 느꼈습니다.
+### 초기 화면
+![초기 화면](https://github.com/user-attachments/assets/35e12776-98d6-42fc-b91e-ca3230477a77)
 
-무엇보다도, 이 프로젝트는 “내가 만든 기능”이 아니라  
-**실제 사용자 입장에서 어떻게 작동할지를 고민하게 만든 경험**이었어요.  
-단순히 돌아가는 코드가 아니라, **의미 있는 흐름을 가진 서비스**를 만들었다는 점에서  
-개발자로서 한 단계 성장했다는 걸 느낍니다.
+### 회원가입
+![회원가입](https://github.com/user-attachments/assets/cf0ac3cb-304c-4336-966b-3d2639606b8f)
+
+### 입차 등록
+![입차 등록](https://github.com/user-attachments/assets/0a4ca436-40e1-48de-8ccb-8b61293fbf87)
+
+### 주차기록 조회
+![주차기록 조회](https://github.com/user-attachments/assets/c7486d6b-491e-445e-bae0-25eb168faab5)
+
+### 멤버십 관리
+![멤버십 관리](https://github.com/user-attachments/assets/7b49ac7e-66f6-48ab-a521-84deef274f2e)
+
+---
+## 데모 프리뷰
+
+### 홈 화면 → 페이지 이동
+![기능 시연 1](https://github.com/user-attachments/assets/b1da4eb3-97eb-4f53-8114-77e0cd778511)
+
+### 로그인 → 마이페이지 이동
+![기능 시연 2](https://github.com/user-attachments/assets/06867204-e31a-4f3f-91a5-f86936120e9d)
+
